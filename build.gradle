@@ -6,14 +6,21 @@
  */
 
 apply plugin: 'java'
-apply plugin: 'war' // Suggestion from: https://stackoverflow.com/questions/38225006/creating-gradle-file-for-rest-web-service
+// Suggestion from: https://stackoverflow.com/questions/38225006/creating-gradle-file-for-rest-web-service
+//apply plugin: 'war'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.hibernate:hibernate-core:5.2.15.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin
+    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.15.Final'
 
-    testCompile 'junit:junit:4.12'
+    // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+    testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
 }

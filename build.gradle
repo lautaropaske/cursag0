@@ -6,8 +6,7 @@
  */
 
 apply plugin: 'java'
-// Suggestion from: https://stackoverflow.com/questions/38225006/creating-gradle-file-for-rest-web-service
-apply plugin: 'war'
+apply plugin: 'war' // Suggestion from: https://stackoverflow.com/questions/38225006/creating-gradle-file-for-rest-web-service
 
 repositories {
     mavenCentral()

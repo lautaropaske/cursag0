@@ -23,8 +23,8 @@ hs_err_pid*
 
 DS_Store
 
-.gradle
-.out
+.gradle/
+.out/
 /build/
 
 # Ignore Gradle GUI config

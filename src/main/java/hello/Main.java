@@ -1,8 +1,6 @@
 package hello;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Agustin Bettati
@@ -24,8 +22,20 @@ public class Main {
         Connection c = DriverManager.getConnection(
                 url, "SA", "");
 
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from CUSTOMERS");
+            rs = ps.executeQuery();
+        }
+        catch(Exception e){
+            System.out.println("Error al ejecutar query");
+        }
 
-        System.out.println("Se hizo la coneccion a la base");
+
+        while(rs.next()){
+            System.out.println("id: " + rs.getString(1) + ", name: " + rs.getString(1)
+            + ", age: " + rs.getString(3));
+        }
 
 
     }

@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.hsqldb.jdbcDriver</property> <!--Solved with IDEA suggestion. Add Gradle:org.hsqldb:hsqldb:2.4.0 to classpath-->
-        <property name="connection.url">jdbc:hsqldb:file:~/kdb/cursago</property>
+        <property name="connection.url">jdbc:hsqldb:file:~/db/cursago</property>
         <property name="connection.username">cursago</property>
         <property name="connection.password">cursago</property>
         <!-- JDBC connection pool (use the built-in) -->

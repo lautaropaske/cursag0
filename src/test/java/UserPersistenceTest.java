@@ -15,17 +15,16 @@ public class UserPersistenceTest {
     @Test
     public void createAndDeleteTest() {
 
-        User user = new User(-1,"jorge@hotmail.com","jorge","lin");
+        User user = new User("jorge@hotmail.com","jorge","lin");
 
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(user);
+        int id = (int) session.save(user);
         transaction.commit();
 
-        User createdUser = session.find(User.class, -1);
+        User createdUser = session.find(User.class, id);
 
-        assertEquals(-1,createdUser.getId());
         assertEquals("jorge@hotmail.com",createdUser.getMail());
 
         Transaction newTransaction = session.beginTransaction();

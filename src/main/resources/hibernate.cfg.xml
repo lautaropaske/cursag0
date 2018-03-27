@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.hsqldb.jdbcDriver</property> <!--Solved with IDEA suggestion. Add Gradle:org.hsqldb:hsqldb:2.4.0 to classpath-->
-        <property name="connection.url">jdbc:hsqldb:file:~/db/cursago</property>
+        <property name="connection.url">jdbc:hsqldb:hsql://localhost/cursago;file:~/db/cursago</property>
         <property name="connection.username">cursago</property>
         <property name="connection.password">cursago</property>
         <!-- JDBC connection pool (use the built-in) -->
@@ -16,7 +16,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <mapping class="User"/>
     </session-factory>

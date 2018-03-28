@@ -7,7 +7,7 @@
 
 apply plugin: 'java'
 // Suggestion from: https://stackoverflow.com/questions/38225006/creating-gradle-file-for-rest-web-service
-// apply plugin: 'war'
+apply plugin: 'war'
 
 repositories {
     mavenCentral()
@@ -16,9 +16,10 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.15.Final'
-
     // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
+    // recommendation from Diego fot the HttpRequest import; change compile to provided compile
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
 
     // https://mvnrepository.com/artifact/junit/junit
     compile group: 'junit', name: 'junit', version: '4.12'

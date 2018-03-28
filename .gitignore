@@ -92,3 +92,7 @@ gradle-app.setting
 
 .idea/
 cursago.iml
+
+build/
+out/
+classes/

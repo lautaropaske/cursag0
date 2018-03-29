@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+    //TODO agregar atributo contraseña, y aclarar que mail sea unico
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String mail;

@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Deje este main solo para simplificar el proceso de llenar la base
-        User user = new User("carlos@hotmail.com","Carlos","Perez");
+        User user = new User("paul@hotmail.com", "1234","Paul","Perez");
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();

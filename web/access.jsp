@@ -20,21 +20,21 @@
     <h3 class="display-3 text-center mb-4">Welcome to Cursago!</h3>
     <div class="row">
         <div class="col-md-6">
-            <form>
+            <form action="/login" method="POST">
                 <h1>Log In</h1>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <input type="password" class="form-control" id="inputPassword" name="pass" placeholder="Password">
                     </div>
                 <button type="submit" class="btn btn-primary">Log In</button>
             </form>
         </div>
         <div class="col-md-6">
-            <form>
+            <form action="/create_account" method="POST">
                 <h1>Sign Up</h1>
                 <div class="form-group">
                     <label for="inputName">First Name</label>

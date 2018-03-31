@@ -11,6 +11,6 @@
     <title>Cursago</title>
   </head>
   <body>
-  <%= new String("Hello!") %>
+  <%= new String("Esto es el index.jsp") %>
   </body>
 </html>

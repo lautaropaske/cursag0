@@ -1,25 +1,31 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     //TODO agregar atributo contraseña, y aclarar que mail sea unico
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+
+    @Column(unique = true)
     private String mail;
+
+    private String password;
     private String name;
     private String surname;
 
     public User(){}
 
-    public User(String mail, String name, String surname){
+    public User(String mail, String password, String name, String surname){
         this.mail = mail;
+        this.password = password;
         this.name = name;
         this.surname = surname;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getId(){return id;}

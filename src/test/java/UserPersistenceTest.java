@@ -16,7 +16,7 @@ public class UserPersistenceTest {
     @Test
     public void createAndDeleteTest() {
 
-        User user = new User("jorge@hotmail.com","jorge","lin");
+        User user = new User("jorge@hotmail.com","1234","jorge","lin");
 
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();

@@ -7,10 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>Cursago</title>
-  </head>
-  <body>
-  <%= new String("Esto es el index.jsp") %>
-  </body>
+    <head>
+      <title>Cursago</title>
+    </head>
+    <body>
+    <h1>This is the home page.</h1>
+
+    Welcome <i><%=request.getRemoteUser()%></i>, you are viewing a secure page.
+    </body>
 </html>

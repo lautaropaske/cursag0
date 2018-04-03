@@ -3,16 +3,23 @@ package model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "User")
 public class User {
-    //TODO agregar atributo contraseña, y aclarar que mail sea unico
+
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "Id")
     private int id;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "Mail")
     private String mail;
 
+    @Column(name = "Password")
     private String password;
+
+    @Column(name = "Name")
     private String name;
+
+    @Column(name = "Surname")
     private String surname;
 
     public User(){}

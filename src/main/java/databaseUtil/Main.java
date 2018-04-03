@@ -1,3 +1,5 @@
+package databaseUtil;
+
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

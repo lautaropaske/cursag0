@@ -1,3 +1,5 @@
+package databaseUtil;
+
 import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl;

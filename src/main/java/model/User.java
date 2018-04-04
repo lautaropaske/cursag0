@@ -3,23 +3,18 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
 public class User {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "Id")
     private int id;
 
-    @Column(unique = true, name = "Mail")
+    @Column(unique = true)
     private String mail;
 
-    @Column(name = "Password")
     private String password;
 
-    @Column(name = "Name")
     private String name;
 
-    @Column(name = "Surname")
     private String surname;
 
     public User(){}

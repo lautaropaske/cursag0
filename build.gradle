@@ -20,6 +20,10 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.15.Final'
     // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.26'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-moxy -- JSON support
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.26'
     // recommendation from Diego fot the HttpRequest import; change compile to provided compile
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
     // https://mvnrepository.com/artifact/junit/junit

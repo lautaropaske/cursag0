@@ -10,9 +10,12 @@ public class SecurityRealm extends SimpleSecurityRealmBase{
 
     @Override
     public boolean booleanAuthenticate(String username, String password) {
-        System.out.println("Se hizo la authentication");
-        return true;
         //TODO aca preguntaria en la base de datos
+        if("registeredUser@gmail.com".equals(username))
+            return true;
+
+        return false;
+
     }
 
     @Override

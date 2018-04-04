@@ -23,9 +23,10 @@ public class SignUpServlet extends HttpServlet {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
+        //TODO aca se guarda en la base de datos
         //Aca se guardaria el usuario pero estaba teniendo problemas porque no
         //logro que me agregue el config file de hibernate en el .war
-
+//
 //        User user = new User(email, pass,name,surname);
 //        SessionFactory sf = new Configuration().configure().buildSessionFactory();
 //        Session session = sf.openSession();
@@ -35,8 +36,8 @@ public class SignUpServlet extends HttpServlet {
 //        session.close();
 
         //aca se haria redirect a home o a access.jsp
-        response.getOutputStream().println("<h4>Email: " + email + ", pass: "+ pass+
-                ", name: "+name+ ", surname: " + surname + ": This user has been saved</h4>");
+        response.getOutputStream().println("Saved User!  Email: " + email + ", pass: "+ pass+
+                ", name: "+name+ ", surname: " + surname);
     }
 
 }

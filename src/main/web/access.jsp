@@ -20,15 +20,15 @@
     <h3 class="display-3 text-center mb-4">Welcome to Cursago!</h3>
     <div class="row">
         <div class="col-md-6">
-            <form action="/home.jsp" method="POST">
+            <form action="/j_security_check" method="POST">
                 <h1>Log In</h1>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" name="j_username" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="inputPassword" name="pass" placeholder="Password">
+                        <input type="password" class="form-control" id="inputPassword" name="j_password" placeholder="Password">
                     </div>
                 <button type="submit" class="btn btn-primary">Log In</button>
             </form>

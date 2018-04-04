@@ -18,7 +18,7 @@ public class UserService {
 //        Transaction transaction = session.beginTransaction();
 //        User user = session.get(User.class,id);
 //        transaction.commit();
-        return new User();
+        return new User("apu@hotmail.com","1234","Apu","Bettati");
     }
 
     public User registerUser(User user){

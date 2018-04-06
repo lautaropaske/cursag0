@@ -2,7 +2,9 @@ package services;
 
 import model.User;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class UserService {
 
@@ -10,15 +12,17 @@ public class UserService {
 
     private Session session;
 
-    public UserService(Session session){
-        this.session = session;
+    public UserService(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        this.session  = sf.openSession();
     }
 
-    public User getUser(long id){
-//        Transaction transaction = session.beginTransaction();
-//        User user = session.get(User.class,id);
-//        transaction.commit();
-        return new User("apu@hotmail.com","1234","Apu","Bettati");
+    public User getUser(int id){
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class,id);
+        transaction.commit();
+        return user;
+
     }
 
     public User registerUser(User user){

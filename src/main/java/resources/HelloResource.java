@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
  * @author Agustin Bettati
  * @version 1.0
  */
-@Path("/hello")
+@Path("/")
 public class HelloResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getMessage() {
-        return "Hello world!";
+        return "La API esta funcionando";
     }
 }

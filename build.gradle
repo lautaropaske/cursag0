@@ -19,10 +19,13 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.15.Final'
     // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
-    // https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.26'
-    // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-moxy -- JSON support
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.26'
+
+    // Jersey en Gradle --> https://stackoverflow.com/questions/27889631/jersey-restful-web-service-gradle-setup
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.26'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.26'
+    //Este ultimo lo agregue yo
     // https://stackoverflow.com/questions/44088493/jersey-stopped-working-with-injectionmanagerfactory-not-found
     compile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
     // recommendation from Diego fot the HttpRequest import; change compile to provided compile

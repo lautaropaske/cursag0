@@ -23,5 +23,10 @@ public class Main {
         transaction.commit();
         session.close();
         System.exit(0);
+
+//        Transaction transaction = session.beginTransaction();
+//        User user = session.get(User.class,1);
+//        transaction.commit();
+//        System.out.println(user.getMail());
     }
 }

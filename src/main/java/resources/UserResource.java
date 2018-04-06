@@ -1,25 +1,25 @@
 package resources;
 
 import model.User;
-import org.hibernate.Session;
 import services.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/user")
-@Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
     private UserService service;
 
-    public UserResource(Session session){
-        this.service = new UserService(session);
+    //Resource classes no pueden tener argumentos
+    public UserResource(){
+        service = new UserService();
     }
 
     @GET
     @Path("/{userID}")
-    public User getUser(@PathParam("userID") long id){
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUser(@PathParam("userID") int id){
         return service.getUser(id);
     }
 

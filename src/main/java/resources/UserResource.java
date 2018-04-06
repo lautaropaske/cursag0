@@ -34,4 +34,10 @@ public class UserResource {
     public  User updateUser(User user) {
         return service.updateUser(user);
     }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteUser(User user) {
+
+    }
 }

@@ -18,6 +18,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
 
+        <mapping class="model.Course"/>
+        <mapping class="model.ExtCourse"/>
+        <mapping class="model.LocalCourse"/>
+        <mapping class="model.Unit"/>
         <mapping class="model.User"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,8 +1,10 @@
 package model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -16,6 +18,13 @@ public class User {
     private String name;
 
     private String surname;
+
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE) //cascade: 'If ONE is removed, remove MANY' (If a user is deleted, delete his courses'
+    private Collection<Course> published;
+
+//    @ManyToMany - Test later
+//    @JoinTable(name = "enrolled_users")
+//    private Collection<Course> enrolled;
 
     public User(){}
 
@@ -43,4 +52,16 @@ public class User {
     public String getSurname() {
         return surname;
     }
+
+    public Collection<Course> getPublished() {
+        return published;
+    }
+
+    public void addPublished(Course course){
+        published.add(course);
+    }
+
+//    public Collection<Course> getEnrolled() { - Test later
+//        return enrolled;
+//    }
 }

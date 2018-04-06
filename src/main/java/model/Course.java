@@ -1,12 +1,11 @@
 package model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Course {
 
     @Id
@@ -19,11 +18,19 @@ public class Course {
 
     private double price;
 
+    // TODO - Design proper rating strategy
     private double rating;
 
+    @ManyToOne
     private User publisher;
 
-    public Course(String name, String description, double price, double rating, User publisher) {
+//    @ManyToMany(mappedBy = "enrolled") - Test later
+//    private Collection<User> students;
+
+    public Course() {
+    }
+
+    protected Course(String name, String description, double price, double rating, User publisher) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -54,4 +61,8 @@ public class Course {
     public User getPublisher() {
         return publisher;
     }
+
+//    public Collection<User> getStudents() { - Test later
+//        return students;
+//    }
 }

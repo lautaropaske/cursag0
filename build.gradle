@@ -29,7 +29,7 @@ dependencies {
     // https://stackoverflow.com/questions/44088493/jersey-stopped-working-with-injectionmanagerfactory-not-found
     compile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
     // recommendation from Diego fot the HttpRequest import; change compile to provided compile
-    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0' /*Sigue siendo necesario??*/
     // https://mvnrepository.com/artifact/junit/junit
     compile group: 'junit', name: 'junit', version: '4.12'
 }

@@ -36,7 +36,7 @@ public class CoursePersistenceTest {
         session.delete(createdCourse);
         newTransaction.commit();
 
-        User publisher2 = new User("elpelapapa@live.es", "tonterias1", "Carlin", "Calvo");
+        User publisher2 = new User("jorge@gmail.com", "qwerty", "Jorge", "Lin");
 
         Transaction transaction3 = session.beginTransaction();
         session.save(publisher2); // To be part of Course, publisher must be a transient entity (SEE HIBERNATE STATE CHANGES @ javabrains)

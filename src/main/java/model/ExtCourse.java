@@ -16,9 +16,12 @@ public class ExtCourse extends Course {
     public ExtCourse() {
     }
 
-
     public String getLink() {
         return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getSource() {

@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -20,6 +22,7 @@ public class User {
     private String surname;
 
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE) //cascade: 'If ONE is removed, remove MANY' (If a user is deleted, delete his courses'
+    @JsonIgnore
     private Collection<Course> published;
 
 //    @ManyToMany - Test later

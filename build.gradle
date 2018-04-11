@@ -23,8 +23,9 @@ dependencies {
     //Dependencia de un filtro para que la api responda bien con angular
     // https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter
     compile group: 'com.thetransactioncompany', name: 'cors-filter', version: '2.6'
-
-
+    // https://www.jetbrains.com/help/idea/using-language-injections.html#language_annotation - To retrieve user in log
+    // https://mvnrepository.com/artifact/com.intellij/annotations
+    compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
     // Jersey en Gradle --> https://stackoverflow.com/questions/27889631/jersey-restful-web-service-gradle-setup
     // https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.26'

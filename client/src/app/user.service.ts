@@ -4,14 +4,14 @@ import {User} from "./User";
 import {Observable} from "rxjs/Observable";
 
 
-const URL ="http://localhost:8080/user";
+const URL ="http://localhost:8080";
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     'Content-Type':  'application/json',
+//     'Authorization': 'my-auth-token'
+//   })
+// };
 
 @Injectable()
 export class UserService {
@@ -19,10 +19,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUser(email: string, password: string): Observable<User> {
-    return this.http.get<User>(URL + email+'/' + password);
+    return this.http.get<User>(URL+'/log?mail=' + email+'&pass=' + password);
   }
 
    addUser (user: User): Observable<User>{
-     return this.http.post<User>(URL, user);
+     return this.http.post<User>(URL+'user', user);
    }
 }

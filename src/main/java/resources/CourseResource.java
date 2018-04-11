@@ -5,8 +5,10 @@ import services.CourseService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/course")
+@Produces(MediaType.APPLICATION_JSON)
 public class CourseResource {
 
     private CourseService service;
@@ -17,8 +19,12 @@ public class CourseResource {
     }
 
     @GET
+    public List<Course> getCourses(){
+        return service.getCourses();
+    }
+
+    @GET
     @Path("/{courseID}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Course getCourse(@PathParam("courseID") int id) {
         return service.getCourse(id);
     }

@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class CourseService {
 
     private Session session;
@@ -34,5 +36,12 @@ public class CourseService {
         session.update(course);
         transaction.commit();
         return course;
+    }
+
+    public List<Course> getCourses() {
+        Transaction transaction = session.beginTransaction();
+        List<Course> courses = session.createQuery("FROM Course").list();
+        transaction.commit();
+        return courses;
     }
 }

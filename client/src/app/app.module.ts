@@ -8,6 +8,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {ProfileComponent} from "./profile.component";
 import {AuthGuardService} from "./auth/auth-guard.service";
 import {AuthService} from "./auth/auth.service";
+import {HttpClientModule} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 
 @NgModule({
@@ -18,9 +20,10 @@ import {AuthService} from "./auth/auth.service";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthGuardService, AuthService],
+  providers: [AuthGuardService, AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

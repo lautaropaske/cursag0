@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {UserService} from "./user.service";
+import {User} from "./User";
 
 @Component({
   selector: 'access',
@@ -9,21 +11,43 @@ import {Router} from "@angular/router";
 
 export class AccessComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
 
   login(email: string, password: string): void {
-    localStorage.setItem("token","cursago");
-    this.router.navigate(['profile']);
+    this.userService.getUser(email, password).subscribe(
+      user => {
+        console.log("User was found in database, and has been logged in");
+        console.log(user);
+        this.userIsValid(user);
+      },
+      err => {
+        console.log("User is not in the database.")
+      }
+    );
 
-    console.log("Va a ser login: "+email+", " + password);
 
-    //TODO que verifique con la API si mail y pass coinciden
   }
 
   signup(name: string, surname: string, email: string, password: string): void {
-    console.log("Signup: "+ name+", " + surname +", "+email+", " + password );
 
-    //TODO crear una cuenta
+    this.userService.addUser(new User(null,email, password,name, surname)).subscribe(
+      user => {
+        console.log("User was successfully created, and has been logged in");
+        console.log(user);
+        this.userIsValid(user);
+      },
+      err => {
+        console.log("error ocurred in post of signup");
+      }
+    );
+  }
+
+  userIsValid(user: User): void{
+    localStorage.setItem("token","cursago");
+    localStorage.setItem("id", '' + user.id);
+    localStorage.setItem("name", '' + user.name);
+    localStorage.setItem("surname", '' + user.surname);
+    this.router.navigate(['profile']);
   }
 }

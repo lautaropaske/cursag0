@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: '', component: AccessComponent },
   { path: 'access',  component:AccessComponent },
   { path: 'home',  component:HomeComponent },
+  //{ path: 'create_course',  component:CourseFormComponent },
+
 
   {
     path: 'profile',

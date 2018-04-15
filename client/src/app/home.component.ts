@@ -2,7 +2,7 @@ import {Router} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
 import {UserService} from "./user.service";
 import {CourseService} from "./course.service";
-import {Course} from "./Course";
+import {Course} from "./course/Course";
 import {User} from "./User";
 
 @Component({

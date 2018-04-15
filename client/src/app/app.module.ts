@@ -12,6 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {CourseService} from "./course.service";
 import {HomeComponent} from "./home.component";
+import {CourseFormComponent} from "./course/course-form.component";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {HomeComponent} from "./home.component";
     AppComponent,
     AccessComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    CourseFormComponent
   ],
   imports: [
     BrowserModule,

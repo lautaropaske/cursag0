@@ -22,7 +22,7 @@ export class UserService {
     return this.http.get<User>(URL+'/log?mail=' + email+'&pass=' + password);
   }
 
-   addUser (user: User): Observable<User>{
+  addUser (user: User): Observable<User>{
      return this.http.post<User>(URL+'user', user);
-   }
+  }
 }

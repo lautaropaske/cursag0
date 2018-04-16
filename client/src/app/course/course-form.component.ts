@@ -14,7 +14,7 @@ export class CourseFormComponent{
   constructor(private router: Router, private courseService: CourseService) {}
 
   create_ext_course(name: string, description: string, price: number, rating: number, publisher: User, link: string, source: string) : void {
-    this.courseService.addCourse(new Course(null,name, description, price, 0, publisher, link, source)).subscribe(
+    this.courseService.addExtCourse(new Course(null,name, description, price, 0, publisher, link, source)).subscribe(
       user => {
         console.log("Course was successfully created");
         console.log(user);

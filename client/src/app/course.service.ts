@@ -31,8 +31,12 @@ export class CourseService {
 
   }
 
-  addCourse(course: Course) : Observable<Course>{
-    return this.http.post<Course>(URL + 'course',course);
+  addExtCourse(course: Course) : Observable<Course>{
+    return this.http.post<Course>(URL + '/external',course);
+  }
+
+  addLocalCourse(course: Course) : Observable<Course>{
+    return this.http.post<Course>(URL + '/local',course);
   }
 
   getCourseOfUser(id: number): Observable<Course[]> {

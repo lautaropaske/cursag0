@@ -1,10 +1,11 @@
 <section class="container">
 
-  <h3 class="display-3 text-center mb-4">Create a course</h3>
+  <h3 class="display-3 text-center mb-4">Create external course</h3>
 
   <div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
       <form>
-        <h1>Redirect an external course</h1>
         <div class="form-group">
           <label for="courseName">Course name</label>
           <input #name type="text" class="form-control" id="courseName">
@@ -26,8 +27,9 @@
           <label for="source">Source</label>
           <input #source type="password" class="form-control" id="source" placeholder="i.e Coursera, Udemy, Youtube">
         </div>
-        <button type="button" (click)="create_ext_course(name.value, description.value, price.value, 0, link.value, source.value);" class="btn btn-primary">Create Account</button>
+        <button type="button" (click)="create_ext_course(name.value, description.value, price.value, 0, link.value, source.value);" class="btn btn-primary">Create course</button>
       </form>
   </div>
-
+  <div class="col-md-4"></div>
+  </div>
 </section>

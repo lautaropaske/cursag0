@@ -3,10 +3,9 @@ import {User} from "./User";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Course} from "./Course";
+import {ExtCourse} from "./course/ExtCourse";
 
 const URL ="http://localhost:8080/course";
-
-
 
 @Injectable()
 export class CourseService {
@@ -35,7 +34,13 @@ export class CourseService {
   getCourse(id: number): Observable<Course> {
     return this.http.get<Course>(URL + '/'+id);
   }
+  addExtCourse(course: ExtCourse) : Observable<ExtCourse>{
+    return this.http.post<ExtCourse>(URL + '/external',course);
+  }
 
+  addLocalCourse(course: ExtCourse) : Observable<ExtCourse>{
+    return this.http.post<ExtCourse>(URL + '/local',course);
+  }
 
   getCoursesCreatedByUser(id: number): Observable<Course[]> {
     //TODO

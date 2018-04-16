@@ -13,6 +13,7 @@ import {UserService} from "./user.service";
 import {CourseService} from "./course.service";
 import {HomeComponent} from "./home.component";
 import {CourseDetailComponent} from "./course-detail.component";
+import {CourseFormComponent} from "./course/course-form.component";
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import {CourseDetailComponent} from "./course-detail.component";
     AccessComponent,
     ProfileComponent,
     HomeComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
+    HomeComponent,
+    CourseFormComponent
   ],
   imports: [
     BrowserModule,

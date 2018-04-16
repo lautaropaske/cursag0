@@ -28,7 +28,7 @@ export class CourseDetailComponent implements OnInit{
 
     this.courseService.getCourse(id).subscribe(
       course => {
-        console.log("Course was found successfully.");
+        console.log("ExtCourse was found successfully.");
         console.log(course);
         this.course = course;
       },

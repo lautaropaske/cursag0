@@ -19,7 +19,7 @@ public class CoursePersistenceTest {
         User publisher1 = new User("elpelapapa@live.es", "tonterias1", "Carlin", "Calvo");
 
         Transaction transaction1 = session.beginTransaction();
-        session.save(publisher1); // To be part of Course, publisher must be a transient entity (SEE HIBERNATE STATE CHANGES @ javabrains)
+        session.save(publisher1); // To be part of ExtCourse, publisher must be a transient entity (SEE HIBERNATE STATE CHANGES @ javabrains)
         transaction1.commit();
 
         Course course1 = new ExtCourse("Unit Testing", "Learn JUnit", 0,5, publisher1,"URL", "Youtube");
@@ -39,7 +39,7 @@ public class CoursePersistenceTest {
         User publisher2 = new User("jorge@gmail.com", "qwerty", "Jorge", "Lin");
 
         Transaction transaction3 = session.beginTransaction();
-        session.save(publisher2); // To be part of Course, publisher must be a transient entity (SEE HIBERNATE STATE CHANGES @ javabrains)
+        session.save(publisher2); // To be part of ExtCourse, publisher must be a transient entity (SEE HIBERNATE STATE CHANGES @ javabrains)
         transaction3.commit();
 
         Course course2 = new ExtCourse("Java basics", "Learn the basics", 0,4, publisher2,"URL", "Cousera");

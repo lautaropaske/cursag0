@@ -1,6 +1,8 @@
 package resources;
 
 import model.Course;
+import model.ExtCourse;
+import model.LocalCourse;
 import services.CourseService;
 
 import javax.ws.rs.*;
@@ -30,8 +32,16 @@ public class CourseResource {
     }
 
     @POST
+    @Path("/local")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Course registerCourse(Course course) {
+    public Course registerLocalCourse(LocalCourse course) {
+        return service.registerCourse(course);
+    }
+
+    @POST
+    @Path("/external")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Course registerExtCourse(ExtCourse course) {
         return service.registerCourse(course);
     }
 

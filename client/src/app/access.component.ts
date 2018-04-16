@@ -25,8 +25,6 @@ export class AccessComponent {
         console.log("User is not in the database.")
       }
     );
-
-
   }
 
   signup(name: string, surname: string, email: string, password: string): void {

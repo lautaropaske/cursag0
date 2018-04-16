@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
-import {UserService} from "./user.service";
-import {User} from "./User";
+import {UserService} from "../services/user.service";
+import {User} from "../models/User";
+
 
 @Component({
   selector: 'access',

@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
-import {User} from "./User";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
-import {Course} from "./Course";
-import {ExtCourse} from "./course/ExtCourse";
+import {Course} from "../models/Course";
+import {ExtCourse} from "../models/ExtCourse";
 
 const URL ="http://localhost:8080/course";
 

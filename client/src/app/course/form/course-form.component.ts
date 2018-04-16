@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {User} from "../User";
 import {Router} from "@angular/router";
-import {CourseService} from "../course.service";
-import {ExtCourse} from "./ExtCourse";
+import {CourseService} from "../../services/course.service";
+import {ExtCourse} from "../../models/ExtCourse";
+import {User} from "../../models/User";
 
 @Component({
   selector : 'course-form',

@@ -1,9 +1,7 @@
 import {Router} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
-import {UserService} from "./user.service";
-import {CourseService} from "./course.service";
-import {Course} from "./Course";
-import {User} from "./User";
+import {CourseService} from "./services/course.service";
+import {Course} from "./models/Course";
 
 @Component({
   selector: 'home',

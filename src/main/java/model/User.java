@@ -27,7 +27,7 @@ public class User {
 
 //    @ManyToMany - Test later
 //    @JoinTable(name = "enrolled_users")
-//    private Collection<Course> enrolled;
+//    private Collection<ExtCourse> enrolled;
 
     public User(){}
 
@@ -64,7 +64,7 @@ public class User {
         published.add(course);
     }
 
-//    public Collection<Course> getEnrolled() { - Test later
+//    public Collection<ExtCourse> getEnrolled() { - Test later
 //        return enrolled;
 //    }
 }

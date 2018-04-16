@@ -1,23 +1,22 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AccessComponent} from "./access.component";
-import {AuthGuardService as AuthGuard} from "./auth/auth-guard.service";
-import {ProfileComponent} from "./profile.component";
+import {AuthGuardService as AuthGuard} from "./services/auth/auth-guard.service";
+import {ReverseAuthGuardService as ReverseAuthGuard} from "./services/auth/reverse-auth-guard.service";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home.component";
-import {CourseFormComponent} from "./course/course-form.component";
+import {CourseFormComponent} from "./course/form/course-form.component";
+import {CourseDetailComponent} from "./course/detail/course-detail.component";
+import {AccessComponent} from "./access/access.component";
 
 
 const routes: Routes = [
-  { path: '', component: AccessComponent },
-  { path: 'access',  component:AccessComponent },
   { path: 'home',  component:HomeComponent },
-  { path: 'create_course',  component:CourseFormComponent },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard]
-  },
-  { path: '**', redirectTo: '' }
+  { path: 'access',  component:AccessComponent, canActivate: [ReverseAuthGuard]},
+
+  { path: 'create_course',  component:CourseFormComponent, canActivate: [AuthGuard] },
+  { path: "details/:id", component: CourseDetailComponent,canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: '**', redirectTo: 'access' }
 ];
 
 

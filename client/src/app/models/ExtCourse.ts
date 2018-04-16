@@ -1,6 +1,6 @@
-import {User} from "../User";
+import {User} from "./User";
 
-export class Course{
+export class ExtCourse{
   id: number;
   name: string;
   description: string;

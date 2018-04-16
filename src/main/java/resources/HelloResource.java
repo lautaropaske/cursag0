@@ -14,6 +14,6 @@ public class HelloResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getMessage() {
-        return "Mal idea";
+        return "Api funcionando";
     }
 }

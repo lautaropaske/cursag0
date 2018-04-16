@@ -12,4 +12,5 @@ export class User{
     this.name = name;
     this.surname = surname;
   }
+
 }

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AccessComponent} from "./access/access.component";
 import {AppRoutingModule} from "./app-routing.module";
-import {ProfileComponent} from "./profile.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AuthGuardService} from "./services/auth/auth-guard.service";
 import {AuthService} from "./services/auth/auth.service";
 import {HttpClientModule} from "@angular/common/http";
@@ -21,7 +21,7 @@ import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.servic
   declarations: [
     AppComponent,
     AccessComponent,
-    ProfileComponent,
+    DashboardComponent,
     HomeComponent,
     CourseDetailComponent,
     HomeComponent,

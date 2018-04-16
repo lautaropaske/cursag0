@@ -11,7 +11,7 @@ export class ReverseAuthGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
 
       console.log("User is authenticated and has been redirected");
       return false;

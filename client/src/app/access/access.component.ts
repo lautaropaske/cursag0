@@ -20,7 +20,7 @@ export class AccessComponent {
       user => {
         console.log("User was found in database, and has been logged in");
         console.log(user);
-        this.userIsValid(user);
+        this.redirectValidUser(user);
       },
       err => {
         console.log("User is not in the database.")
@@ -34,7 +34,7 @@ export class AccessComponent {
       user => {
         console.log("User was successfully created, and has been logged in");
         console.log(user);
-        this.userIsValid(user);
+        this.redirectValidUser(user);
       },
       err => {
         console.log("error ocurred in post of signup");
@@ -42,11 +42,11 @@ export class AccessComponent {
     );
   }
 
-  userIsValid(user: User): void{
+  redirectValidUser(user: User): void{
     localStorage.setItem("token","cursago");
     localStorage.setItem("id", '' + user.id);
     localStorage.setItem("name", '' + user.name);
     localStorage.setItem("surname", '' + user.surname);
-    this.router.navigate(['profile']);
+    this.router.navigate(['dashboard']);
   }
 }

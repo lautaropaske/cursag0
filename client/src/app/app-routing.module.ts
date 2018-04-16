@@ -2,7 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuardService as AuthGuard} from "./services/auth/auth-guard.service";
 import {ReverseAuthGuardService as ReverseAuthGuard} from "./services/auth/reverse-auth-guard.service";
-import {ProfileComponent} from "./profile.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home.component";
 import {CourseFormComponent} from "./course/form/course-form.component";
 import {CourseDetailComponent} from "./course/detail/course-detail.component";
@@ -15,7 +15,7 @@ const routes: Routes = [
 
   { path: 'create_course',  component:CourseFormComponent, canActivate: [AuthGuard] },
   { path: "details/:id", component: CourseDetailComponent,canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'access' }
 ];
 

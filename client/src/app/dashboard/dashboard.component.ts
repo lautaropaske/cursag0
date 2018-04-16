@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CourseService} from "./services/course.service";
-import {Course} from "./models/Course";
+import {Course} from "../models/Course";
+import {CourseService} from "../services/course.service";
 
 @Component({
   selector: 'profile',
@@ -34,7 +34,7 @@ import {Course} from "./models/Course";
     </div> 
   `
 })
-export class ProfileComponent implements OnInit{
+export class DashboardComponent implements OnInit{
 
 
   id: number;

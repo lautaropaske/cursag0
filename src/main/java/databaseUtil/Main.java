@@ -1,10 +1,15 @@
 package databaseUtil;
 
+import model.Course;
+import model.LocalCourse;
+import model.Unit;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import services.CourseService;
+import services.UserService;
 
 /**
  * @author Agustin Bettati
@@ -13,13 +18,24 @@ import org.hibernate.cfg.Configuration;
 public class Main {
 
     public static void main(String[] args) {
+        UserService userService = new UserService();
+        CourseService courseService = new CourseService();
+        User publisher = userService.getUser(1);
 
-        //Deje este main solo para simplificar el proceso de llenar la base
-        User user = new User("paul@hotmail.com", "1234","Paul","Perez");
+        Course course = courseService.getCourse(17);
+
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        int id = (int) session.save(user);
+
+        Unit unit2 = new Unit(course, "youtubee",2,"Implementation");
+
+        //Deje este main solo para simplificar el proceso de llenar la base
+//        User user = new User("paul@hotmail.com", "1234","Paul","Perez");
+//        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+//        Session session = sf.openSession();
+//        Transaction transaction = session.beginTransaction();
+        int id = (int) session.save(unit2);
         transaction.commit();
         session.close();
         System.exit(0);

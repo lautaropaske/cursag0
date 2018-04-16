@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,7 @@ public class Unit {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
+    @JsonIgnore
     private Course parent;
     private String videoLink;
     private int number;
@@ -14,8 +17,11 @@ public class Unit {
 
     public Unit(){}
 
-    public Unit(Course parent){
+    public Unit(Course parent, String videoLink, int number, String textContent) {
         this.parent = parent;
+        this.videoLink = videoLink;
+        this.number = number;
+        this.textContent = textContent;
     }
 
     public int getId() {

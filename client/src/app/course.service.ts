@@ -13,7 +13,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  getCourses(): Observable<Course[]> {
+  getAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(URL);
 
 
@@ -30,13 +30,16 @@ export class CourseService {
 
 
    // })
+  }
 
+  getCourse(id: number): Observable<Course> {
+    return this.http.get<Course>(URL + '/'+id);
   }
 
 
-  getCourseOfUser(id: number): Observable<Course[]> {
-    return this.http.get<Course[]>(URL + '/id');
-
+  getCoursesCreatedByUser(id: number): Observable<Course[]> {
+    //TODO
+    return this.http.get<Course[]>(URL + '/'+id);
   }
 
 }

@@ -6,8 +6,8 @@ import {Course} from "./Course";
 import {User} from "./User";
 
 @Component({
-  selector: 'courses',
-  template: `
+  selector: 'home',
+  template: `    
     <h1>This is Cursago: Take a look at all of our courses</h1>
     
     
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe(
+    this.courseService.getAllCourses().subscribe(
       courses => {
         console.log("Courses where found successfully.");
         console.log(courses);

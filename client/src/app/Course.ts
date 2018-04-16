@@ -12,4 +12,5 @@ export class Course{
   rating: number;
 
   publisher: User;
+
 }

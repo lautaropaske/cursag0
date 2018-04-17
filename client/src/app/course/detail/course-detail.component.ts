@@ -5,20 +5,29 @@ import {Course} from "../../models/Course";
 
 @Component({
   selector: 'course-detail',
-  template: `
-    
-    <div class="container mt-5">
-      <h5 class="card-title">{{course.name}}</h5>
-      <h6 class="card-subtitle text-muted">Rating: {{course.rating}}</h6>
-      <p class="card-text">Description: {{course.description}}</p>
-      <p class="card-text">Price: {{course.description}}</p>
-      <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
-    </div>
-  `
+  templateUrl: './course-detail.component.html',
+  styles: [`
+    .star {
+      position: relative;  
+      display: inline-block;
+      font-size: 2rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+  `]
 })
 export class CourseDetailComponent implements OnInit{
 
   course: Course;
+  currentRate: number;
 
   constructor(private courseService: CourseService, private route: ActivatedRoute) {}
 
@@ -28,9 +37,10 @@ export class CourseDetailComponent implements OnInit{
 
     this.courseService.getCourse(id).subscribe(
       course => {
-        console.log("ExtCourse was found successfully.");
+        console.log("Course was found successfully.");
         console.log(course);
         this.course = course;
+        this.currentRate = this.course.rating;
       },
       err => {
         console.log("Unable to get courses from database.");

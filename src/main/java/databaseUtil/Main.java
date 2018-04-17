@@ -20,7 +20,6 @@ public class Main {
     public static void main(String[] args) {
         UserService userService = new UserService();
         CourseService courseService = new CourseService();
-        User publisher = userService.getUser(1);
 
         Course course = courseService.getCourse(17);
 
@@ -28,7 +27,7 @@ public class Main {
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Unit unit2 = new Unit(course, "youtubee",2,"Implementation");
+        Unit unit2 = new Unit(course,"Unit testing in java! welcome to JUnit", "https://www.youtube.com/watch?v=v2F49zLLj-8",2,"Now we will look more into implementing .......");
 
         //Deje este main solo para simplificar el proceso de llenar la base
 //        User user = new User("paul@hotmail.com", "1234","Paul","Perez");

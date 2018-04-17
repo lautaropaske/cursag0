@@ -1,4 +1,5 @@
 import {User} from "./User";
+import {Unit} from "./Unit";
 
 export class Course{
   id: number;
@@ -12,5 +13,14 @@ export class Course{
   rating: number;
 
   publisher: User;
+
+  //External
+  link: string;
+
+  source: string;
+
+  //Internal
+  units: Unit[];
+
 
 }

@@ -16,6 +16,8 @@ import {UserService} from "./services/user.service";
 import {CourseService} from "./services/course.service";
 import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LocalCourseComponent} from "./course/local/local-course.component";
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {NgIf} from "@angular/common";
@@ -29,6 +31,7 @@ import {NgIf} from "@angular/common";
     CourseDetailComponent,
     HomeComponent,
     CourseFormComponent,
+    LocalCourseComponent
   ],
   imports: [
     NgbModule.forRoot(),

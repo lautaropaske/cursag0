@@ -20,13 +20,6 @@
 
   <div *ngIf="course.link != null; then externalCourse else localCourse"></div>
 
-  <ng-template #externalCourse>
-    <p class="card-text">Source of course: {{course.source}}</p>
-    <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
-
-  </ng-template>
-
-
   <ng-template #localCourse>
     <h1 class="display-4">List of Units:</h1>
     <ul>
@@ -34,7 +27,17 @@
         <p>Unit {{unit.number}}: {{unit.name}}</p>
       </li>
     </ul>
+    <button [routerLink]="['/local', course.id]" type="button" class="btn mt-5 btn-primary">Do course</button>
   </ng-template>
+
+  <ng-template #externalCourse>
+    <p class="card-text">Source of course: {{course.source}}</p>
+    <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
+
+  </ng-template>
+
+
+
 
 </div>
 

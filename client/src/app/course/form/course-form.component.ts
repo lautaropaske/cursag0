@@ -15,11 +15,13 @@ export class CourseFormComponent{
   courseForm : FormGroup;
   extCourse : ExtCourse;
   displayError : boolean;
+  postLocal : boolean;
 
   constructor(private router: Router, private courseService: CourseService, private fb : FormBuilder) {
     this.create_form();
     this.extCourse = ExtCourse.create_empty();
     this.displayError = false;
+    this.postLocal = true;
   }
 
   create_form() {
@@ -32,6 +34,10 @@ export class CourseFormComponent{
     });
   }
 
+  create_loc_course() : void {
+    //si es successful, redirigir router a la url del curso
+  }
+
   create_ext_course() : void {
     let id = localStorage.getItem("id");
     let publisher: User = new User(+id,null,null,null,null);
@@ -40,7 +46,7 @@ export class CourseFormComponent{
       user => {
         console.log("ExtCourse was successfully created");
         console.log(user);
-        this.router.navigate(['profile']);
+        this.router.navigate(['profile']); // cambiar por una redirección al url del curso
       },
       err => {
         console.log("error ocurred in post of signup");

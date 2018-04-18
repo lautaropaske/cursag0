@@ -1,6 +1,6 @@
 <section class="container">
 
-  <h3 class="display-3 text-center mb-4">Refer an external course</h3>
+  <h3 class="display-3 text-center mb-4">Create a course</h3>
 
   <div *ngIf='displayError'>
     <div class="alert alert-danger alert-dismissible">
@@ -10,35 +10,55 @@
   </div>
 
   <div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <form [formGroup]="courseForm">
-      <div class="form-group">
-        <label class="center-block">Course name:</label>
-          <input class="form-control" formControlName="name" [(ngModel)]="extCourse.name">
-        <small id="nameTip" class="form-text text-muted">Pro tip: use the same name as on the external platform.</small>
-      </div>
-      <div class="form-group">
-        <label class="center-block">About:</label>
-          <textarea #description class="form-control" id="desctription" rows="3" placeholder="Give us a short description about the course" [(ngModel)]="extCourse.description"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="center-block">Price:</label>
-          <input class="form-control" formControlName="price" [(ngModel)]="extCourse.price">
-      </div>
-      <div class="form-group">
-        <label class="center-block">URL:</label>
-          <input class="form-control" type="url" formControlName="url" [(ngModel)]="extCourse.link" placeholder="http://example.com">
-      </div>
-      <div class="form-group">
-        <label class="center-block">Source:</label>
-          <input class="form-control" formControlName="source" [(ngModel)]="extCourse.source" placeholder="i.e Coursera, Udemy, Youtube">
-      </div>
-      <div style="margin-bottom: 1em">
-        <button type="submit" [disabled]="courseForm.pristine" (click)="create_ext_course();" class="btn btn-primary">Create</button>
-      </div>
-    </form>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option1" autocomplete="off" (click)="postLocal = true" checked> Local
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="options" id="option2" autocomplete="off" (click)="postLocal = false"> External
+      </label>
+    </div>
   </div>
-  <div class="col-md-4"></div>
+
+  <div *ngIf="postLocal; then localCourse else externalCourse"></div>
+
+  <div class="row">
+    <ng-template #localCourse>
+      <h1>Posteando curso local</h1>
+    </ng-template>
+
+    <ng-template #externalCourse>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form [formGroup]="courseForm">
+          <div class="form-group">
+            <label class="center-block">Course name:</label>
+            <input class="form-control" formControlName="name" [(ngModel)]="extCourse.name">
+            <small class="form-text text-muted">Pro tip: use the same name as on the external platform.</small>
+          </div>
+          <div class="form-group">
+            <label class="center-block">About:</label>
+            <textarea #description class="form-control" rows="3" placeholder="Give us a short description about the course" [(ngModel)]="extCourse.description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Price:</label>
+            <input class="form-control" formControlName="price" [(ngModel)]="extCourse.price">
+          </div>
+          <div class="form-group">
+            <label class="center-block">URL:</label>
+            <input class="form-control" type="url" formControlName="url" [(ngModel)]="extCourse.link" placeholder="http://example.com">
+          </div>
+          <div class="form-group">
+            <label class="center-block">Source:</label>
+            <input class="form-control" formControlName="source" [(ngModel)]="extCourse.source" placeholder="i.e Coursera, Udemy, Youtube">
+          </div>
+          <div style="margin-bottom: 1em">
+            <button type="submit" [disabled]="courseForm.pristine" (click)="create_ext_course();" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+        <div class="col-md-4"></div>
+      </div>
+    </ng-template>
   </div>
+
 </section>

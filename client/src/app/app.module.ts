@@ -15,6 +15,7 @@ import {CourseFormComponent} from "./course/form/course-form.component";
 import {UserService} from "./services/user.service";
 import {CourseService} from "./services/course.service";
 import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.service";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.servic
     CourseFormComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule

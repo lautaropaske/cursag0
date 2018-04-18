@@ -1,0 +1,42 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">{{course.name}}</h1>
+    <p class="lead">{{course.description}}</p>
+    <hr class="my-4">
+
+    <ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+  </span>
+    </ng-template>
+    <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+
+    <p class="card-text">Price: {{course.price}}</p>
+    <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div *ngIf="course.link != null; then externalCourse else localCourse"></div>
+
+  <ng-template #externalCourse>
+    <p class="card-text">Source of course: {{course.source}}</p>
+    <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
+
+  </ng-template>
+
+
+  <ng-template #localCourse>
+    <h1 class="display-4">List of Units:</h1>
+    <ul>
+      <li *ngFor="let unit of course.units">
+        <p>Unit {{unit.number}}: {{unit.name}}</p>
+      </li>
+    </ul>
+  </ng-template>
+
+</div>
+
+
+

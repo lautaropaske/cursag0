@@ -1,14 +1,8 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">Cursago</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-  <a class="nav-item nav-link" [routerLink]="" (click)="logout();">Logout</a>
-</nav>
+<navbar></navbar>
+
 <div class="container mt-5">
   <h4>Currently logged in to {{name}} {{surname}} (id: {{id}})</h4>
-  <p>List of your created courses (Por ahora listeo todos):</p>
+  <p>List of all courses:</p>
 
   <div *ngFor="let course of createdCourses" class="card" style="width: 18rem;">
     <div class="card-body">

@@ -39,11 +39,4 @@ export class DashboardComponent implements OnInit{
 
   }
 
-  logout():void{
-    localStorage.clear();
-    this.router.navigate(['access']);
-  }
-
-
-
 }

@@ -28,12 +28,14 @@ export class CourseDetailComponent implements OnInit{
 
   course: Course;
   currentRate: number;
+  isPublisher: boolean;
 
   constructor(private courseService: CourseService, private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params["id"];
+    const sessionId = +localStorage.getItem("id");
 
     this.courseService.getCourse(id).subscribe(
       course => {
@@ -41,12 +43,23 @@ export class CourseDetailComponent implements OnInit{
         console.log(course);
         this.course = course;
         this.currentRate = this.course.rating;
+        this.isPublisher = course.publisher.id == sessionId;
       },
       err => {
         console.log("Unable to get courses from database.");
         this.course = null;
       }
     );
+  }
 
+  deleteCourse(): void{
+    this.courseService.delete(this.course.id).subscribe(
+      data => {
+        console.log("Delete probably went well");
+      },
+      err => {
+        console.log("Error when making delete.");
+      }
+    )
   }
 }

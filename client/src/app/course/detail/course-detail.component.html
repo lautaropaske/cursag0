@@ -1,3 +1,5 @@
+<navbar></navbar>
+
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-3">{{course.name}}</h1>
@@ -20,6 +22,7 @@
 
   <div *ngIf="course.link != null; then externalCourse else localCourse"></div>
 
+  <!--CURSO LOCAL-->
   <ng-template #localCourse>
     <h1 class="display-4">List of Units:</h1>
     <ul>
@@ -27,17 +30,23 @@
         <p>Unit {{unit.number}}: {{unit.name}}</p>
       </li>
     </ul>
-    <button [routerLink]="['/local', course.id]" type="button" class="btn mt-5 btn-primary">Do course</button>
+    <div *ngIf="isPublisher">
+      <button type="button" class="btn btn-outline-primary">Add unit</button>
+    </div>
+    <button [routerLink]="['/local', course.id]" type="button" class="btn mt-2 btn-primary">Do course</button>
   </ng-template>
 
+  <!--CURSO EXTERNO-->
   <ng-template #externalCourse>
     <p class="card-text">Source of course: {{course.source}}</p>
     <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
-
   </ng-template>
 
 
-
+  <!--ES EL PUBLISHER-->
+  <div *ngIf="isPublisher">
+    <button type="button" (click)="deleteCourse();" class="btn mt-2 btn-outline-danger">Delete course</button>
+  </div>
 
 </div>
 

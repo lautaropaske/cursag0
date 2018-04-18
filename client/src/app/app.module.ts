@@ -21,6 +21,7 @@ import {LocalCourseComponent} from "./course/local/local-course.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {NgIf} from "@angular/common";
+import {NavbarComponent} from "./navbar/navbar.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {NgIf} from "@angular/common";
     AccessComponent,
     DashboardComponent,
     HomeComponent,
+    NavbarComponent,
     CourseDetailComponent,
     HomeComponent,
     CourseFormComponent,

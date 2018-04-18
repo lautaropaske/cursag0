@@ -52,8 +52,8 @@ public class CourseResource {
     }
 
     @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteCourse(Course course) {
-        
+    @Path("/{courseID}")
+    public void deleteCourse(@PathParam("courseID") int id) {
+        //TODO
     }
 }

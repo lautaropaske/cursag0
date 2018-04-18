@@ -13,4 +13,7 @@ export class User{
     this.surname = surname;
   }
 
+  static create_empty() : User {
+    return new User(undefined,'', '','','');
+  }
 }

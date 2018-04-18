@@ -20,4 +20,8 @@ export class ExtCourse{
     this.link = link;
     this.source = source;
   }
+
+  static create_empty() : ExtCourse{
+    return new ExtCourse(undefined,'','',undefined, undefined,User.create_empty(),'','');
+  }
 }

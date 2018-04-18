@@ -16,6 +16,7 @@ import {UserService} from "./services/user.service";
 import {CourseService} from "./services/course.service";
 import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LocalCourseComponent} from "./course/local/local-course.component";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     CourseDetailComponent,
     HomeComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    LocalCourseComponent
   ],
   imports: [
     NgbModule.forRoot(),

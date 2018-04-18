@@ -16,7 +16,9 @@ import {UserService} from "./services/user.service";
 import {CourseService} from "./services/course.service";
 import {ReverseAuthGuardService} from "./services/auth/reverse-auth-guard.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import {NgIf} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     CourseDetailComponent,
     HomeComponent,
-    CourseFormComponent
+    CourseFormComponent,
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ReverseAuthGuardService,AuthGuardService,
     AuthService, UserService, CourseService],

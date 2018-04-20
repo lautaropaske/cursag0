@@ -2,6 +2,7 @@ import {CourseService} from "../../services/course.service";
 import {ActivatedRoute} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
 import {Course} from "../../models/Course";
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class LocalCourseComponent implements OnInit{
 
   course: Course;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute) {}
+  constructor(private courseService: CourseService, private route: ActivatedRoute,
+              private sanitizer: DomSanitizer) {}
 
 
   ngOnInit(): void {
@@ -23,11 +25,6 @@ export class LocalCourseComponent implements OnInit{
         console.log("Course was found successfully.");
         console.log(course);
         this.course = course;
-
-        // course.units.forEach(unit => {
-        //     console.log("https://www.youtube.com/embed/"+ this.getId(unit.videoLink))
-        //   }
-        // )
       },
       err => {
         console.log("Unable to get courses from database.");

@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Course} from "../models/Course";
 import {ExtCourse} from "../models/ExtCourse";
+import {LocalCourse} from "../models/LocalCourse";
+import {Local} from "protractor/built/driverProviders";
 
 const URL ="http://localhost:8080/course";
 
@@ -26,8 +28,8 @@ export class CourseService {
     return this.http.post<ExtCourse>(URL + '/external',course);
   }
 
-  addLocalCourse(course: ExtCourse) : Observable<ExtCourse>{
-    return this.http.post<ExtCourse>(URL + '/local',course);
+  addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{
+    return this.http.post<LocalCourse>(URL + '/local',course);
   }
 
   getCoursesCreatedByUser(id: number): Observable<Course[]> {

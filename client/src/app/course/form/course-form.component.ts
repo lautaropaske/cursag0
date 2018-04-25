@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CourseService} from "../../services/course.service";
 import {ExtCourse} from "../../models/ExtCourse";
 import {User} from "../../models/User";
+import {LocalCourse} from "../../models/LocalCourse";
 
 @Component({
   selector : 'course-form',
@@ -12,41 +13,51 @@ import {User} from "../../models/User";
 
 export class CourseFormComponent{
 
-  courseForm : FormGroup;
+  courseForm_ext : FormGroup;
+  courseForm_loc : FormGroup;
   extCourse : ExtCourse;
+  locCourse : LocalCourse;
   displayError : boolean;
   postLocal : boolean;
 
   constructor(private router: Router, private courseService: CourseService, private fb : FormBuilder) {
-    this.create_form();
+    this.create_form_ext();
+    this.create_form_loc();
     this.extCourse = ExtCourse.create_empty();
+    this.locCourse = LocalCourse.create_empty();
     this.displayError = false;
     this.postLocal = true;
   }
 
-  create_form() {
-    this.courseForm = this.fb.group({
+  create_form_ext() {
+    this.courseForm_ext = this.fb.group({
       name : ['', Validators.required],
       about : ['', Validators.required],
       price : [0.00, Validators.min(0)],
-      url : ['', Validators.required],
+      url : ['', Validators.required, Validators.pattern('[/:.a-zA-Z]*[a-zA-Z]+\\.[a-zA-Z/?&#$!]+')], //TODO check REGEX: it could miss URL's in the future
       source : ['', Validators.required]
     });
   }
 
-  create_loc_course() : void {
-    //si es successful, redirigir router a la url del curso
+  create_form_loc() {
+    this.courseForm_loc = this.fb.group({
+      name : ['', Validators.required],
+      about : ['', Validators.required],
+      price : [0.00, Validators.min(0)],
+    });
   }
 
-  create_ext_course() : void {
+  create_loc_course() : void {
     let id = localStorage.getItem("id");
     let publisher: User = new User(+id,null,null,null,null);
 
-    this.courseService.addExtCourse(this.extCourse).subscribe(
-      user => {
-        console.log("ExtCourse was successfully created");
-        console.log(user);
-        this.router.navigate(['profile']); // cambiar por una redirección al url del curso
+    this.locCourse.publisher = publisher;
+
+    this.courseService.addLocalCourse(this.locCourse).subscribe(
+      course => {
+        console.log("LocalCourse was successfully created");
+        console.log(course);
+        this.router.navigate(['/details',course.id]);
       },
       err => {
         console.log("error ocurred in post of signup");
@@ -54,4 +65,29 @@ export class CourseFormComponent{
       }
     );
   }
+
+  create_ext_course() : void {
+    let id = localStorage.getItem("id");
+    let publisher: User = new User(+id,null,null,null,null);
+
+    this.extCourse.publisher = publisher;
+
+    this.courseService.addExtCourse(this.extCourse).subscribe(
+      course => {
+        console.log("ExtCourse was successfully created");
+        console.log(course);
+        this.router.navigate(['/details',course.id]); // cambiar por una redirección al url del curso
+      },
+      err => {
+        console.log("error ocurred in post of signup");
+        this.displayError = true;
+      }
+    );
+  }
+
+  changePost() {
+    this.postLocal = !this.postLocal;
+    console.log(this.postLocal);
+  }
+
 }

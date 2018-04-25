@@ -19,7 +19,7 @@ export class Course{
 
   source: string;
 
-  //Internal
+  //Local
   units: Unit[];
 
 

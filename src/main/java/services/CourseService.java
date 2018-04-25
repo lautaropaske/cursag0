@@ -45,9 +45,10 @@ public class CourseService {
         return courses;
     }
 
-    public void deleteCourse(Course course) {
+    //TODO verificar mejor práctica para hacer el delete. Tomamos el ID pq el component tira error al hacer this.http.delete(...,OBJECT)
+    public void deleteCourse(int id) {
         Transaction transaction = session.beginTransaction();
-        session.delete(course);
+        session.delete(session.get(Course.class,id));
         transaction.commit();
     }
 }

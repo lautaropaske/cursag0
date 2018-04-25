@@ -48,7 +48,7 @@ public class CourseResource {
 
     @DELETE
     @Path("/{courseID}")
-    public void deleteCourse(Course course) {
-        service.deleteCourse(course);
+    public void deleteCourse(@PathParam("courseID") int id) {
+        service.deleteCourse(id);
     }
 }

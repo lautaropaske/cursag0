@@ -5,6 +5,7 @@ import {Course} from "../models/Course";
 import {ExtCourse} from "../models/ExtCourse";
 import {LocalCourse} from "../models/LocalCourse";
 import {Local} from "protractor/built/driverProviders";
+import {Unit} from "../models/Unit";
 
 const URL ="http://localhost:8080/course";
 
@@ -24,8 +25,13 @@ export class CourseService {
   getCourse(id: number): Observable<Course> {
     return this.http.get<Course>(URL + '/'+id);
   }
+
   addExtCourse(course: ExtCourse) : Observable<ExtCourse>{
     return this.http.post<ExtCourse>(URL + '/external',course);
+  }
+
+  addUnit(unit: Unit) : Observable<Unit>{
+    return this.http.post<Unit>('http://localhost:8080/unit',unit);
   }
 
   addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{

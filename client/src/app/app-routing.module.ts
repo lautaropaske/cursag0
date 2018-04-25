@@ -8,6 +8,7 @@ import {CourseFormComponent} from "./course/form/course-form.component";
 import {CourseDetailComponent} from "./course/detail/course-detail.component";
 import {AccessComponent} from "./access/access.component";
 import {LocalCourseComponent} from "./course/local/local-course.component";
+import {UnitFormComponent} from "./unitForm/unit-form.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'create_course',  component:CourseFormComponent, canActivate: [AuthGuard] },
   { path: "details/:id", component: CourseDetailComponent,canActivate: [AuthGuard] },
   { path: "local/:id", component: LocalCourseComponent,canActivate: [AuthGuard] },
+  { path: "create_unit/:id", component: UnitFormComponent,canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'access' }
 ];

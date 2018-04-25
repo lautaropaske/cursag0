@@ -21,6 +21,11 @@ public class CourseResource {
     }
 
     @GET
+    public List<Course> getCourses(){
+        return service.getCourses();
+    }
+
+    @GET
     @Path("/{courseID}")
     public Course getCourse(@PathParam("courseID") int id) {
         return service.getCourse(id);

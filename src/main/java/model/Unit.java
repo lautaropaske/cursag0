@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -9,7 +10,6 @@ public class Unit {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
-    @JsonIgnore
     private Course parent;
     private String name;
     private String videoLink;
@@ -34,8 +34,14 @@ public class Unit {
         return id;
     }
 
+    @JsonIgnore
     public Course getParent() {
         return parent;
+    }
+
+    @JsonProperty
+    public void setParent(Course parent) {
+        this.parent = parent;
     }
 
     public String getVideoLink() {

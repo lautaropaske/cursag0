@@ -1,0 +1,42 @@
+<navbar></navbar>
+
+<div *ngIf='displayError'>
+  <div class="alert alert-danger alert-dismissible">
+    <a class="close" data-dismiss="alert" aria-label="close" (click)="displayError=false">&times;</a>
+    <strong>Something went wrong</strong> We couldn't submit your course, try again.
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h1>Creating a new Unit</h1>
+    <div [formGroup]="unitForm">
+      <div class="form-group">
+        <label class="center-block">Unit name:</label>
+        <input class="form-control" formControlName="name" [(ngModel)]="unit.name">
+        <small class="form-text text-muted">Pro tip: use the same name as on the external platform.</small>
+      </div>
+      <div class="form-group">
+        <label class="center-block">Link of video (youtube exclusive):</label>
+        <input class="form-control" formControlName="videoLink" [(ngModel)]="unit.videoLink">
+      </div>
+      <div class="form-group">
+        <label class="center-block">Number of unit</label>
+        <input class="form-control" formControlName="number" placeholder="0.00" [(ngModel)]="unit.number">
+      </div>
+      <div class="form-group">
+        <label class="center-block">Text content:</label>
+        <textarea #description class="form-control" formControlName="textContent" rows="3" placeholder="Detailed description of topics covered in this unit" [(ngModel)]="unit.textContent"></textarea>
+      </div>
+      <div class="text-center">
+        <div style="margin-bottom: 1em">
+          <button type="submit" [disabled]="unitForm.pristine" (click)="publishUnit();" class="btn btn-primary">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+
+</div>

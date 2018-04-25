@@ -38,6 +38,6 @@ public class UserResource {
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteUser(User user) {
-
+        //TODO hacer el delete
     }
 }

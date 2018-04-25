@@ -2,6 +2,12 @@ import {User} from "./User";
 import {Unit} from "./Unit";
 
 export class Course{
+
+  //
+  constructor(id: number) {
+    this.id = id;
+  }
+
   id: number;
 
   name: string;

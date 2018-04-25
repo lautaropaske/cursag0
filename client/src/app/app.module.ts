@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {NgIf} from "@angular/common";
 import {NavbarComponent} from "./navbar/navbar.component";
+import {UnitFormComponent} from "./unitForm/unit-form.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {NavbarComponent} from "./navbar/navbar.component";
     CourseDetailComponent,
     HomeComponent,
     CourseFormComponent,
+    UnitFormComponent,
     LocalCourseComponent
   ],
   imports: [

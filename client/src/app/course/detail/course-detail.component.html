@@ -31,7 +31,7 @@
       </li>
     </ul>
     <div *ngIf="isPublisher">
-      <button type="button" class="btn btn-outline-primary">Add unit</button>
+      <button [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
     </div>
     <button [routerLink]="['/local', course.id]" type="button" class="btn mt-2 btn-primary">Do course</button>
   </ng-template>

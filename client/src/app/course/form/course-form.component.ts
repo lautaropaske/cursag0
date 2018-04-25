@@ -13,24 +13,24 @@ import {LocalCourse} from "../../models/LocalCourse";
 
 export class CourseFormComponent{
 
-  courseForm_ext : FormGroup;
-  courseForm_loc : FormGroup;
+  extCourseForm : FormGroup;
+  locCourseForm : FormGroup;
   extCourse : ExtCourse;
   locCourse : LocalCourse;
   displayError : boolean;
   postLocal : boolean;
 
   constructor(private router: Router, private courseService: CourseService, private fb : FormBuilder) {
-    this.create_form_ext();
-    this.create_form_loc();
+    this.createExtForm();
+    this.createLocalForm();
     this.extCourse = ExtCourse.create_empty();
     this.locCourse = LocalCourse.create_empty();
     this.displayError = false;
     this.postLocal = true;
   }
 
-  create_form_ext() {
-    this.courseForm_ext = this.fb.group({
+  createExtForm() {
+    this.extCourseForm = this.fb.group({
       name : ['', Validators.required],
       about : ['', Validators.required],
       price : [0.00, Validators.min(0)],
@@ -39,15 +39,15 @@ export class CourseFormComponent{
     });
   }
 
-  create_form_loc() {
-    this.courseForm_loc = this.fb.group({
+  createLocalForm() {
+    this.locCourseForm = this.fb.group({
       name : ['', Validators.required],
       about : ['', Validators.required],
       price : [0.00, Validators.min(0)],
     });
   }
 
-  create_loc_course() : void {
+  publishLocalCourse() : void {
     let id = localStorage.getItem("id");
     let publisher: User = new User(+id,null,null,null,null);
 
@@ -66,7 +66,7 @@ export class CourseFormComponent{
     );
   }
 
-  create_ext_course() : void {
+  publishExternalCourse() : void {
     let id = localStorage.getItem("id");
     let publisher: User = new User(+id,null,null,null,null);
 

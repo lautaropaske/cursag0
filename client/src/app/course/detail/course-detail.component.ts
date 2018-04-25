@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
 
@@ -30,7 +30,7 @@ export class CourseDetailComponent implements OnInit{
   currentRate: number;
   isPublisher: boolean;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute) {}
+  constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
@@ -56,6 +56,7 @@ export class CourseDetailComponent implements OnInit{
     this.courseService.delete(this.course.id).subscribe(
       data => {
         console.log("Delete probably went well");
+        this.router.navigate(['/dashboard']);
       },
       err => {
         console.log("Error when making delete.");

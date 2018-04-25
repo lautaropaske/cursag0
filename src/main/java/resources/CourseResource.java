@@ -21,11 +21,6 @@ public class CourseResource {
     }
 
     @GET
-    public List<Course> getCourses(){
-        return service.getCourses();
-    }
-
-    @GET
     @Path("/{courseID}")
     public Course getCourse(@PathParam("courseID") int id) {
         return service.getCourse(id);
@@ -53,7 +48,7 @@ public class CourseResource {
 
     @DELETE
     @Path("/{courseID}")
-    public void deleteCourse(@PathParam("courseID") int id) {
-        //TODO
+    public void deleteCourse(Course course) {
+        service.deleteCourse(course);
     }
 }

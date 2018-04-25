@@ -44,4 +44,10 @@ public class CourseService {
         transaction.commit();
         return courses;
     }
+
+    public void deleteCourse(Course course) {
+        Transaction transaction = session.beginTransaction();
+        session.delete(course);
+        transaction.commit();
+    }
 }

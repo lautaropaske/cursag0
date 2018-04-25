@@ -9,6 +9,7 @@ import {CourseDetailComponent} from "./course/detail/course-detail.component";
 import {AccessComponent} from "./access/access.component";
 import {LocalCourseComponent} from "./course/local/local-course.component";
 import {UnitFormComponent} from "./unitForm/unit-form.component";
+import {SearchComponent} from "./search/search.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: "local/:id", component: LocalCourseComponent,canActivate: [AuthGuard] },
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'search', component: SearchComponent},
   { path: '**', redirectTo: 'access' }
 ];
 

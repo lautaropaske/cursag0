@@ -20,9 +20,9 @@ import {LocalCourseComponent} from "./course/local/local-course.component";
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {NgIf} from "@angular/common";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {UnitFormComponent} from "./unitForm/unit-form.component";
+import {SearchComponent} from "./search/search.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import {UnitFormComponent} from "./unitForm/unit-form.component";
     HomeComponent,
     CourseFormComponent,
     UnitFormComponent,
-    LocalCourseComponent
+    LocalCourseComponent,
+    SearchComponent
   ],
   imports: [
     NgbModule.forRoot(),

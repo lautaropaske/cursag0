@@ -25,14 +25,12 @@
   <div *ngIf="postLocal; then localCourse else externalCourse"></div>
 
   <div class="row">
-    <div class="col-md-4"></div>
     <ng-template #localCourse>
-      <div class="col-md-4">
+      <div class="offset-4 col-md-4">
         <div [formGroup]="courseForm_loc">
           <div class="form-group">
             <label class="center-block">Course name:</label>
             <input class="form-control" formControlName="name" [(ngModel)]="locCourse.name">
-            <small class="form-text text-muted">Pro tip: use the same name as on the external platform.</small>
           </div>
           <div class="form-group">
             <label class="center-block">About:</label>
@@ -52,7 +50,7 @@
     </ng-template>
 
     <ng-template #externalCourse>
-        <div class="col-md-4">
+        <div class="offset-4 col-md-4">
           <div [formGroup]="courseForm_ext">
             <div class="form-group">
               <label class="center-block">Course name:</label>
@@ -83,7 +81,6 @@
           </div>
       </div>
     </ng-template>
-    <div class="col-md-4"></div>
   </div>
 
 </section>

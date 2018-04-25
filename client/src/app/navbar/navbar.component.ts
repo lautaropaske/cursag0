@@ -1,7 +1,6 @@
 import {CourseService} from "../services/course.service";
 import {Router} from "@angular/router";
-import {Component, OnInit} from "@angular/core";
-import {Course} from "../models/Course";
+import {Component} from "@angular/core";
 
 @Component({
   selector: 'navbar',
@@ -16,4 +15,7 @@ export class NavbarComponent{
     this.router.navigate(['access']);
   }
 
+  search(token: String) : void{
+    this.router.navigate(['/search',token]);
+  }
 }

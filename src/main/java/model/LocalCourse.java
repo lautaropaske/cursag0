@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Collection;
 @Entity
 public class LocalCourse extends Course {
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
     private Collection<Unit> units;
 
     public LocalCourse(){

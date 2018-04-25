@@ -28,7 +28,7 @@
     <div class="col-md-4"></div>
     <ng-template #localCourse>
       <div class="col-md-4">
-        <div [formGroup]="courseForm_loc">
+        <div [formGroup]="locCourseForm">
           <div class="form-group">
             <label class="center-block">Course name:</label>
             <input class="form-control" formControlName="name" [(ngModel)]="locCourse.name">
@@ -44,7 +44,7 @@
           </div>
           <div class="text-center">
             <div style="margin-bottom: 1em">
-              <button type="submit" [disabled]="courseForm_loc.pristine" (click)="create_loc_course();" class="btn btn-primary">Create</button>
+              <button type="submit" [disabled]="locCourseForm.pristine" (click)="publishLocalCourse();" class="btn btn-primary">Create</button>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
 
     <ng-template #externalCourse>
         <div class="col-md-4">
-          <div [formGroup]="courseForm_ext">
+          <div [formGroup]="extCourseForm">
             <div class="form-group">
               <label class="center-block">Course name:</label>
               <input class="form-control" formControlName="name" [(ngModel)]="extCourse.name">
@@ -77,7 +77,7 @@
             </div>
             <div class="text-center">
               <div style="margin-bottom: 1em">
-                <button type="submit" [disabled]="courseForm_ext.pristine" (click)="create_ext_course();" class="btn btn-primary">Create</button>
+                <button type="submit" [disabled]="extCourseForm.pristine" (click)="publishExternalCourse();" class="btn btn-primary">Create</button>
               </div>
             </div>
           </div>

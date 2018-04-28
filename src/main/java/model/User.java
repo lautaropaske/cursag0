@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -25,9 +27,13 @@ public class User {
     @JsonIgnore
     private Collection<Course> published;
 
-//    @ManyToMany - Test later
-//    @JoinTable(name = "enrolled_users")
-//    private Collection<ExtCourse> enrolled;
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "User_LocalCourse",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "course_id") }
+    )
+    private Set<LocalCourse> enrolled = new HashSet<>();
 
     public User(){}
 
@@ -64,7 +70,22 @@ public class User {
         published.add(course);
     }
 
-//    public Collection<ExtCourse> getEnrolled() { - Test later
-//        return enrolled;
-//    }
+    public Set<LocalCourse> getEnrolled() {
+        return enrolled;
+    }
+
+    public void setPublished(Collection<Course> published) {
+        this.published = published;
+    }
+
+    public void setEnrolled(Set<LocalCourse> enrolled) {
+        this.enrolled = enrolled;
+    }
+
+
+    public void enrollInCourse(LocalCourse course){
+        enrolled.add(course);
+    }
+
+
 }

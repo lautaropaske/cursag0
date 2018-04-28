@@ -1,10 +1,12 @@
 package resources;
 
+import model.Course;
 import model.User;
 import services.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/user")
 public class UserResource {
@@ -42,7 +44,7 @@ public class UserResource {
         service.delete(id);
     }
 
-//    http://localhost:8080/user/enroll?userId=14&courseId=17
+    //    http://localhost:8080/user/enroll?userId=14&courseId=17
     @GET
     @Path("/enroll")
     public boolean logUser(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){

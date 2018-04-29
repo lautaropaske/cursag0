@@ -9,7 +9,6 @@ export class SearchService{
 
   performSearch(token: string) : Observable<Course[]>{
     const params = new HttpParams().set('token', token);
-
     return this.http.get<Course[]>("localhost:8080/search",{params});
   }
 }

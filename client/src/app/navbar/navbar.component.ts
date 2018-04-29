@@ -1,18 +1,17 @@
 import {CourseService} from "../services/course.service";
 import {Router} from "@angular/router";
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'navbar',
   templateUrl : './navbar.component.html'
 })
-export class NavbarComponent implements OnInit{
 
+export class NavbarComponent implements OnInit{
 
   loggedIn: boolean;
 
   constructor(private router: Router,private courseService: CourseService) {}
-
 
   ngOnInit(): void {
     if(localStorage.getItem('token') == 'cursago'){
@@ -22,8 +21,6 @@ export class NavbarComponent implements OnInit{
       this.loggedIn = false;
     }
   }
-
-
 
   logout():void{
     localStorage.clear();

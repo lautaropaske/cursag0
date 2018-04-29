@@ -9,13 +9,11 @@ import {Component} from "@angular/core";
 
 export class SearchComponent{
 
-  constructor(private router: Router, private service: SearchService, private route: ActivatedRoute) {
-
-  }
+  constructor(private router: Router, private service: SearchService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const token = this.route.snapshot.params["token"];
-    const sessionId = +localStorage.getItem("id");
+    // const sessionId = +localStorage.getItem("id");
 
     this.service.performSearch(token).subscribe(
       result => {

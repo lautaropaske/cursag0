@@ -1,5 +1,6 @@
 package services;
 
+import model.LocalCourse;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,5 +38,24 @@ public class UserService {
         session.update(user);
         transaction.commit();
         return user;
+    }
+
+    public boolean enrollInCourse(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+        LocalCourse course = session.get(LocalCourse.class,courseId);
+        User user = session.get(User.class,userId);
+
+        user.getEnrolled().add(course);
+        course.getEnrolledStudents().add(user);
+
+        session.persist(user);
+        transaction.commit();
+        return true;
+    }
+
+    public void delete(int id) {
+        Transaction transaction = session.beginTransaction();
+        session.delete(session.get(User.class,id));
+        transaction.commit();
     }
 }

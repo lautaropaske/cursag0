@@ -1,31 +1,29 @@
-package databaseUtil;
-
-import model.*;
+import model.LocalCourse;
+import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import services.CourseService;
-import services.UserService;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.junit.Test;
 
 /**
  * @author Agustin Bettati
  * @version 1.0
  */
-public class Main {
+public class UserEnrollmentTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void enrollUserInCourseTest() {
+
+        final int idOfUser = 14;
+        final int idOfLocalCourse = 17;
 
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
 
-        LocalCourse course = session.get(LocalCourse.class,17);
-        User user = session.get(User.class,14);
+        LocalCourse course = session.get(LocalCourse.class,idOfLocalCourse);
+        User user = session.get(User.class,idOfUser);
 
         user.getEnrolled().add(course);
         course.getEnrolledStudents().add(user);

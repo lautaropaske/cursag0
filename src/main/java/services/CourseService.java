@@ -1,12 +1,15 @@
 package services;
 
 import model.Course;
+import model.LocalCourse;
+import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
+import java.util.Set;
 
 public class CourseService {
 
@@ -22,6 +25,14 @@ public class CourseService {
         Course course = session.get(Course.class,id);
         transaction.commit();
         return course;
+    }
+
+    public Set<LocalCourse> getCoursesEnrolledBy(int id) {
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class,id);
+        final Set<LocalCourse> enrolled = user.getEnrolled();
+        transaction.commit();
+        return enrolled;
     }
 
     public Course registerCourse(Course course) {
@@ -51,4 +62,6 @@ public class CourseService {
         session.delete(session.get(Course.class,id));
         transaction.commit();
     }
+
+
 }

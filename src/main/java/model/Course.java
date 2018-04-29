@@ -24,9 +24,6 @@ public class Course {
     @ManyToOne
     private User publisher;
 
-//    @ManyToMany(mappedBy = "enrolled") - Test later
-//    private Collection<User> students;
-
     public Course() {
     }
 
@@ -62,7 +59,4 @@ public class Course {
         return publisher;
     }
 
-//    public Collection<User> getStudents() { - Test later
-//        return students;
-//    }
 }

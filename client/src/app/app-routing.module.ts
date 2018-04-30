@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {AuthGuardService as AuthGuard} from "./services/auth/auth-guard.service";
 import {ReverseAuthGuardService as ReverseAuthGuard} from "./services/auth/reverse-auth-guard.service";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {HomeComponent} from "./home.component";
+import {HomeComponent} from "./home/home.component";
 import {CourseFormComponent} from "./course/form/course-form.component";
 import {CourseDetailComponent} from "./course/detail/course-detail.component";
 import {AccessComponent} from "./access/access.component";
@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'search', component: SearchComponent},
-  { path: '**', redirectTo: 'access' }
+  { path: '**', redirectTo: 'home' }
 ];
 
 

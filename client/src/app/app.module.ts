@@ -9,7 +9,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AuthGuardService} from "./services/auth/auth-guard.service";
 import {AuthService} from "./services/auth/auth.service";
 import {HttpClientModule} from "@angular/common/http";
-import {HomeComponent} from "./home.component";
+import {HomeComponent} from "./home/home.component";
 import {CourseDetailComponent} from "./course/detail/course-detail.component";
 import {CourseFormComponent} from "./course/form/course-form.component";
 import {UserService} from "./services/user.service";

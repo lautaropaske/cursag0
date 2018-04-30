@@ -44,10 +44,16 @@ public class UserResource {
         service.delete(id);
     }
 
+    @GET
+    @Path("/unenroll")
+    public boolean unenrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.unenrollInCourse(userId, courseId);
+    }
+
     //    http://localhost:8080/user/enroll?userId=14&courseId=17
     @GET
     @Path("/enroll")
-    public boolean logUser(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+    public boolean enrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
         return service.enrollInCourse(userId, courseId);
     }
 }

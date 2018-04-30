@@ -8,7 +8,7 @@
     <a class="nav-item nav-link" [routerLink]="" (click)="logout();">Logout</a>
   </div>
   <div  *ngIf="!loggedIn">
-    <a class="nav-item nav-link" [routerLink]="['access']">Login/Signup</a>
+    <a class="nav-item nav-link" [routerLink]="" (click)="access();">Login/Signup</a>
   </div>
 </nav>
 

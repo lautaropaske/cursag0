@@ -78,6 +78,10 @@ export class CourseDetailComponent implements OnInit{
     )
   }
 
+  editCourse(): void{
+    this.router.navigate(['/edit_course', this.course.id]);
+  }
+
   enroll(): void {
     this.courseService.enrollUser(this.sessionId, this.course.id).subscribe(
       result => {

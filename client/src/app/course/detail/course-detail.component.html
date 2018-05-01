@@ -23,7 +23,7 @@
       </div>
 
       <div *ngIf="!isEnrolled">
-        <button type="button" (click)="enroll();" class="btn mt-2 btn-primary">Enroll</button>
+        <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
       </div>
     </div>
   </div>
@@ -56,7 +56,10 @@
 
   <!--ES EL PUBLISHER-->
   <div *ngIf="isPublisher">
+    <button type="button" (click)="editCourse();" class="btn mt-2 btn-outline-warning">Edit course</button>
     <button type="button" (click)="deleteCourse();" class="btn mt-2 btn-outline-danger">Delete course</button>
+
+
   </div>
 
 </div>

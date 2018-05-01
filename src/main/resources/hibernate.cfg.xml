@@ -17,6 +17,10 @@
         <property name="show_sql">true</property>
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
+        <!-- For Search -->
+        <property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">/data/index/default</property>
+
 
         <mapping class="model.Course"/>
         <mapping class="model.ExtCourse"/>

@@ -16,7 +16,6 @@ public class CourseResource {
 
     private CourseService service;
 
-    //Resource classes no pueden tener argumentos
     public CourseResource() {
         service = new CourseService();
     }

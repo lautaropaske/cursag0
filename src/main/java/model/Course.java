@@ -1,9 +1,14 @@
 package model;
 
 
-import javax.persistence.*;
-import java.util.Collection;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 
+import javax.persistence.*;
+
+
+@Indexed
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Course {
@@ -12,8 +17,10 @@ public class Course {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
+    @Field(termVector = TermVector.YES)
     private String name;
 
+    @Field
     private String description;
 
     private double price;

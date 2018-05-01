@@ -33,7 +33,7 @@ public class SearchService {
         // Build query and ask database to retrieve relevant courses.
         // TODO Query that prioritizes most successful matches (n matches first, n-1 matches second ...)
 
-        StringBuilder sb = new StringBuilder("SELECT * FROM Course WHERE ");
+        StringBuilder sb = new StringBuilder("FROM Course WHERE ");
         String colName = "Course.";
         if(column.equals(MatchIn.DESCRIPTION))  colName += "description";
         else if(column.equals(MatchIn.NAME))  colName += "name";

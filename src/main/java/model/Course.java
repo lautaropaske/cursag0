@@ -1,12 +1,14 @@
 package model;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Course {
+public class Course implements Comparable<Course>{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -59,4 +61,8 @@ public class Course {
         return publisher;
     }
 
+    @Override
+    public int compareTo(@NotNull Course o) {
+        return Double.compare(this.rating, o.getRating());
+    }
 }

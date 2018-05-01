@@ -19,6 +19,8 @@ public class SearchResource {
 
     @GET
     public List<Course> searchCourses(@QueryParam("token") String token){
-        return service.searchCourses(token);
+        List<Course> result = service.searchCourses(token, SearchService.MatchIn.DESCRIPTION);
+        result.addAll(service.searchCourses(token, SearchService.MatchIn.NAME));
+        return result ;//.sort((a,b) -> a.getRating()- b.getRating());
     }
 }

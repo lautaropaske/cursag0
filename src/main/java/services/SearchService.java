@@ -6,12 +6,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchService {
 
     private Session session;
+
+    public enum MatchIn { DESCRIPTION, NAME};
 
     public SearchService(){
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -23,30 +24,39 @@ public class SearchService {
             -   https://stackoverflow.com/questions/14290857/sql-select-where-field-contains-words
      */
     @SuppressWarnings("unchecked")
-    public List<Course> searchCourses(String token) {
+    public List<Course> searchCourses(String token, MatchIn column) {
 
         // Prepare and clean token, leaving only key words
 
         String[] keyWords = token.split(" ");
 
-        // Build query and ask database to retrieve relevant courses. Built as XOR.
+        // Build query and ask database to retrieve relevant courses.
         // TODO Query that prioritizes most successful matches (n matches first, n-1 matches second ...)
 
-        StringBuilder sb = new StringBuilder("FROM Course WHERE Course.description ");
+        StringBuilder sb = new StringBuilder("SELECT * FROM Course WHERE ");
+        String colName = "Course.";
+        if(column.equals(MatchIn.DESCRIPTION))  colName += "description";
+        else if(column.equals(MatchIn.NAME))  colName += "name";
+        sb.append(colName);
 
-        int l = keyWords.length-1;
+        int i = 0;
 
-        for (int i = 0; i < l; i++) {
-            sb.append("LIKE \'");
-            sb.append("%");
-            sb.append(keyWords[i]);
-            sb.append("%");
-            sb.append("\' OR WHERE Course.description "); // How is multiple WHERE search in HQL? Is OR WHEERe
-        }
-
-        sb.append("LIKE \'%");
-        sb.append(keyWords[l]);
+        sb.append(" LIKE \'");
+        sb.append("%");
+        sb.append(keyWords[i]);
         sb.append("%\'");
+
+        if(keyWords.length != 1){
+            i++;
+
+            for (; i < keyWords.length; i++) {
+                sb.append(" OR " + colName +
+                        " LIKE \'");
+                sb.append("%");
+                sb.append(keyWords[i]);
+                sb.append("%\'");
+            }
+        }
 
         Query query = session.createQuery(sb.toString());
 

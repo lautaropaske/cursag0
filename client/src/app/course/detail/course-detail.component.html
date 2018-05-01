@@ -15,12 +15,23 @@
 
     <p class="card-text">Price: {{course.price}}</p>
     <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
+
+    <!--SOLO TE PODES INSCRIBIR EN CURSOS LOCALES-->
+    <div *ngIf="isLocal">
+      <div *ngIf="isEnrolled">
+        <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unenroll</button>
+      </div>
+
+      <div *ngIf="!isEnrolled">
+        <button type="button" (click)="enroll();" class="btn mt-2 btn-primary">Enroll</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="container">
 
-  <div *ngIf="course.link != null; then externalCourse else localCourse"></div>
+  <div *ngIf="!isLocal; then externalCourse else localCourse"></div>
 
   <!--CURSO LOCAL-->
   <ng-template #localCourse>

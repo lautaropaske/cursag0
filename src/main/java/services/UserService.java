@@ -40,32 +40,6 @@ public class UserService {
         return user;
     }
 
-    public boolean enrollInCourse(int userId, int courseId) {
-        Transaction transaction = session.beginTransaction();
-        LocalCourse course = session.get(LocalCourse.class,courseId);
-        User user = session.get(User.class,userId);
-
-        user.getEnrolled().add(course);
-        course.getEnrolledStudents().add(user);
-
-        session.persist(user);
-        transaction.commit();
-        return true;
-    }
-
-    public boolean unenrollInCourse(int userId, int courseId) {
-        Transaction transaction = session.beginTransaction();
-        LocalCourse course = session.get(LocalCourse.class,courseId);
-        User user = session.get(User.class,userId);
-
-        user.getEnrolled().remove(course);
-        course.getEnrolledStudents().remove(user);
-
-        session.persist(user);
-        transaction.commit();
-        return true;
-
-    }
 
     public void delete(int id) {
         Transaction transaction = session.beginTransaction();

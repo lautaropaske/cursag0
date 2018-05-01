@@ -27,29 +27,43 @@ import {Course} from "../../models/Course";
 export class CourseDetailComponent implements OnInit{
 
   course: Course;
+  sessionId: number;
   currentRate: number;
   isPublisher: boolean;
+  isLocal: boolean;
+  isEnrolled: boolean;
 
   constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params["id"];
-    const sessionId = +localStorage.getItem("id");
+    const idOfCourse = +this.route.snapshot.params["id"];
+    this.sessionId = +localStorage.getItem("id");
 
-    this.courseService.getCourse(id).subscribe(
+    this.courseService.getCourse(idOfCourse).subscribe(
       course => {
         console.log("Course was found successfully.");
         console.log(course);
         this.course = course;
         this.currentRate = this.course.rating;
-        this.isPublisher = course.publisher.id == sessionId;
+        this.isPublisher = course.publisher.id == this.sessionId;
+        this.isLocal = course.link == null;
       },
       err => {
         console.log("Unable to get courses from database.");
         this.course = null;
       }
     );
+
+    this.courseService.userIsEnrolled(this.sessionId, idOfCourse).subscribe(
+      result => {
+        this.isEnrolled = result;
+      },
+      err => {
+        console.log("error when verifing enrollment");
+        this.course = null;
+      }
+    )
   }
 
   deleteCourse(): void{
@@ -61,6 +75,28 @@ export class CourseDetailComponent implements OnInit{
       err => {
         console.log("Error when making delete.");
       }
+    )
+  }
+
+  enroll(): void {
+    this.courseService.enrollUser(this.sessionId, this.course.id).subscribe(
+      result => {
+        if(result){
+          this.isEnrolled = true;
+        }
+      }
+
+    )
+  }
+
+  unenroll(): void{
+    this.courseService.unenrollUser(this.sessionId, this.course.id).subscribe(
+      result => {
+        if(result){
+          this.isEnrolled = false;
+        }
+      }
+
     )
   }
 }

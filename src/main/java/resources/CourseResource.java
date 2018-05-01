@@ -41,9 +41,29 @@ public class CourseResource {
         return service.getCoursesPublishedBy(id);
     }
 
+    //    http://localhost:8080/course/isEnrolled?userId=14&courseId=17
+    @GET
+    @Path("/isEnrolled")
+    public boolean userIsEnrolled(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.userIsEnrolled(userId, courseId);
+    }
+
+    @GET
+    @Path("/unenroll")
+    public boolean unenrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.unenrollInCourse(userId, courseId);
+    }
+
+    //    http://localhost:8080/user/enroll?userId=14&courseId=17
+    @GET
+    @Path("/enroll")
+    public boolean enrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.enrollInCourse(userId, courseId);
+    }
 
     @GET
     @Path("/{courseID}")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Course getCourse(@PathParam("courseID") int id) {
         return service.getCourse(id);
     }

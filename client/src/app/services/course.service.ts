@@ -26,6 +26,23 @@ export class CourseService {
     return this.http.get<Course[]>(URL + '/enrolledBy/' + id);
   }
 
+  userIsEnrolled(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/isEnrolled?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
+  enrollUser(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/enroll?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
+  unenrollUser(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/unenroll?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
+
+
   delete(id: number): Observable<Object>{
     return this.http.delete(URL + '/'+id);
   }

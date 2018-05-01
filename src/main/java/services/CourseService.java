@@ -45,6 +45,51 @@ public class CourseService {
         return published;
     }
 
+    public boolean userIsEnrolled(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+        LocalCourse course = session.get(LocalCourse.class,courseId);
+        User user = session.get(User.class,userId);
+
+        boolean result;
+        if(user.getEnrolled().contains(course)){
+            result = true;
+        }
+        else{
+            result = false;
+        }
+
+        session.persist(user);
+        transaction.commit();
+        return result;
+    }
+
+    public boolean enrollInCourse(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+        LocalCourse course = session.get(LocalCourse.class,courseId);
+        User user = session.get(User.class,userId);
+
+        user.getEnrolled().add(course);
+        course.getEnrolledStudents().add(user);
+
+        session.persist(user);
+        transaction.commit();
+        return true;
+    }
+
+    public boolean unenrollInCourse(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+        LocalCourse course = session.get(LocalCourse.class,courseId);
+        User user = session.get(User.class,userId);
+
+        user.getEnrolled().remove(course);
+        course.getEnrolledStudents().remove(user);
+
+        session.persist(user);
+        transaction.commit();
+        return true;
+
+    }
+
     public Course registerCourse(Course course) {
         Transaction transaction = session.beginTransaction();
         session.save(course);
@@ -72,4 +117,5 @@ public class CourseService {
         session.delete(session.get(Course.class,id));
         transaction.commit();
     }
+
 }

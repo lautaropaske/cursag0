@@ -18,6 +18,14 @@ export class CourseService {
     return this.http.get<Course[]>(URL);
   }
 
+  getCoursesPublishedByUser(id: number): Observable<Course[]> {
+    return this.http.get<Course[]>(URL + '/publishedBy/' + id);
+  }
+
+  getCoursesEnrolledByUser(id: number): Observable<Course[]> {
+    return this.http.get<Course[]>(URL + '/enrolledBy/' + id);
+  }
+
   delete(id: number): Observable<Object>{
     return this.http.delete(URL + '/'+id);
   }
@@ -36,11 +44,6 @@ export class CourseService {
 
   addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{
     return this.http.post<LocalCourse>(URL + '/local',course);
-  }
-
-  getCoursesCreatedByUser(id: number): Observable<Course[]> {
-    //TODO
-    return this.http.get<Course[]>(URL + '/');
   }
 
 }

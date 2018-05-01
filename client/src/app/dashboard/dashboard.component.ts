@@ -14,21 +14,34 @@ export class DashboardComponent implements OnInit{
   name = localStorage.getItem("name");
   surname = localStorage.getItem("surname");
   createdCourses: Course[] = [];
+  enrolledCourses: Course[] = [];
 
 
   constructor(private router: Router,private courseService: CourseService) {}
 
   ngOnInit(): void {
     this.id = +localStorage.getItem("id");
-    //TODO esto va pedir los cursos creados por el usuario
-    this.courseService.getAllCourses().subscribe(
+
+    this.courseService.getCoursesPublishedByUser(this.id).subscribe(
       courses => {
-        console.log("Courses where found successfully.");
+        console.log("Published courses found successfully.");
         console.log(courses);
         this.createdCourses = courses;
       },
       err => {
-        console.log("Unable to get courses from database.");
+        console.log("Error when getting published courses.");
+        this.createdCourses = null;
+      }
+    );
+
+    this.courseService.getCoursesEnrolledByUser(this.id).subscribe(
+      courses => {
+        console.log("Enrolled courses found successfully.");
+        console.log(courses);
+        this.enrolledCourses = courses;
+      },
+      err => {
+        console.log("Error when getting enrolled courses.");
         this.createdCourses = null;
       }
     );

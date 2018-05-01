@@ -7,6 +7,7 @@ import services.CourseService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,13 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Set<LocalCourse> getEnrolledCourses(@PathParam("userID") int id){
         return service.getCoursesEnrolledBy(id);
+    }
+
+    @GET
+    @Path("/publishedBy/{userID}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Collection<Course> getPublishedCourses(@PathParam("userID") int id){
+        return service.getCoursesPublishedBy(id);
     }
 
 

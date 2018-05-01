@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,15 @@ public class CourseService {
         final Set<LocalCourse> enrolled = user.getEnrolled();
         transaction.commit();
         return enrolled;
+    }
+
+
+    public Collection<Course> getCoursesPublishedBy(int id) {
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class,id);
+        final Collection<Course> published = user.getPublished();
+        transaction.commit();
+        return published;
     }
 
     public Course registerCourse(Course course) {
@@ -62,6 +72,4 @@ public class CourseService {
         session.delete(session.get(Course.class,id));
         transaction.commit();
     }
-
-
 }

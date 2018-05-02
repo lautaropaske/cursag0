@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import {NavbarComponent} from "./navbar/navbar.component";
 import {UnitFormComponent} from "./unitForm/unit-form.component";
 import {SearchComponent} from "./search/search.component";
+import {EditCourseComponent} from "./course/edit/edit-course.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {SearchComponent} from "./search/search.component";
     HomeComponent,
     CourseFormComponent,
     UnitFormComponent,
+    EditCourseComponent,
     LocalCourseComponent,
     SearchComponent
   ],

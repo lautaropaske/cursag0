@@ -47,6 +47,14 @@ export class CourseService {
     return this.http.delete(URL + '/'+id);
   }
 
+  updateExtCourse(course: ExtCourse): Observable<ExtCourse>{
+    return this.http.put<ExtCourse>(URL+'/external', course);
+  }
+
+  updateLocalCourse(course: LocalCourse): Observable<LocalCourse>{
+    return this.http.put<LocalCourse>(URL+'/local', course);
+  }
+
   getCourse(id: number): Observable<Course> {
     return this.http.get<Course>(URL + '/'+id);
   }

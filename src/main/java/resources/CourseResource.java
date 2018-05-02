@@ -81,9 +81,18 @@ public class CourseResource {
         return service.registerCourse(course);
     }
 
+
     @PUT
+    @Path("/external")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Course updateCourse(Course course) {
+    public Course updateExtCourse(ExtCourse course) {
+        return service.updateCourse(course);
+    }
+
+    @PUT
+    @Path("/local")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Course updateLocalCourse(LocalCourse course) {
         return service.updateCourse(course);
     }
 

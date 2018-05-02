@@ -16,7 +16,7 @@
     <p class="card-text">Price: {{course.price}}</p>
     <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
 
-    <!--SOLO TE PODES INSCRIBIR EN CURSOS LOCALES-->
+    <!--INSCRIBIRSE A CURSO LOCAL-->
     <div *ngIf="isLocal">
       <div *ngIf="isEnrolled">
         <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unenroll</button>
@@ -24,6 +24,17 @@
 
       <div *ngIf="!isEnrolled">
         <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
+      </div>
+    </div>
+
+    <!-- HACER FAVORITE UN CURSO EXTERNO-->
+    <div *ngIf="!isLocal">
+      <div *ngIf="isEnrolled">
+        <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unfavorite</button>
+      </div>
+
+      <div *ngIf="!isEnrolled">
+        <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Tag course</button>
       </div>
     </div>
   </div>

@@ -28,10 +28,10 @@ public class CourseService {
         return course;
     }
 
-    public Set<LocalCourse> getCoursesEnrolledBy(int id) {
+    public Set<Course> getCoursesEnrolledBy(int id) {
         Transaction transaction = session.beginTransaction();
         User user = session.get(User.class,id);
-        final Set<LocalCourse> enrolled = user.getEnrolled();
+        final Set<Course> enrolled = user.getEnrolled();
         transaction.commit();
         return enrolled;
     }
@@ -47,7 +47,7 @@ public class CourseService {
 
     public boolean userIsEnrolled(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
-        LocalCourse course = session.get(LocalCourse.class,courseId);
+        Course course = session.get(Course.class,courseId);
         User user = session.get(User.class,userId);
 
         boolean result;
@@ -65,7 +65,7 @@ public class CourseService {
 
     public boolean enrollInCourse(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
-        LocalCourse course = session.get(LocalCourse.class,courseId);
+        Course course = session.get(Course.class,courseId);
         User user = session.get(User.class,userId);
 
         user.getEnrolled().add(course);
@@ -78,7 +78,7 @@ public class CourseService {
 
     public boolean unenrollInCourse(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
-        LocalCourse course = session.get(LocalCourse.class,courseId);
+        Course course = session.get(Course.class,courseId);
         User user = session.get(User.class,userId);
 
         user.getEnrolled().remove(course);

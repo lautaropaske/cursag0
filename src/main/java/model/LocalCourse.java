@@ -17,11 +17,6 @@ public class LocalCourse extends Course {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
     private Collection<Unit> units;
 
-
-    @ManyToMany(mappedBy = "enrolled")
-    @JsonIgnore
-    private Set<User> enrolledStudents = new HashSet<User>();
-
     public LocalCourse(){
         this.units = new ArrayList<>();
     }
@@ -31,9 +26,6 @@ public class LocalCourse extends Course {
         this.units = new ArrayList<>();
     }
 
-    public Set<User> getEnrolledStudents() {
-        return enrolledStudents;
-    }
 
     public Collection<Unit> getUnits(){return units;}
 
@@ -47,14 +39,6 @@ public class LocalCourse extends Course {
 
     public void setUnits(Collection<Unit> units) {
         this.units = units;
-    }
-
-    public void setEnrolledStudents(Set<User> enrolledStudents) {
-        this.enrolledStudents = enrolledStudents;
-    }
-
-    public void enrollStudents(User user){
-        enrolledStudents.add(user);
     }
 
 }

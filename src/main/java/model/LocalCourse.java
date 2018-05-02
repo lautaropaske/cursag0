@@ -22,7 +22,6 @@ public class LocalCourse extends Course {
     @JsonIgnore
     private Set<User> enrolledStudents = new HashSet<User>();
 
-
     public LocalCourse(){
         this.units = new ArrayList<>();
     }

@@ -31,11 +31,12 @@ dependencies {
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.26'
     // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.26'
-    //Este ultimo lo agregue yo
     // https://stackoverflow.com/questions/44088493/jersey-stopped-working-with-injectionmanagerfactory-not-found
     compile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
     // recommendation from Diego fot the HttpRequest import; change compile to provided compile
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0' /*Sigue siendo necesario??*/
     // https://mvnrepository.com/artifact/junit/junit
     compile group: 'junit', name: 'junit', version: '4.12'
+    // http://www.baeldung.com/hibernate-search
+    compile 'org.hibernate:hibernate-search-orm:5.8.2.Final'
 }

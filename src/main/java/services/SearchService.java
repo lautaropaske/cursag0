@@ -5,61 +5,47 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 public class SearchService {
 
-    private Session session;
-
-    public enum MatchIn { DESCRIPTION, NAME};
+    private FullTextEntityManager ftem;
 
     public SearchService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
-        this.session  = sf.openSession();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
+        this.ftem = Search.getFullTextEntityManager(emf.createEntityManager());
+
+        try {
+            this.ftem.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    /*
-        Helpers:
-            -   https://stackoverflow.com/questions/14290857/sql-select-where-field-contains-words
-     */
     @SuppressWarnings("unchecked")
-    public List<Course> searchCourses(String token, MatchIn column) {
+    public List<Course> searchCourses(String token) {
 
-        // Prepare and clean token, leaving only key words
+        QueryBuilder queryBuilder = this.ftem.getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Course.class)
+                .get();
 
-        String[] keyWords = token.split(" ");
+        org.apache.lucene.search.Query query = queryBuilder
+                .keyword()
+                .onFields("description","name")
+                .matching(token)
+                .createQuery();
 
-        // Build query and ask database to retrieve relevant courses.
-        // TODO Query that prioritizes most successful matches (n matches first, n-1 matches second ...)
+        org.hibernate.search.jpa.FullTextQuery jpaQuery = ftem.createFullTextQuery(query, Course.class);
 
-        StringBuilder sb = new StringBuilder("FROM Course WHERE ");
-        String colName = "Course.";
-        if(column.equals(MatchIn.DESCRIPTION))  colName += "description";
-        else if(column.equals(MatchIn.NAME))  colName += "name";
-        sb.append(colName);
+        List result = jpaQuery.getResultList();
 
-        int i = 0;
-
-        sb.append(" LIKE \'");
-        sb.append("%");
-        sb.append(keyWords[i]);
-        sb.append("%\'");
-
-        if(keyWords.length != 1){
-            i++;
-
-            for (; i < keyWords.length; i++) {
-                sb.append(" OR " + colName +
-                        " LIKE \'");
-                sb.append("%");
-                sb.append(keyWords[i]);
-                sb.append("%\'");
-            }
-        }
-
-        Query query = session.createQuery(sb.toString());
-
-        return query.list();
+        return result;
     }
 }

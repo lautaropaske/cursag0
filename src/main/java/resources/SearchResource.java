@@ -5,7 +5,9 @@ import services.SearchService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("search")
@@ -18,10 +20,8 @@ public class SearchResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Course> searchCourses(@QueryParam("token") String token){
-        List<Course> result = service.searchCourses(token, SearchService.MatchIn.DESCRIPTION);
-        result.addAll(service.searchCourses(token, SearchService.MatchIn.NAME));
-        result.sort(Course::compareTo);
-        return result;
+        return service.searchCourses(token);
     }
 }

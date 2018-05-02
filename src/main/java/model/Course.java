@@ -1,12 +1,16 @@
 package model;
 
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Indexed
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Course implements Comparable<Course>{
 
@@ -14,8 +18,10 @@ public class Course implements Comparable<Course>{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
+    @Field (termVector = TermVector.YES)
     private String name;
 
+    @Field
     private String description;
 
     private double price;

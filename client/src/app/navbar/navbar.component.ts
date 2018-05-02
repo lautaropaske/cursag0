@@ -28,7 +28,8 @@ export class NavbarComponent implements OnInit{
   }
 
   search(token: String) : void{
-    this.router.navigate(['search',token]);
+    this.router.navigateByUrl('/search', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["search",token]));
   }
 
   access(): void{

@@ -1,30 +1,38 @@
 <navbar></navbar>
 
 <div class="container mt-5">
-  <h4>Currently logged in to {{name}} {{surname}} (id: {{id}})</h4>
+  <h4>Currently logged in to {{name}} {{surname}}</h4>
+
+  <div *ngIf="createdCourses.length > 0">
   <p>Created courses:</p>
-  <div *ngFor="let course of createdCourses" class="card" style="width: 18rem;">
-    <div class="card-body">
-      <a [routerLink]="['/details', course.id]">
-        <h5 class="card-title">{{course.name}}</h5>
-      </a>
-      <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
-      <p class="card-text">{{course.description}}</p>
-      <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+
+    <div *ngFor="let course of createdCourses" class="card w-75  mt-2" style="width: 18rem;">
+      <div class="card-body">
+        <a [routerLink]="['/details', course.id]">
+          <h5 class="card-title">{{course.name}}</h5>
+        </a>
+        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+        <p class="card-text">{{course.description}}</p>
+        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+      </div>
     </div>
   </div>
 
-  <p>Enrolled courses:</p>
-  <div *ngFor="let course of enrolledCourses" class="card" style="width: 18rem;">
-    <div class="card-body">
-      <a [routerLink]="['/details', course.id]">
-        <h5 class="card-title">{{course.name}}</h5>
-      </a>
-      <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
-      <p class="card-text">{{course.description}}</p>
-      <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+  <div *ngIf="enrolledCourses.length > 0" class="mt-4">
+    <p>Enrolled courses:</p>
+    <div *ngFor="let course of enrolledCourses" class="card w-75  mt-2" style="width: 18rem;">
+      <div class="card-body">
+        <a [routerLink]="['/details', course.id]">
+          <h5 class="card-title">{{course.name}}</h5>
+        </a>
+        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+        <p class="card-text">{{course.description}}</p>
+        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+      </div>
     </div>
   </div>
 
-  <button type="button" (click)="createCourse();" class="btn mt-5 btn-primary">Add new course</button>
+  <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">Find Courses</button>
+  <br>
+  <button type="button" (click)="createCourse();" class="btn mt-3 btn-warning">Add new course</button>
 </div>

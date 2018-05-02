@@ -29,8 +29,9 @@ export class AccessComponent {
   }
 
   signup(name: string, surname: string, email: string, password: string): void {
-
-    this.userService.addUser(new User(null,email, password,name, surname)).subscribe(
+    const newUser = new User(null,email, password,name, surname);
+    console.log(newUser)
+    this.userService.addUser(newUser).subscribe(
       user => {
         console.log("User was successfully created, and has been logged in");
         console.log(user);

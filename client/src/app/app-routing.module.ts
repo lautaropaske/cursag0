@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [AuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'search', component: SearchComponent},
+  { path: 'search/:token', component: SearchComponent},
   { path: '**', redirectTo: 'home' }
 ];
 

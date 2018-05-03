@@ -29,7 +29,7 @@ public class CourseResource {
     @GET
     @Path("/enrolledBy/{userID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Set<LocalCourse> getEnrolledCourses(@PathParam("userID") int id){
+    public Set<Course> getEnrolledCourses(@PathParam("userID") int id){
         return service.getCoursesEnrolledBy(id);
     }
 

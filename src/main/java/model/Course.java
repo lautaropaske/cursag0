@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TermVector;
@@ -8,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Indexed
@@ -31,6 +34,11 @@ public class Course implements Comparable<Course>{
 
     @ManyToOne
     private User publisher;
+
+    @ManyToMany(mappedBy = "enrolled")
+    @JsonIgnore
+    private Set<User> enrolledStudents = new HashSet<User>();
+
 
     public Course() {
     }
@@ -63,8 +71,18 @@ public class Course implements Comparable<Course>{
         return rating;
     }
 
-    public User getPublisher() {
-        return publisher;
+    public User getPublisher() { return publisher; }
+
+    public Set<User> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void setEnrolledStudents(Set<User> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
+
+    public void enrollStudents(User user){
+        enrolledStudents.add(user);
     }
 
     @Override

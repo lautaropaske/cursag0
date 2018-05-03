@@ -29,12 +29,12 @@ public class User {
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
-            name = "User_LocalCourse",
+            name = "User_Course",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") }
     )
     @JsonIgnore
-    private Set<LocalCourse> enrolled = new HashSet<>();
+    private Set<Course> enrolled = new HashSet<>();
 
     public User(){}
 
@@ -71,7 +71,7 @@ public class User {
         published.add(course);
     }
 
-    public Set<LocalCourse> getEnrolled() {
+    public Set<Course> getEnrolled() {
         return enrolled;
     }
 
@@ -79,7 +79,7 @@ public class User {
         this.published = published;
     }
 
-    public void setEnrolled(Set<LocalCourse> enrolled) {
+    public void setEnrolled(Set<Course> enrolled) {
         this.enrolled = enrolled;
     }
 

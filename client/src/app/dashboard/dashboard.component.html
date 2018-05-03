@@ -1,25 +1,13 @@
 <navbar></navbar>
 
-<div class="container mt-5">
-  <h4>Currently logged in to {{name}} {{surname}}</h4>
-
-  <div *ngIf="createdCourses.length > 0">
-  <p>Created courses:</p>
-
-    <div *ngFor="let course of createdCourses" class="card w-75  mt-2" style="width: 18rem;">
-      <div class="card-body">
-        <a [routerLink]="['/details', course.id]">
-          <h5 class="card-title">{{course.name}}</h5>
-        </a>
-        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
-        <p class="card-text">{{course.description}}</p>
-        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
-      </div>
-    </div>
+<div class="container mt-3">
+  <div class="mb-3 d-flex justify-content-around">
+    <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">View our courses</button>
+    <button type="button" (click)="createCourse();" class="btn mt-3 btn-warning">Create course</button>
   </div>
-
-  <div *ngIf="enrolledCourses.length > 0" class="mt-4">
-    <p>Enrolled courses:</p>
+  <!--Si solo se inscribe (USUARIO NORMAL)-->
+  <div *ngIf="createdCourses.length == 0 && enrolledCourses.length !=0">
+    <p>Enrolled and tagged courses:</p>
     <div *ngFor="let course of enrolledCourses" class="card w-75  mt-2" style="width: 18rem;">
       <div class="card-body">
         <a [routerLink]="['/details', course.id]">
@@ -32,7 +20,56 @@
     </div>
   </div>
 
-  <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">Find Courses</button>
-  <br>
-  <button type="button" (click)="createCourse();" class="btn mt-3 btn-warning">Add new course</button>
+   <!--solo crea (PUBLICADOR)-->
+  <div *ngIf="createdCourses.length != 0 && enrolledCourses.length ==0">
+    <p>Created courses:</p>
+    <div *ngFor="let course of createdCourses" class="card w-75  mt-2" style="width: 18rem;">
+      <div class="card-body">
+        <a [routerLink]="['/details', course.id]">
+          <h5 class="card-title">{{course.name}}</h5>
+        </a>
+        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+        <p class="card-text">{{course.description}}</p>
+        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+      </div>
+    </div>
+  </div>
+
+   <!--crea cursos y se hace enroll (MEZCLA)-->
+  <div *ngIf="createdCourses.length != 0 && enrolledCourses.length !=0">
+    <div class="row">
+      <div class="col-md-6">
+        <p>Created courses:</p>
+        <div *ngFor="let course of createdCourses" class="card w-100  mt-2" style="width: 18rem;">
+          <div class="card-body">
+            <a [routerLink]="['/details', course.id]">
+              <h5 class="card-title">{{course.name}}</h5>
+            </a>
+            <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+            <p class="card-text">{{course.description}}</p>
+            <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <p>Enrolled and tagged courses:</p>
+        <div *ngFor="let course of enrolledCourses" class="card w-100  mt-2" style="width: 18rem;">
+          <div class="card-body">
+            <a [routerLink]="['/details', course.id]">
+              <h5 class="card-title">{{course.name}}</h5>
+            </a>
+            <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+            <p class="card-text">{{course.description}}</p>
+            <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="createdCourses.length == 0 && enrolledCourses.length == 0">
+    <p>Feel free to look at our course or created your own!</p>
+  </div>
+
 </div>

@@ -63,7 +63,10 @@ export class CourseDetailComponent implements OnInit{
         console.log("error when verifing enrollment");
         this.course = null;
       }
-    )
+    );
+
+
+
   }
 
   deleteCourse(): void{

@@ -5,10 +5,10 @@
     <button type="button" (click)="search(token.value);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
   </form>
   <div  *ngIf="loggedIn">
-    <a class="nav-item nav-link" [routerLink]="" (click)="logout();">Logout</a>
+    <a class="nav-item nav-link" (click)="logout();">Logout</a>
   </div>
   <div  *ngIf="!loggedIn">
-    <a class="nav-item nav-link" [routerLink]="" (click)="access();">Login/Signup</a>
+    <a class="nav-item nav-link" (click)="access();">Login/Signup</a>
   </div>
 </nav>
 

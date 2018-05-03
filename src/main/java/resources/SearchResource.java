@@ -22,6 +22,7 @@ public class SearchResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> searchCourses(@QueryParam("token") String token){
+        System.out.println(token);
         return service.searchCourses(token);
     }
 }

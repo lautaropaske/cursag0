@@ -36,7 +36,6 @@ public class CourseService {
         return enrolled;
     }
 
-
     public Collection<Course> getCoursesPublishedBy(int id) {
         Transaction transaction = session.beginTransaction();
         User user = session.get(User.class,id);
@@ -50,13 +49,7 @@ public class CourseService {
         LocalCourse course = session.get(LocalCourse.class,courseId);
         User user = session.get(User.class,userId);
 
-        boolean result;
-        if(user.getEnrolled().contains(course)){
-            result = true;
-        }
-        else{
-            result = false;
-        }
+        boolean result = user.getEnrolled().contains(course);
 
         session.persist(user);
         transaction.commit();

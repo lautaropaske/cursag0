@@ -1,50 +1,52 @@
 package services;
 
 import model.Course;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 public class SearchService {
 
-    private FullTextEntityManager ftem;
+    private FullTextSession fts;
 
     public SearchService(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
-        this.ftem = Search.getFullTextEntityManager(emf.createEntityManager());
-
-        try {
-            this.ftem.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        this.fts = Search.getFullTextSession(sf.openSession());
     }
 
     @SuppressWarnings("unchecked")
+    // https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#_searching
+    // Working from this documentation
     public List<Course> searchCourses(String token) {
 
-        QueryBuilder queryBuilder = this.ftem.getSearchFactory()
-                .buildQueryBuilder()
-                .forEntity(Course.class)
-                .get();
+        try {
+            this.fts.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("description","name")
-                .matching(token)
-                .createQuery();
+        Transaction tx = this.fts.beginTransaction();
 
-        org.hibernate.search.jpa.FullTextQuery jpaQuery = ftem.createFullTextQuery(query, Course.class);
+        QueryBuilder queryBuilder = this.fts.getSearchFactory()
+                                            .buildQueryBuilder()
+                                            .forEntity(Course.class)
+                                            .get();
 
-        List result = jpaQuery.getResultList();
+        org.apache.lucene.search.Query query = queryBuilder.keyword()
+                                                           .fuzzy()
+                                                           .onFields("description","name")
+                                                           .matching(token)
+                                                           .createQuery();
+
+        org.hibernate.query.Query hibQuery = fts.createFullTextQuery(query, Course.class);
+
+        List result = hibQuery.list();
+
+        tx.commit();
 
         return result;
     }

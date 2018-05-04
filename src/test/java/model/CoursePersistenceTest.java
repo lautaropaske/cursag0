@@ -1,3 +1,5 @@
+package model;
+
 import model.Course;
 import model.ExtCourse;
 import model.User;

@@ -2,9 +2,7 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.TermVector;
+import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;

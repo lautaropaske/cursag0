@@ -1,4 +1,5 @@
-import model.User;
+package model;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,33 +8,29 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author Agustin Bettati
- * @version 1.0
- */
-public class UserPersistenceTest {
+public class ReviewPersistenceTest {
 
     @Test
     public void createAndDeleteTest() {
 
-        User user = new User("jorge@hotmail.com","1234","jorge","lin");
-
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        int id = (int) session.save(user);
+
+        User user = session.find(User.class, 1);
+        String textContent = "Good course 11321";
+        Review review = new Review(textContent,4,user);
+
+        int id = (int) session.save(review);
         transaction.commit();
 
-        User createdUser = session.find(User.class, id);
-
-        assertEquals("jorge@hotmail.com",createdUser.getMail());
+        assertEquals(textContent,review.getTextContent());
 
         Transaction newTransaction = session.beginTransaction();
-        session.delete(createdUser);
+        session.delete(review);
         newTransaction.commit();
 
         session.close();
-
     }
 
 }

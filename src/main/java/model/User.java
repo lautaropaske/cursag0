@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,7 +15,7 @@ public class User {
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
-    @Column(unique = true)
+    @NaturalId
     private String mail;
 
     private String password;

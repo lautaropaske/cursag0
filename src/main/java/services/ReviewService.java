@@ -1,49 +1,46 @@
 package services;
 
-import model.LocalCourse;
-import model.User;
+import model.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-public class UserService {
-
-    //TODO consultar el correcto manejo de las connections y las sessions & transactions
+public class ReviewService {
 
     private Session session;
 
-    public UserService(){
+    public ReviewService(){
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         this.session  = sf.openSession();
     }
 
-    public User getUser(int id){
+    public Review getReview(int id){
         Transaction transaction = session.beginTransaction();
-        User user = session.get(User.class,id);
+        Review review = session.get(Review.class,id);
         transaction.commit();
-        return user;
+        return review;
 
     }
 
-    public User registerUser(User user){
+    public Review registerReview(Review review){
         Transaction transaction = session.beginTransaction();
-        session.save(user);
+        session.save(review);
         transaction.commit();
-        return user; // Returns user but with ID set
+        return review;
     }
 
-    public User updateUser(User user) {
+    public Review updateReview(Review review) {
         Transaction transaction = session.beginTransaction();
-        session.update(user);
+        session.update(review);
         transaction.commit();
-        return user;
+        return review;
     }
 
 
-    public void deleteUser(int id) {
+    public void deleteReview(int id) {
         Transaction transaction = session.beginTransaction();
-        session.delete(session.get(User.class,id));
+        session.delete(session.get(Review.class,id));
         transaction.commit();
     }
 }

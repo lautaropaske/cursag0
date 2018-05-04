@@ -13,7 +13,6 @@ public class UserResource {
 
     private UserService service;
 
-    //Resource classes no pueden tener argumentos
     public UserResource(){
         service = new UserService();
     }
@@ -41,7 +40,7 @@ public class UserResource {
     @Path("/{userID}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteUser(@PathParam("userID") int id) {
-        service.delete(id);
+        service.deleteUser(id);
     }
 
 

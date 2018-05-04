@@ -26,5 +26,6 @@
         <mapping class="model.LocalCourse"/>
         <mapping class="model.Unit"/>
         <mapping class="model.User"/>
+        <mapping class="model.UserCourse"/>
     </session-factory>
 </hibernate-configuration>

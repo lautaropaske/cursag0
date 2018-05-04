@@ -35,9 +35,9 @@ public class Course implements Comparable<Course>{
     @ManyToOne
     private User publisher;
 
-    @ManyToMany(mappedBy = "enrolled")
+    @OneToMany(mappedBy = "course")
     @JsonIgnore
-    private Set<User> enrolledStudents = new HashSet<User>();
+    private Set<UserCourse> enrolledStudents = new HashSet<>();
 
 
     public Course() {
@@ -73,16 +73,12 @@ public class Course implements Comparable<Course>{
 
     public User getPublisher() { return publisher; }
 
-    public Set<User> getEnrolledStudents() {
+    public Set<UserCourse> getEnrolledStudents() {
         return enrolledStudents;
     }
 
-    public void setEnrolledStudents(Set<User> enrolledStudents) {
+    public void setEnrolledStudents(Set<UserCourse> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
-    }
-
-    public void enrollStudents(User user){
-        enrolledStudents.add(user);
     }
 
     @Override

@@ -13,10 +13,10 @@ import static org.junit.Assert.assertEquals;
  * @author Agustin Bettati
  * @version 1.0
  */
-public class UserEnrollmentTest {
+public class EnrollmentProgressTest {
 
     @Test
-    public void enrollUserInCourseTest() {
+    public void getProgressOfEnrollmentTest() {
 
         final int idOfUser = 14;
         final int idOfLocalCourse = 17;
@@ -28,12 +28,11 @@ public class UserEnrollmentTest {
         LocalCourse course = session.get(LocalCourse.class,idOfLocalCourse);
         User user = session.get(User.class,idOfUser);
 
-        UserCourse uc = new UserCourse(user, course, 0);
-
-        session.persist(uc);
-
-        transaction.commit();
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(14,17);
+        UserCourse uc = session.get(UserCourse.class, id);
+        assertEquals(0, uc.getProgress());
 
         session.close();
+        System.exit(0);
     }
 }

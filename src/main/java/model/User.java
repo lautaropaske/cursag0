@@ -28,14 +28,9 @@ public class User {
     @JsonIgnore
     private Collection<Course> published;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "User_Course",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "course_id") }
-    )
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private Set<Course> enrolled = new HashSet<>();
+    private Set<UserCourse> enrolledCourses = new HashSet<>();
 
     public User(){}
 
@@ -72,22 +67,16 @@ public class User {
         published.add(course);
     }
 
-    public Set<Course> getEnrolled() {
-        return enrolled;
+    public Set<UserCourse> getEnrolledCourses() {
+        return enrolledCourses;
     }
 
     public void setPublished(Collection<Course> published) {
         this.published = published;
     }
 
-    public void setEnrolled(Set<Course> enrolled) {
-        this.enrolled = enrolled;
+    public void setEnrolledCourses(Set<UserCourse> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
     }
-
-
-    public void enrollInCourse(LocalCourse course){
-        enrolled.add(course);
-    }
-
 
 }

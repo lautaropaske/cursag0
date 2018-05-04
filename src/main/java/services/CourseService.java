@@ -1,14 +1,15 @@
 package services;
 
 import model.Course;
-import model.LocalCourse;
 import model.User;
+import model.UserCourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +32,11 @@ public class CourseService {
     public Set<Course> getCoursesEnrolledBy(int id) {
         Transaction transaction = session.beginTransaction();
         User user = session.get(User.class,id);
-        final Set<Course> enrolled = user.getEnrolled();
-        transaction.commit();
+
+        final Set<Course> enrolled = new HashSet<>();
+        final Set<UserCourse> relations = user.getEnrolledCourses();
+        relations.forEach(relation -> enrolled.add(relation.getCourse()));
+
         return enrolled;
     }
 
@@ -46,12 +50,13 @@ public class CourseService {
 
     public boolean userIsEnrolled(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
-        Course course = session.get(Course.class,courseId);
-        User user = session.get(User.class,userId);
 
-        boolean result = user.getEnrolled().contains(course);
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
 
-        session.persist(user);
+        UserCourse uc = session.get(UserCourse.class,id);
+
+        boolean result = uc != null;
+
         transaction.commit();
         return result;
     }
@@ -61,23 +66,18 @@ public class CourseService {
         Course course = session.get(Course.class,courseId);
         User user = session.get(User.class,userId);
 
-        user.getEnrolled().add(course);
-        course.getEnrolledStudents().add(user);
-
-        session.persist(user);
+        UserCourse uc = new UserCourse(user, course, 0);
+        session.persist(uc);
         transaction.commit();
         return true;
     }
 
     public boolean unenrollInCourse(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
-        Course course = session.get(Course.class,courseId);
-        User user = session.get(User.class,userId);
 
-        user.getEnrolled().remove(course);
-        course.getEnrolledStudents().remove(user);
-
-        session.persist(user);
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        session.delete(uc);
         transaction.commit();
         return true;
 

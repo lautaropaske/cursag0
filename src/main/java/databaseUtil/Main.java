@@ -5,12 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import services.CourseService;
-import services.UserService;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * @author Agustin Bettati
@@ -27,10 +21,10 @@ public class Main {
         LocalCourse course = session.get(LocalCourse.class,17);
         User user = session.get(User.class,14);
 
-        user.getEnrolled().add(course);
-        course.getEnrolledStudents().add(user);
-
-        session.persist(user);
+//        user.getEnrolledCourses().add(course);
+//        course.getEnrolledStudents().add(user);
+//
+//        session.persist(user);
 
         transaction.commit();
 

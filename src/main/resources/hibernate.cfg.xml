@@ -29,5 +29,6 @@
         <mapping class="model.Unit"/>
         <mapping class="model.User"/>
         <mapping class="model.Review"/>
+        <mapping class="model.UserCourse"/>
     </session-factory>
 </hibernate-configuration>

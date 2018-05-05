@@ -41,7 +41,20 @@ export class CourseService {
       userId+ '&courseId=' + courseId);
   }
 
+  makeProgress(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/makeProgress?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
 
+  goBack(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/goBack?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
+  finished(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/finished?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
 
   delete(id: number): Observable<Object>{
     return this.http.delete(URL + '/'+id);

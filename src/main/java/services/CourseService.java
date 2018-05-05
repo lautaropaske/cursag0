@@ -86,6 +86,40 @@ public class CourseService {
         session.delete(uc);
         transaction.commit();
         return true;
+    }
+
+    public boolean makeProgess(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(uc.getProgress() + 1);
+        session.persist(uc);
+        transaction.commit();
+        return true;
+    }
+
+    public boolean goBack(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(uc.getProgress() - 1);
+        session.persist(uc);
+        transaction.commit();
+        return true;
+
+    }
+
+    public boolean finished(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(-2);
+        session.persist(uc);
+        transaction.commit();
+        return true;
 
     }
 

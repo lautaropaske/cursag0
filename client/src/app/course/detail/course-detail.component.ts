@@ -27,12 +27,14 @@ import {Course} from "../../models/Course";
 export class CourseDetailComponent implements OnInit{
 
   course: Course;
+  progress: number;
   sessionId: number;
-  currentRate: number;
   isPublisher: boolean;
   isLocal: boolean;
   isEnrolled: boolean;
-  currentUnit: number;
+  loadedCourse: boolean;
+  loadedStatus: boolean;
+
 
   constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
 
@@ -46,9 +48,9 @@ export class CourseDetailComponent implements OnInit{
         console.log("Course was found successfully.");
         console.log(course);
         this.course = course;
-        this.currentRate = this.course.rating;
         this.isPublisher = course.publisher.id == this.sessionId;
         this.isLocal = course.link == null;
+        this.loadedCourse = true;
       },
       err => {
         console.log("Unable to get courses from database.");
@@ -63,9 +65,9 @@ export class CourseDetailComponent implements OnInit{
         }
         else{
           this.isEnrolled = true;
-          this.currentUnit = status;
+          this.progress = status;
         }
-
+        this.loadedStatus= true;
       },
       err => {
         console.log("error when verifing enrollment");
@@ -91,6 +93,10 @@ export class CourseDetailComponent implements OnInit{
 
   editCourse(): void{
     this.router.navigate(['/edit_course', this.course.id]);
+  }
+
+  doCourse(): void{
+    this.router.navigate(['/local', this.course.id, this.progress]);
   }
 
   enroll(): void {

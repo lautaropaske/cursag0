@@ -52,13 +52,33 @@ public class CourseResource {
         return service.enrollmentStatus(userId, courseId);
     }
 
+    //    http://localhost:8080/course/makeProgress?userId=14&courseId=17
+    @GET
+    @Path("/makeProgress")
+    public boolean userProgessesInCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.makeProgess(userId, courseId);
+    }
+
+    //    http://localhost:8080/course/goBack?userId=14&courseId=17
+    @GET
+    @Path("/goBack")
+    public boolean goBackOneUnit(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.goBack(userId, courseId);
+    }
+
+    @GET
+    @Path("/finished")
+    public boolean finished(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.finished(userId, courseId);
+    }
+
     @GET
     @Path("/unenroll")
     public boolean unenrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
         return service.unenrollInCourse(userId, courseId);
     }
 
-    //    http://localhost:8080/user/enroll?userId=14&courseId=17
+    //    http://localhost:8080/course/enroll?userId=14&courseId=17
     @GET
     @Path("/enroll")
     public boolean enrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){

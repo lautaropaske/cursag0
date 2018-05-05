@@ -3,14 +3,11 @@ package resources;
 import model.Unit;
 import services.UnitService;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/unit")
-@Consumes(MediaType.APPLICATION_JSON)
+
 @Produces(MediaType.APPLICATION_JSON)
 public class UnitResource {
 
@@ -19,7 +16,14 @@ public class UnitResource {
     public UnitResource() { this.unitService = new UnitService();}
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     public Unit createUnit(Unit unit){
         return unitService.createUnit(unit);
+    }
+
+//    http://localhost:8080/unit?courseId=14&index=0
+    @GET
+    public Unit getUnit(@QueryParam("courseId") int courseId, @QueryParam("index") int index){
+        return unitService.getUnit(courseId, index);
     }
 }

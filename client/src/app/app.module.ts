@@ -25,6 +25,7 @@ import {UnitFormComponent} from "./unitForm/unit-form.component";
 import {SearchComponent} from "./search/search.component";
 import {EditCourseComponent} from "./course/edit/edit-course.component";
 import {SearchService} from "./services/search.service";
+import {UnitService} from "./services/unit.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import {SearchService} from "./services/search.service";
     FormsModule
   ],
   providers: [ReverseAuthGuardService,AuthGuardService,
-    AuthService, UserService, CourseService, SearchService],
+    AuthService, UserService, CourseService, SearchService, UnitService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

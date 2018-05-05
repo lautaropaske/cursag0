@@ -40,11 +40,16 @@ public class CourseResource {
         return service.getCoursesPublishedBy(id);
     }
 
-    //    http://localhost:8080/course/isEnrolled?userId=14&courseId=17
+    /*
+     request: http://localhost:8080/course/enrollmentStatus?userId=14&courseId=17
+     codes:  -1 --> user is not enrolled
+             -2 --> user has completed course
+             < 0 --> index of current unit
+     */
     @GET
-    @Path("/isEnrolled")
-    public boolean userIsEnrolled(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
-        return service.userIsEnrolled(userId, courseId);
+    @Path("/enrollmentStatus")
+    public int enrollmentStatus(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.enrollmentStatus(userId, courseId);
     }
 
     @GET

@@ -32,6 +32,7 @@ export class CourseDetailComponent implements OnInit{
   isPublisher: boolean;
   isLocal: boolean;
   isEnrolled: boolean;
+  currentUnit: number;
 
   constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
 
@@ -55,9 +56,16 @@ export class CourseDetailComponent implements OnInit{
       }
     );
 
-    this.courseService.userIsEnrolled(this.sessionId, idOfCourse).subscribe(
-      result => {
-        this.isEnrolled = result;
+    this.courseService.enrollmentStatus(this.sessionId, idOfCourse).subscribe(
+      status=> {
+        if(status == -1){
+          this.isEnrolled = false;
+        }
+        else{
+          this.isEnrolled = true;
+          this.currentUnit = status;
+        }
+
       },
       err => {
         console.log("error when verifing enrollment");

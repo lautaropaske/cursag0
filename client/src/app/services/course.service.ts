@@ -26,8 +26,8 @@ export class CourseService {
     return this.http.get<Course[]>(URL + '/enrolledBy/' + id);
   }
 
-  userIsEnrolled(userId: number, courseId: number): Observable<boolean>{
-    return this.http.get<boolean>(URL + '/isEnrolled?userId=' +
+  enrollmentStatus(userId: number, courseId: number): Observable<number>{
+    return this.http.get<number>(URL + '/enrollmentStatus?userId=' +
       userId+ '&courseId=' + courseId);
   }
 
@@ -61,10 +61,6 @@ export class CourseService {
 
   addExtCourse(course: ExtCourse) : Observable<ExtCourse>{
     return this.http.post<ExtCourse>(URL + '/external',course);
-  }
-
-  addUnit(unit: Unit) : Observable<Unit>{
-    return this.http.post<Unit>('http://localhost:8080/unit',unit);
   }
 
   addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{

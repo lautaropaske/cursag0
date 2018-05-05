@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
 import {Course} from "../../models/Course";
 import { DomSanitizer } from '@angular/platform-browser';
+import {Unit} from "../../models/Unit";
+import {UnitService} from "../../services/unit.service";
 
 
 @Component({
@@ -11,26 +13,61 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class LocalCourseComponent implements OnInit{
 
-  course: Course;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute,
-              private sanitizer: DomSanitizer) {}
+  unit: Unit;
+  courseId: number;
+  userId: number;
+  finished: boolean;
+
+
+  constructor(private unitService: UnitService,private courseService: CourseService,
+              private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
 
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params["id"];
+    this.finished = false;
+    this.courseId = +this.route.snapshot.params["id"];
+    this.userId = +localStorage.getItem("id");
 
-    this.courseService.getCourse(id).subscribe(
-      course => {
-        console.log("Course was found successfully.");
-        console.log(course);
-        this.course = course;
+    let index = 0;
+    this.courseService.enrollmentStatus(this.userId, this.courseId).subscribe(
+      status=> {
+        console.log("status number obtained: " + status);
+        if(status == -2){
+          this.finished = true;
+          console.log('termino el curso');
+        }
+        else{
+
+          this.unitService.getUnit(this.courseId, status).subscribe(
+            unit => {
+              console.log("Unit was found successfully.");
+              console.log(unit);
+              this.unit = unit;
+            },
+            err => {
+              console.log("Unable to get unit from database.");
+              this.unit = null;
+            }
+          );
+        }
+
       },
       err => {
-        console.log("Unable to get courses from database.");
-        this.course = null;
+        console.log("error when getting enrollment status");
       }
     );
+  }
+
+  nextUnit(): void {
+    // this.courseService.makeProgress(this.sessionId, this.course.id).subscribe(
+    //   result => {
+    //     if(result){
+    //       this.isEnrolled = true;
+    //     }
+    //   }
+    //
+    // )
   }
 
   getId(url: string): string {

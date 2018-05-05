@@ -1,11 +1,8 @@
 <navbar></navbar>
 <div class="container">
-  <h1  class="display-4 mt-5">{{course.name}}</h1>
-
-  <div *ngFor="let unit of course.units">
     <h4>Unit {{unit.number}}: {{unit.name}}</h4>
     <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" +getId(unit.videoLink))' width="420" height="315" frameborder="0" allowfullscreen></iframe>
     <p>{{unit.textContent}}</p>
-  </div>
+  <button type="button" (click)="nextUnit();" class="btn mt-2 btn-success">next unit</button>
 
 </div>

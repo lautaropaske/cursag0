@@ -48,17 +48,23 @@ public class CourseService {
         return published;
     }
 
-    public boolean userIsEnrolled(int userId, int courseId) {
+    public int enrollmentStatus(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
 
         UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
 
         UserCourse uc = session.get(UserCourse.class,id);
 
-        boolean result = uc != null;
+        int response;
+        if(uc == null){
+            response = -1;
+        }
+        else{
+            response = uc.getProgress();
+        }
 
         transaction.commit();
-        return result;
+        return response;
     }
 
     public boolean enrollInCourse(int userId, int courseId) {

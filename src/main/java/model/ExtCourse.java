@@ -7,8 +7,8 @@ public class ExtCourse extends Course {
     private String link;
     private String source;
 
-    public ExtCourse(String name, String description, double price, double rating, User publisher, String link, String source) {
-        super(name,description,price,rating,publisher);
+    public ExtCourse(String name, String description, double price, User publisher, String link, String source) {
+        super(name,description,price,publisher);
         this.link = link;
         this.source = source;
     }

@@ -2,11 +2,11 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,15 +19,14 @@ public class Course implements Comparable<Course>{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @Field (termVector = TermVector.YES)
+    @Field(analyzer = @Analyzer(impl = StandardAnalyzer.class))
     private String name;
 
-    @Field
+    @Field(analyzer = @Analyzer(impl = StandardAnalyzer.class))
     private String description;
 
     private double price;
 
-    // TODO - Design proper rating strategy
     private double rating;
 
     @ManyToOne
@@ -37,15 +36,17 @@ public class Course implements Comparable<Course>{
     @JsonIgnore
     private Set<UserCourse> enrolledStudents = new HashSet<>();
 
+    @OneToMany(mappedBy = "reviewed")
+    @JsonIgnore
+    private Set<Review> reviews = new HashSet<>();
 
     public Course() {
     }
 
-    protected Course(String name, String description, double price, double rating, User publisher) {
+    protected Course(String name, String description, double price, User publisher) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.rating = rating;
         this.publisher = publisher;
     }
 
@@ -81,6 +82,16 @@ public class Course implements Comparable<Course>{
 
     @Override
     public int compareTo(@NotNull Course o) {
-        return Double.compare(this.rating, o.getRating());
+        return Double.compare(this.getRating(), o.getRating());
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        int r = reviews.size();
+        rating = rating * (r-1)/(r) + (review.getRating()/r);
     }
 }

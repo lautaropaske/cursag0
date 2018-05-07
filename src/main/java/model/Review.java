@@ -11,10 +11,14 @@ public class Review {
 
     private String textContent;
 
+    @Column(nullable = false)
     private int rating;
 
     @ManyToOne
     private User publisher;
+
+    @ManyToOne
+    private Course reviewed;
 
     public Review() {}
 
@@ -28,11 +32,15 @@ public class Review {
         return textContent;
     }
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
     public User getPublisher() {
         return publisher;
+    }
+
+    public Course getReviewed() {
+        return reviewed;
     }
 }

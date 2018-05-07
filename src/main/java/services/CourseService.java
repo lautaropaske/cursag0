@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -111,4 +112,12 @@ public class CourseService {
         transaction.commit();
     }
 
+    public List<Course> getSamplePopularCouses() {
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("FROM Course ORDER BY rating DESC");
+        query.setMaxResults(4);
+        List<Course> result = query.list();
+        transaction.commit();
+        return result;
+    }
 }

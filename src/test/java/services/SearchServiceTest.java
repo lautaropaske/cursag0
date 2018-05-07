@@ -25,9 +25,7 @@ public class SearchServiceTest {
 
         User author = session.get(User.class,1);
 
-        Course course = new ExtCourse("Java",
-                                        "java Michael Javson jab jab java jabbers javajavadoo",
-                                        1,4,author,"link","source");
+        Course course = new ExtCourse("Java", "java Michael Javson jab jab java jabbers javajavadoo", 1,author,"link","source");
 
         session.save(author);
         session.save(course);

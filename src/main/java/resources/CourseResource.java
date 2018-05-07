@@ -101,4 +101,11 @@ public class CourseResource {
     public void deleteCourse(@PathParam("courseID") int id) {
         service.deleteCourse(id);
     }
+
+    // Called in home.component for sample courses
+    @GET
+    @Path("/samplePopular")
+    public List<Course> getSamplePopularCourses(){
+        return service.getSamplePopularCouses();
+    }
 }

@@ -14,6 +14,10 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
+  getSomeCourses() : Observable<Course[]> {
+    return this.http.get<Course[]>(URL + '/samplePopular');
+  }
+
   getAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(URL);
   }

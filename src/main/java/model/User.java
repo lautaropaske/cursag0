@@ -18,6 +18,7 @@ public class User {
     @NaturalId
     private String mail;
 
+    @JsonIgnore
     private String password;
 
     private String name;
@@ -31,6 +32,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserCourse> enrolledCourses = new HashSet<>();
+
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE)
+    private Set<Review> madeReviews = new HashSet<>();
 
     public User(){}
 

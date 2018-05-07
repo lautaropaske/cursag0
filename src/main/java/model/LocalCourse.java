@@ -21,8 +21,8 @@ public class LocalCourse extends Course {
         this.units = new ArrayList<>();
     }
 
-    public LocalCourse(String name, String description, double price, double rating, User publisher) {
-        super(name,description,price,rating,publisher);
+    public LocalCourse(String name, String description, double price, User publisher) {
+        super(name,description,price,publisher);
         this.units = new ArrayList<>();
     }
 

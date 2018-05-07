@@ -12,12 +12,10 @@ export class HomeComponent implements OnInit{
 
   courses: Course[] = [];
 
-
   constructor(private courseService: CourseService) {}
 
-
   ngOnInit(): void {
-    this.courseService.getAllCourses().subscribe(
+    this.courseService.getSomeCourses().subscribe(
       courses => {
         console.log("Courses where found successfully.");
         console.log(courses);

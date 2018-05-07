@@ -36,10 +36,10 @@ public class SearchService {
                                             .forEntity(Course.class)
                                             .get();
 
-        org.apache.lucene.search.Query query = queryBuilder.phrase()
-                                                           .onField("description")
-                                                           .andField("name").boostedTo(2f)
-                                                           .sentence(token)
+        org.apache.lucene.search.Query query = queryBuilder.keyword()
+                                                           .fuzzy()
+                                                           .onFields("description","name")
+                                                           .matching(token)
                                                            .createQuery();
 
         org.hibernate.query.Query hibQuery = fts.createFullTextQuery(query, Course.class);

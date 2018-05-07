@@ -12,6 +12,26 @@ const URL ="http://localhost:8080/course";
 @Injectable()
 export class CourseService {
 
+  loadedCourses: Course[] = [];
+
+  addLoadedCourses(courses: Course[]){
+    courses.forEach(course => this.loadedCourses.push(course));
+  }
+
+  getLoadedCourseById(id: number): Course{
+    const courses = this.loadedCourses.filter(course => course.id == id);
+    if(courses.length > 0){
+      return courses[0];
+    }
+    else{
+      return null;
+    }
+  }
+
+  removeLoadedCourse(id: number) {
+    this.loadedCourses = this.loadedCourses.filter(course => course.id != id)
+  }
+
   constructor(private http: HttpClient) { }
 
   getAllCourses(): Observable<Course[]> {
@@ -79,5 +99,4 @@ export class CourseService {
   addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{
     return this.http.post<LocalCourse>(URL + '/local',course);
   }
-
 }

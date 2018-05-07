@@ -66,6 +66,7 @@ export class EditCourseComponent implements OnInit{
         course => {
           console.log("Course has been updated");
           console.log(course);
+          this.courseService.removeLoadedCourse(this.course.id);
           this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
         },
         err => {
@@ -79,6 +80,8 @@ export class EditCourseComponent implements OnInit{
         course => {
           console.log("Course has been updated");
           console.log(course);
+          this.courseService.removeLoadedCourse(this.course.id);
+          this.courseService.addLoadedCourses([this.course]);
           this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
         },
         err => {

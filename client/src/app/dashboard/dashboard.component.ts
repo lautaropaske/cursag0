@@ -24,10 +24,12 @@ export class DashboardComponent implements OnInit{
   ngOnInit(): void {
     this.id = +localStorage.getItem("id");
 
+    this.courseService.loadedCourses = [];
     this.courseService.getCoursesPublishedByUser(this.id).subscribe(
       courses => {
         console.log("Published courses found successfully.");
         console.log(courses);
+        this.courseService.addLoadedCourses(courses);
         this.createdCourses = courses;
         this.loadedCreated = true;
       },
@@ -41,6 +43,7 @@ export class DashboardComponent implements OnInit{
       courses => {
         console.log("Enrolled courses found successfully.");
         console.log(courses);
+        this.courseService.addLoadedCourses(courses);
         this.enrolledCourses = courses;
         this.loadedEnrolled = true;
       },

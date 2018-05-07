@@ -17,10 +17,12 @@ export class HomeComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.courseService.loadedCourses = [];
     this.courseService.getAllCourses().subscribe(
       courses => {
         console.log("Courses where found successfully.");
         console.log(courses);
+        this.courseService.addLoadedCourses(courses);
         this.courses = courses;
       },
       err => {

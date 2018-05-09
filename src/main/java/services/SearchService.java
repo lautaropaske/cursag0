@@ -19,8 +19,6 @@ public class SearchService {
     }
 
     @SuppressWarnings("unchecked")
-    // https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#_searching
-    // Working from this documentation
     public List<Course> searchCourses(String token) {
 
         try {
@@ -36,15 +34,14 @@ public class SearchService {
                                             .forEntity(Course.class)
                                             .get();
 
-        org.apache.lucene.search.Query query = queryBuilder.keyword()
-                                                           .fuzzy()
-                                                           .onFields("description","name")
+        org.apache.lucene.search.Query query = queryBuilder.simpleQueryString()
+                                                           .onField("description").andField("name")
                                                            .matching(token)
                                                            .createQuery();
 
         org.hibernate.query.Query hibQuery = fts.createFullTextQuery(query, Course.class);
 
-        List result = hibQuery.list();
+        List result = hibQuery.getResultList();
 
         tx.commit();
 

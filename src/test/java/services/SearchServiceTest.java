@@ -35,12 +35,13 @@ public class SearchServiceTest {
 
         List result = ss.searchCourses(requestToken);
 
-        assertTrue(result.contains(course));
-
-        Transaction newTransaction = session.beginTransaction();
-        session.delete(course);
-        newTransaction.commit();
-
-        session.close();
+        try {
+            assertTrue(result.contains(course));
+        } finally {
+            Transaction newTransaction = session.beginTransaction();
+            session.delete(course);
+            newTransaction.commit();
+            session.close();
+        }
     }
 }

@@ -16,13 +16,14 @@ import java.util.Set;
 public class Course implements Comparable<Course>{
 
     @Id
+    @DocumentId
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @Field(analyzer = @Analyzer(impl = StandardAnalyzer.class))
+    @Field(termVector = TermVector.YES)
     private String name;
 
-    @Field(analyzer = @Analyzer(impl = StandardAnalyzer.class))
+    @Field
     private String description;
 
     private double price;

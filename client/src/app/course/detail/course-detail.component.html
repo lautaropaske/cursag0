@@ -29,7 +29,10 @@
           <div class="col-md-8">
             <div class="progress">
               <div class="progress-bar progress-bar-striped" [style.width]="status/course.units.length*100 + '%'">
-                completed {{status}} out of {{course.units.length}}
+
+                <small class="justify-content-center d-flex position-absolute w-100">
+                  completed {{status}} out of {{course.units.length}}
+                </small>
               </div>
             </div>
           </div>
@@ -63,34 +66,45 @@
 
 <div class="container">
 
-  <div *ngIf="!isLocal; then externalCourse else localCourse"></div>
+  <div class="row">
 
-  <!--CURSO LOCAL-->
-  <ng-template #localCourse>
-    <h1 class="display-5">List of Units:</h1>
-    <ul>
-      <li *ngFor="let unit of course.units">
-        <p>Unit {{unit.number}}: {{unit.name}}</p>
-      </li>
-    </ul>
-    <div *ngIf="isPublisher">
-      <button [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
+    <!--Info adiccional de curso-->
+    <div class="col-md-6" style="padding-right:20px; border-right: 2px solid #ccc;">
+
+      <div *ngIf="!isLocal; then externalCourse else localCourse"></div>
+      <!-- if CURSO LOCAL-->
+      <ng-template #localCourse>
+        <h3 class="display-5">List of Units:</h3>
+        <ul>
+          <li *ngFor="let unit of course.units">
+            <p>Unit {{unit.number}}: {{unit.name}}</p>
+          </li>
+        </ul>
+      </ng-template>
+
+      <!-- if CURSO EXTERNO-->
+      <ng-template #externalCourse>
+        <p class="card-text">Source of course: {{course.source}}</p>
+        <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
+      </ng-template>
     </div>
-  </ng-template>
 
-  <!--CURSO EXTERNO-->
-  <ng-template #externalCourse>
-    <p class="card-text">Source of course: {{course.source}}</p>
-    <p class="card-text">Link: <a href="{{course.link}}">{{course.link}}</a></p>
-  </ng-template>
+  <!--seccion de commentarios-->
+    <div class="col-md-6">
+      <h3>Comments section</h3>
+    </div>
+
+  </div>
+
 
 
   <!--ES EL PUBLISHER-->
   <div *ngIf="isPublisher">
+    <div *ngIf="isLocal">
+      <button [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
+    </div>
     <button type="button" (click)="editCourse();" class="btn mt-2 btn-outline-warning">Edit course</button>
     <button type="button" (click)="deleteCourse();" class="btn mt-2 btn-outline-danger">Delete course</button>
-
-
   </div>
 
 </div>

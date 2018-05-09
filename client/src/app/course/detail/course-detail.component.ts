@@ -26,6 +26,13 @@ import {Course} from "../../models/Course";
     .progress {
       background-color: #aaa;
     }
+    .progress {height: 30px;}
+    .progress .sr-only { position: relative; }
+    
+    .small, small {
+      font-size: 120%;
+      font-weight: 500;
+    }
   `]
 })
 export class CourseDetailComponent implements OnInit{

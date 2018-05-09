@@ -43,4 +43,5 @@ public class Review {
     public Course getReviewed() {
         return reviewed;
     }
+
 }

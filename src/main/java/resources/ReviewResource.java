@@ -5,7 +5,9 @@ import services.ReviewService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
+@Path("/review")
 public class ReviewResource {
 
     private ReviewService service;
@@ -19,6 +21,14 @@ public class ReviewResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Review getReview(@PathParam("reviewID") int id){
         return service.getReview(id);
+    }
+
+
+//    http://localhost:8080/review?courseId=14
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Review> getReviewsOfCourse(@QueryParam("courseId") int courseId){
+        return service.getReviewsOfCourse(courseId);
     }
 
     @POST

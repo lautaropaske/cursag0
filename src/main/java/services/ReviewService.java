@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class ReviewService {
 
     private Session session;
@@ -42,5 +44,13 @@ public class ReviewService {
         Transaction transaction = session.beginTransaction();
         session.delete(session.get(Review.class,id));
         transaction.commit();
+    }
+
+    public List<Review> getReviewsOfCourse(int courseId) {
+        Transaction transaction = session.beginTransaction();
+        List<Review> reviews = session.createQuery("FROM Review WHERE reviewed.id = " +courseId).list();
+        transaction.commit();
+        return reviews;
+
     }
 }

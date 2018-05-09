@@ -27,6 +27,7 @@ import {EditCourseComponent} from "./course/edit/edit-course.component";
 import {SearchService} from "./services/search.service";
 import {UnitService} from "./services/unit.service";
 import {EndbarComponent} from "./endbar/endbar.component";
+import {ReviewService} from "./services/review.service";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import {EndbarComponent} from "./endbar/endbar.component";
     FormsModule
   ],
   providers: [ReverseAuthGuardService,AuthGuardService,
-    AuthService, UserService, CourseService, SearchService, UnitService],
+    AuthService, UserService, CourseService, SearchService, UnitService, ReviewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

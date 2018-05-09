@@ -5,7 +5,28 @@ import {CourseService} from "../services/course.service";
 
 @Component({
   selector: 'profile',
-  templateUrl : './dashboard.component.html'
+  templateUrl : './dashboard.component.html',
+  styles: [`
+    .star {
+      position: relative;  
+      display: inline-block;
+      font-size: 1rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+
+    .progress {
+      background-color: #aaa;
+    }
+  `]
 })
 export class DashboardComponent implements OnInit{
 

@@ -36,7 +36,6 @@ export class CourseDetailComponent implements OnInit{
   isPublisher: boolean;
   isLocal: boolean;
   isEnrolled: boolean;
-  // loadedCourse: boolean;
   loadedStatus: boolean;
   loadedCourse: boolean;
 

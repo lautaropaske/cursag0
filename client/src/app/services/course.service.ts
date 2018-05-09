@@ -12,29 +12,27 @@ const URL ="http://localhost:8080/course";
 @Injectable()
 export class CourseService {
 
-  constructor(private http: HttpClient) {}
+  loadedCourses: Course[] = [];
 
-  // loadedCourses: Course[] = [];
-  //
-  // addLoadedCourses(courses: Course[]){
-  //   courses.forEach(course => this.loadedCourses.push(course));
-  // }
-  //
-  // getLoadedCourseById(id: number): Course{
-  //   const courses = this.loadedCourses.filter(course => course.id == id);
-  //   if(courses.length > 0){
-  //     return courses[0];
-  //   }
-  //   else{
-  //     return null;
-  //   }
-  // }
-  //
-  // removeLoadedCourse(id: number) {
-  //   this.loadedCourses = this.loadedCourses.filter(course => course.id != id)
-  // }
-  //
-  // constructor(private http: HttpClient) { }
+  addLoadedCourses(courses: Course[]){
+    courses.forEach(course => this.loadedCourses.push(course));
+  }
+
+  getLoadedCourseById(id: number): Course{
+    const courses = this.loadedCourses.filter(course => course.id == id);
+    if(courses.length > 0){
+      return courses[0];
+    }
+    else{
+      return null;
+    }
+  }
+
+  removeLoadedCourse(id: number) {
+    this.loadedCourses = this.loadedCourses.filter(course => course.id != id)
+  }
+
+  constructor(private http: HttpClient) { }
 
   getCarouselCourses() : Observable<Course[]> {
     return this.http.get<Course[]>(URL + '/carousel');

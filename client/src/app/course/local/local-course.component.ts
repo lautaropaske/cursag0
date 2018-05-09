@@ -1,8 +1,9 @@
 import {CourseService} from "../../services/course.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
 import {Course} from "../../models/Course";
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {Unit} from "../../models/Unit";
 
 
 @Component({
@@ -11,26 +12,64 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class LocalCourseComponent implements OnInit{
 
-  course: Course;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute,
-              private sanitizer: DomSanitizer) {}
+  course: Course;
+  unit: Unit;
+  progress: number;
+
+
+  constructor(private courseService: CourseService,
+              private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer) {}
 
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params["id"];
+    const courseId = +this.route.snapshot.params["courseId"];
+    this.progress = +this.route.snapshot.params["progress"];
 
-    this.courseService.getCourse(id).subscribe(
-      course => {
-        console.log("Course was found successfully.");
-        console.log(course);
-        this.course = course;
-      },
-      err => {
-        console.log("Unable to get courses from database.");
-        this.course = null;
-      }
-    );
+
+
+    this.course = this.courseService.getLoadedCourseById(courseId);
+    if(this.course == null){
+      this.courseService.getCourse(courseId).subscribe(
+        course => {
+          console.log("Course was found successfully.");
+          console.log(course);
+          this.courseService.addLoadedCourses([course]);
+          this.course = course;
+
+        },
+        err => {
+          console.log("Unable to get courses from database.");
+          this.course = null;
+        }
+      );
+    }
+    this.unit = this.course.units[this.progress];
+  }
+
+  nextUnit(): void {
+    this.courseService.makeProgress(+localStorage.getItem("id"),this.course.id)
+      .subscribe()
+    this.progress = this.progress + 1;
+    this.unit = this.course.units[this.progress];
+  }
+
+  previousUnit(): void {
+    this.courseService.goBack(+localStorage.getItem("id"),this.course.id)
+      .subscribe()
+    this.progress = this.progress - 1;
+    this.unit = this.course.units[this.progress];
+  }
+
+  finished(): void {
+    this.courseService.finished(+localStorage.getItem("id"),this.course.id)
+      .subscribe();
+    this.router.navigate(['/details', this.course.id]);
+  }
+
+  getUrl(): SafeResourceUrl{
+    return this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"
+                                                    + this.getId(this.unit.videoLink));
   }
 
   getId(url: string): string {

@@ -40,11 +40,36 @@ public class CourseResource {
         return service.getCoursesPublishedBy(id);
     }
 
-    //    http://localhost:8080/course/isEnrolled?userId=14&courseId=17
+    /*
+     request: http://localhost:8080/course/enrollmentStatus?userId=14&courseId=17
+     codes:  -1 --> user is not enrolled
+             -2 --> user has completed course
+             < 0 --> index of current unit
+     */
     @GET
-    @Path("/isEnrolled")
-    public boolean userIsEnrolled(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
-        return service.userIsEnrolled(userId, courseId);
+    @Path("/enrollmentStatus")
+    public int enrollmentStatus(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.enrollmentStatus(userId, courseId);
+    }
+
+    //    http://localhost:8080/course/makeProgress?userId=14&courseId=17
+    @GET
+    @Path("/makeProgress")
+    public boolean userProgessesInCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.makeProgess(userId, courseId);
+    }
+
+    //    http://localhost:8080/course/goBack?userId=14&courseId=17
+    @GET
+    @Path("/goBack")
+    public boolean goBackOneUnit(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.goBack(userId, courseId);
+    }
+
+    @GET
+    @Path("/finished")
+    public boolean finished(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.finished(userId, courseId);
     }
 
     @GET
@@ -53,7 +78,7 @@ public class CourseResource {
         return service.unenrollInCourse(userId, courseId);
     }
 
-    //    http://localhost:8080/user/enroll?userId=14&courseId=17
+    //    http://localhost:8080/course/enroll?userId=14&courseId=17
     @GET
     @Path("/enroll")
     public boolean enrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){

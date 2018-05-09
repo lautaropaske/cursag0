@@ -1,11 +1,15 @@
 <navbar></navbar>
 <div class="container">
-  <h1  class="display-4 mt-5">{{course.name}}</h1>
-
-  <div *ngFor="let unit of course.units">
     <h4>Unit {{unit.number}}: {{unit.name}}</h4>
-    <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" +getId(unit.videoLink))' width="420" height="315" frameborder="0" allowfullscreen></iframe>
+    <iframe [src]='getUrl()' width="420" height="315" frameborder="0" allowfullscreen></iframe>
     <p>{{unit.textContent}}</p>
+  <div *ngIf="progress + 1 < course.units.length">
+    <button type="button" (click)="nextUnit();" class="btn mt-2 btn-success">Next</button>
   </div>
-
+  <div *ngIf="progress > 0">
+    <button type="button" (click)="previousUnit();" class="btn mt-2 btn-success">Previous</button>
+  </div>
+  <div *ngIf="progress + 1 == course.units.length">
+    <button type="button" (click)="finished();" class="btn mt-2 btn-success">Finished!</button>
+  </div>
 </div>

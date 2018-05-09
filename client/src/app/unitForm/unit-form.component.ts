@@ -6,6 +6,7 @@ import {ExtCourse} from "../models/ExtCourse";
 import {Unit} from "../models/Unit";
 import {User} from "../models/User";
 import {Course} from "../models/Course";
+import {UnitService} from "../services/unit.service";
 
 @Component({
   selector: 'unit-form',
@@ -18,7 +19,8 @@ export class UnitFormComponent implements OnInit{
   idOfParentCourse: number;
   displayError : boolean;
 
-  constructor(private router: Router,private route: ActivatedRoute, private courseService: CourseService, private fb : FormBuilder) {
+  constructor(private router: Router,private route: ActivatedRoute, private unitService: UnitService,
+              private fb : FormBuilder, private courseService: CourseService) {
     this.displayError = false;
   }
 
@@ -44,14 +46,15 @@ export class UnitFormComponent implements OnInit{
     this.unit.parent = parentCourse;
 
     console.log(this.unit);
-    this.courseService.addUnit(this.unit).subscribe(
+    this.unitService.addUnit(this.unit).subscribe(
       unit => {
         console.log("Unit was successfully created");
         console.log(unit);
+        this.courseService.removeLoadedCourse(this.idOfParentCourse);
         this.router.navigate(['/details',this.idOfParentCourse]);
       },
       err => {
-        console.log("error ocurred in post of signup");
+        console.log("error ocurred when adding unit");
         this.displayError = true;
       }
     );

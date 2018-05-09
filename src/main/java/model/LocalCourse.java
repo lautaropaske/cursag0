@@ -6,16 +6,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class LocalCourse extends Course {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-    private Collection<Unit> units;
+    private List<Unit> units;
 
     public LocalCourse(){
         this.units = new ArrayList<>();
@@ -27,7 +24,7 @@ public class LocalCourse extends Course {
     }
 
 
-    public Collection<Unit> getUnits(){return units;}
+    public List<Unit> getUnits(){return units;}
 
     public void addUnit(Unit unit){
         units.add(unit);
@@ -37,7 +34,7 @@ public class LocalCourse extends Course {
         units.remove(unit);
     }
 
-    public void setUnits(Collection<Unit> units) {
+    public void setUnits(List<Unit> units) {
         this.units = units;
     }
 

@@ -22,16 +22,24 @@ import {Course} from "../../models/Course";
       overflow: hidden;
       color: red;
     }
+
+    .progress {
+      background-color: #aaa;
+    }
   `]
 })
 export class CourseDetailComponent implements OnInit{
 
   course: Course;
+  status: number;
   sessionId: number;
-  currentRate: number;
   isPublisher: boolean;
   isLocal: boolean;
   isEnrolled: boolean;
+  // loadedCourse: boolean;
+  loadedStatus: boolean;
+  loadedCourse: boolean;
+
 
   constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
 
@@ -40,24 +48,22 @@ export class CourseDetailComponent implements OnInit{
     const idOfCourse = +this.route.snapshot.params["id"];
     this.sessionId = +localStorage.getItem("id");
 
-    this.courseService.getCourse(idOfCourse).subscribe(
-      course => {
-        console.log("Course was found successfully.");
-        console.log(course);
-        this.course = course;
-        this.currentRate = this.course.rating;
-        this.isPublisher = course.publisher.id == this.sessionId;
-        this.isLocal = course.link == null;
-      },
-      err => {
-        console.log("Unable to get courses from database.");
-        this.course = null;
-      }
-    );
+    this.courseService.enrollmentStatus(this.sessionId, idOfCourse).subscribe(
+      status=> {
+        if(status == -1){
+          this.isEnrolled = false;
+        }
+        else if(status == -2){
+          console.log('course has been completed');
+          this.isEnrolled = true;
+        }
+        else{
+          this.isEnrolled = true;
+        }
+        this.status = status;
+        this.loadedStatus= true;
 
-    this.courseService.userIsEnrolled(this.sessionId, idOfCourse).subscribe(
-      result => {
-        this.isEnrolled = result;
+        console.log('status code: ' +status);
       },
       err => {
         console.log("error when verifing enrollment");
@@ -65,6 +71,27 @@ export class CourseDetailComponent implements OnInit{
       }
     );
 
+    this.course = this.courseService.getLoadedCourseById(idOfCourse);
+    if(this.course == null){
+      this.courseService.getCourse(idOfCourse).subscribe(
+        course => {
+          console.log("Course was found successfully.");
+          console.log(course);
+          this.courseService.addLoadedCourses([course]);
+          this.course = course;
+          this.isPublisher = course.publisher.id == this.sessionId;
+          this.isLocal = course.link == null;
+          this.loadedCourse = true;
+        },
+        err => {
+          console.log("Unable to get courses from database.");
+          this.course = null;
+        }
+      );
+    }
+    this.isPublisher = this.course.publisher.id == this.sessionId;
+    this.isLocal = this.course.link == null;
+    this.loadedCourse = true;
 
 
   }
@@ -73,6 +100,7 @@ export class CourseDetailComponent implements OnInit{
     this.courseService.delete(this.course.id).subscribe(
       data => {
         console.log("Delete probably went well");
+        this.courseService.removeLoadedCourse(this.course.id);
         this.router.navigate(['/dashboard']);
       },
       err => {
@@ -85,11 +113,16 @@ export class CourseDetailComponent implements OnInit{
     this.router.navigate(['/edit_course', this.course.id]);
   }
 
+  doCourse(): void{
+    this.router.navigate(['/local', this.course.id, this.status]);
+  }
+
   enroll(): void {
     this.courseService.enrollUser(this.sessionId, this.course.id).subscribe(
       result => {
         if(result){
           this.isEnrolled = true;
+          this.status = 0;
         }
       }
 

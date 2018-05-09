@@ -19,7 +19,7 @@ const routes: Routes = [
 
   { path: 'create_course',  component:CourseFormComponent, canActivate: [AuthGuard] },
   { path: "details/:id", component: CourseDetailComponent,canActivate: [AuthGuard] },
-  { path: "local/:id", component: LocalCourseComponent,canActivate: [AuthGuard] },
+  { path: "local/:courseId/:progress", component: LocalCourseComponent,canActivate: [AuthGuard] },
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [AuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

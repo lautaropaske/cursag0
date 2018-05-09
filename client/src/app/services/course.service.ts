@@ -14,6 +14,28 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
+  // loadedCourses: Course[] = [];
+  //
+  // addLoadedCourses(courses: Course[]){
+  //   courses.forEach(course => this.loadedCourses.push(course));
+  // }
+  //
+  // getLoadedCourseById(id: number): Course{
+  //   const courses = this.loadedCourses.filter(course => course.id == id);
+  //   if(courses.length > 0){
+  //     return courses[0];
+  //   }
+  //   else{
+  //     return null;
+  //   }
+  // }
+  //
+  // removeLoadedCourse(id: number) {
+  //   this.loadedCourses = this.loadedCourses.filter(course => course.id != id)
+  // }
+  //
+  // constructor(private http: HttpClient) { }
+
   getCarouselCourses() : Observable<Course[]> {
     return this.http.get<Course[]>(URL + '/carousel');
   }
@@ -34,8 +56,8 @@ export class CourseService {
     return this.http.get<Course[]>(URL + '/enrolledBy/' + id);
   }
 
-  userIsEnrolled(userId: number, courseId: number): Observable<boolean>{
-    return this.http.get<boolean>(URL + '/isEnrolled?userId=' +
+  enrollmentStatus(userId: number, courseId: number): Observable<number>{
+    return this.http.get<number>(URL + '/enrollmentStatus?userId=' +
       userId+ '&courseId=' + courseId);
   }
 
@@ -49,7 +71,20 @@ export class CourseService {
       userId+ '&courseId=' + courseId);
   }
 
+  makeProgress(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/makeProgress?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
 
+  goBack(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/goBack?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
+  finished(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/finished?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
 
   delete(id: number): Observable<Object>{
     return this.http.delete(URL + '/'+id);
@@ -71,12 +106,7 @@ export class CourseService {
     return this.http.post<ExtCourse>(URL + '/external',course);
   }
 
-  addUnit(unit: Unit) : Observable<Unit>{
-    return this.http.post<Unit>('http://localhost:8080/unit',unit);
-  }
-
   addLocalCourse(course: LocalCourse) : Observable<LocalCourse>{
     return this.http.post<LocalCourse>(URL + '/local',course);
   }
-
 }

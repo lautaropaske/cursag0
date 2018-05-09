@@ -24,6 +24,7 @@ public class UserCourse {
 
     private int progress;
 
+
     public UserCourse(User u, Course c, int progress) {
         // create primary key
         this.id = new UserCourseId(u.getId(), c.getId());

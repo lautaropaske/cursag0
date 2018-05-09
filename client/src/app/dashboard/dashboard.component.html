@@ -2,9 +2,10 @@
 
 <div class="container mt-3">
   <div class="mb-3 d-flex justify-content-around">
-    <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">View our courses</button>
     <button type="button" (click)="createCourse();" class="btn mt-3 btn-warning">Create course</button>
+    <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">View our courses</button>
   </div>
+  <div *ngIf="loadedEnrolled && loadedCreated">
   <!--Si solo se inscribe (USUARIO NORMAL)-->
   <div *ngIf="createdCourses.length == 0 && enrolledCourses.length !=0">
     <p>Enrolled and tagged courses:</p>
@@ -70,6 +71,7 @@
 
   <div *ngIf="createdCourses.length == 0 && enrolledCourses.length == 0">
     <p>Feel free to look at our course or created your own!</p>
+  </div>
   </div>
 
 </div>

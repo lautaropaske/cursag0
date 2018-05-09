@@ -1,4 +1,5 @@
 <navbar></navbar>
+<div *ngIf="loadedStatus && loadedCourse">
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -11,7 +12,7 @@
     <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
   </span>
     </ng-template>
-    <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+    <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
     <p class="card-text">Price: {{course.price}}</p>
     <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
@@ -19,7 +20,26 @@
     <!--INSCRIBIRSE A CURSO LOCAL-->
     <div *ngIf="isLocal">
       <div *ngIf="isEnrolled">
+        <div *ngIf="status == -2">
+          You have finished this course, make sure to leave a comment to help the publisher and community!
+        </div>
+        <div *ngIf="status != -2">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped" [style.width]="status/course.units.length*100 + '%'">
+                completed {{status}} out of {{course.units.length}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <button type="button" (click)="doCourse();" class="btn mt-2 btn-primary">Continue Course</button>
+          </div>
+
+        </div>
+        </div>
         <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unenroll</button>
+
       </div>
 
       <div *ngIf="!isEnrolled">
@@ -55,7 +75,6 @@
     <div *ngIf="isPublisher">
       <button [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
     </div>
-    <button [routerLink]="['/local', course.id]" type="button" class="btn mt-2 btn-primary">Do course</button>
   </ng-template>
 
   <!--CURSO EXTERNO-->
@@ -75,5 +94,6 @@
 
 </div>
 
+</div>
 
 

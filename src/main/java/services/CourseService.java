@@ -46,17 +46,23 @@ public class CourseService {
         return published;
     }
 
-    public boolean userIsEnrolled(int userId, int courseId) {
+    public int enrollmentStatus(int userId, int courseId) {
         Transaction transaction = session.beginTransaction();
 
         UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
 
         UserCourse uc = session.get(UserCourse.class,id);
 
-        boolean result = uc != null;
+        int response;
+        if(uc == null){
+            response = -1;
+        }
+        else{
+            response = uc.getProgress();
+        }
 
         transaction.commit();
-        return result;
+        return response;
     }
 
     public boolean enrollInCourse(int userId, int courseId) {
@@ -76,6 +82,40 @@ public class CourseService {
         UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
         UserCourse uc = session.get(UserCourse.class,id);
         session.delete(uc);
+        transaction.commit();
+        return true;
+    }
+
+    public boolean makeProgess(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(uc.getProgress() + 1);
+        session.persist(uc);
+        transaction.commit();
+        return true;
+    }
+
+    public boolean goBack(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(uc.getProgress() - 1);
+        session.persist(uc);
+        transaction.commit();
+        return true;
+
+    }
+
+    public boolean finished(int userId, int courseId) {
+        Transaction transaction = session.beginTransaction();
+
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(-2);
+        session.persist(uc);
         transaction.commit();
         return true;
 

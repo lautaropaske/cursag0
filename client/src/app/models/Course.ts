@@ -29,4 +29,7 @@ export class Course{
   units: Unit[];
 
 
+  static create_empty() : Course{
+      return new Course(undefined);
+  }
 }

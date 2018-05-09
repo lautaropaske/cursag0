@@ -1,5 +1,6 @@
 import {Course} from "./Course";
 import {User} from "./User";
+import {ExtCourse} from "./ExtCourse";
 
 export class Review {
   id: number;
@@ -19,5 +20,9 @@ export class Review {
     this.rating = rating;
     this.publisher = publisher;
     this.reviewed = reviewed;
+  }
+
+  static create_empty() : Review{
+    return new Review(undefined,'',undefined,undefined, undefined);
   }
 }

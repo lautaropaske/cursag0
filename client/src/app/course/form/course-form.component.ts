@@ -60,7 +60,7 @@ export class CourseFormComponent{
         this.router.navigate(['/details',course.id]);
       },
       err => {
-        console.log("error ocurred in post of signup");
+        console.log("LocalCourse could not be created");
         this.displayError = true;
       }
     );
@@ -79,7 +79,7 @@ export class CourseFormComponent{
         this.router.navigate(['/details',course.id]); // cambiar por una redirección al url del curso
       },
       err => {
-        console.log("error ocurred in post of signup");
+        console.log("ExtCourse could not be created");
         this.displayError = true;
       }
     );

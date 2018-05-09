@@ -1,43 +1,28 @@
 <navbar></navbar>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active" style="height: 100vh">
-      <img class="d-block w-100" src="assets/slider-1.jpg">
-      <div class="carousel-caption d-none d-md-block">
-        <div class="display-4 mb-5">Bootstrap 4</div>
-        <p class="mb-5">The most popular HTML, CSS, and JS library in the world.</p>
-      </div>
+<ngb-carousel>
+  <ng-template ngbSlide>
+    <img class="d-block w-100" src="assets/slider-1.jpg" style="height: 100vh" alt="First slide">
+    <div class="carousel-caption d-none d-md-block">
+      <h3><a [routerLink]="['/details', carouselCourses[0].id]">{{carouselCourses[0].name}}</a></h3>
+      <p>{{carouselCourses[0].description}}</p>
     </div>
-    <div class="carousel-item" style="height: 100vh">
-      <img class="d-block w-100" src="assets/slider-2.jpg">
-      <div class="carousel-caption d-none d-md-block">
-        <div class="display-4 mb-5">Angular 5</div>
-        <p class="mb-5">Angular turns your templates into code that's highly optimized for today's JavaScript virtual machines, giving you all the benefits of hand-written code with the productivity of a framework.</p>
-      </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <img class="d-block w-100" src="assets/slider-2.jpg" style="height: 100vh" alt="Second slide">
+    <div class="carousel-caption">
+      <h3><a [routerLink]="['/details', carouselCourses[1].id]">{{carouselCourses[1].name}}</a></h3>
+      <p>{{carouselCourses[1].description}}</p>
     </div>
-    <div class="carousel-item" style="height: 100vh">
-      <img class="d-block w-100" src="assets/slider-3.jpg">
-      <div class="carousel-caption d-none d-md-block">
-        <div class="display-4 mb-5">Play Framework</div>
-        <p class="mb-5">Play Framework makes it easy to build web applications with Java & Scala. Play is based on a lightweight, stateless, web-friendly architecture.</p>
-      </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <img class="d-block w-100" src="assets/slider-3.jpg" style="height: 100vh" alt="Third slide">
+    <div class="carousel-caption">
+      <h3><a [routerLink]="['/details', carouselCourses[2].id]">{{carouselCourses[2].name}}</a></h3>
+      <p>{{carouselCourses[2].description}}</p>
     </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  </ng-template>
+</ngb-carousel>
 
 <div class="container mt-5">
 
@@ -49,7 +34,13 @@
         <a [routerLink]="['/details', course.id]">
           <h5 class="card-title">{{course.name}}</h5>
         </a>
-        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+        <ng-template #t let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+          </span>
+        </ng-template>
+        <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+
         <p class="card-text">{{course.description}}</p>
         <p class="card-text">Publisher: {{course.publisher.surname}}</p>
       </div>
@@ -57,8 +48,4 @@
   </div>
 </div>
 
-<script>
-  $('.carousel-control').click(function(e){
-    e.preventDefault();
-  });
-</script>
+<endbar></endbar>

@@ -12,7 +12,11 @@ const URL ="http://localhost:8080/course";
 @Injectable()
 export class CourseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  getCarouselCourses() : Observable<Course[]> {
+    return this.http.get<Course[]>(URL + '/carousel');
+  }
 
   getSomeCourses() : Observable<Course[]> {
     return this.http.get<Course[]>(URL + '/samplePopular');

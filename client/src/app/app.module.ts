@@ -25,6 +25,7 @@ import {UnitFormComponent} from "./unitForm/unit-form.component";
 import {SearchComponent} from "./search/search.component";
 import {EditCourseComponent} from "./course/edit/edit-course.component";
 import {SearchService} from "./services/search.service";
+import {EndbarComponent} from "./endbar/endbar.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {SearchService} from "./services/search.service";
     UnitFormComponent,
     EditCourseComponent,
     LocalCourseComponent,
-    SearchComponent
+    SearchComponent,
+    EndbarComponent
   ],
   imports: [
     NgbModule.forRoot(),

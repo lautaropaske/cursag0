@@ -9,10 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CourseService {
 
@@ -106,6 +103,7 @@ public class CourseService {
     }
 
     //TODO verificar mejor práctica para hacer el delete. Tomamos el ID pq el component tira error al hacer this.http.delete(...,OBJECT)
+
     public void deleteCourse(int id) {
         Transaction transaction = session.beginTransaction();
         session.delete(session.get(Course.class,id));
@@ -117,6 +115,18 @@ public class CourseService {
         Query query = session.createQuery("FROM Course ORDER BY rating DESC");
         query.setMaxResults(4);
         List<Course> result = query.list();
+        transaction.commit();
+        return result;
+    }
+
+    //TODO must have COURSES with ID 20,22,24 in db
+
+    public List<Course> getCarouselCourses() {
+        Transaction transaction = session.beginTransaction();
+        List<Course> result = new ArrayList<>();
+        result.add(session.get(Course.class,20));
+        result.add(session.get(Course.class,22));
+        result.add(session.get(Course.class,24));
         transaction.commit();
         return result;
     }

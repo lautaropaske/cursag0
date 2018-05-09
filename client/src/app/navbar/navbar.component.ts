@@ -35,6 +35,9 @@ export class NavbarComponent implements OnInit{
 
   access(): void{
     this.router.navigate(['access']);
+  }
 
+  createCourse(): void{
+    this.router.navigate(['create_course']);
   }
 }

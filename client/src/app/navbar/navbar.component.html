@@ -1,14 +1,17 @@
-<nav class="navbar sticky-top navbar-light bg-light">
+<nav class="navbar sticky-top navbar-light bg-light d-flex justify-content-between">
   <a class="navbar-brand" [routerLink]="['/dashboard']">Cursago</a>
   <form class="form-inline">
     <input #token class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button type="button" (click)="search(token.value);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
   </form>
-  <div  *ngIf="loggedIn">
-    <a class="nav-item nav-link" (click)="logout();">Logout</a>
-  </div>
-  <div  *ngIf="!loggedIn">
-    <a class="nav-item nav-link" (click)="access();">Login/Signup</a>
+  <div class="d-inline-flex">
+    <a class="nav-item nav-link" (click)="createCourse();">Contribute</a>
+    <div  *ngIf="loggedIn">
+      <a class="nav-item nav-link" (click)="logout();">Logout</a>
+    </div>
+    <div  *ngIf="!loggedIn">
+      <a class="nav-item nav-link" (click)="access();">Login/Signup</a>
+    </div>
   </div>
 </nav>
 

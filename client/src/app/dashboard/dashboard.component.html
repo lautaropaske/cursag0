@@ -1,15 +1,14 @@
 <navbar></navbar>
 
 <div class="container mt-3">
-  <div class="mb-3 d-flex justify-content-around">
-    <button type="button" (click)="createCourse();" class="btn mt-3 btn-warning">Create course</button>
-    <button type="button" [routerLink]="['home']" class="btn mt-3 btn-primary">View our courses</button>
-  </div>
+
+  <h2 class="mt-5 mb-5">Feel free to contribute and browse our most <a [routerLink]="['home']">popular courses</a>!</h2>
+
   <div *ngIf="loadedEnrolled && loadedCreated">
 
     <!--Si solo se inscribe (USUARIO NORMAL)-->
     <div *ngIf="createdCourses.length == 0 && enrolledCourses.length !=0">
-      <p>Enrolled and tagged courses:</p>
+      <h4>Enrolled and tagged courses:</h4>
       <div *ngFor="let course of enrolledCourses" class="card w-75  mt-2" style="width: 18rem;">
         <div class="card-body">
           <a [routerLink]="['/details', course.id]">
@@ -31,7 +30,7 @@
 
      <!--solo crea (PUBLICADOR)-->
     <div *ngIf="createdCourses.length != 0 && enrolledCourses.length ==0">
-      <p>Created courses:</p>
+      <h4>Created courses:</h4>
       <div *ngFor="let course of createdCourses" class="card w-75  mt-2" style="width: 18rem;">
         <div class="card-body">
           <a [routerLink]="['/details', course.id]">
@@ -54,8 +53,8 @@
      <!--crea cursos y se hace enroll (MEZCLA)-->
     <div *ngIf="createdCourses.length != 0 && enrolledCourses.length !=0">
       <div class="row">
-        <div class="col-md-6">
-          <p>Created courses:</p>
+        <div class="col-md-5" style="padding-right:20px; border-right: 2px solid #ccc;">
+          <h4>Created courses:</h4>
           <div *ngFor="let course of createdCourses" class="card w-100  mt-2" style="width: 18rem;">
             <div class="card-body">
               <a [routerLink]="['/details', course.id]">
@@ -74,8 +73,9 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <p>Enrolled and tagged courses:</p>
+
+        <div class="col-md-7">
+          <h4>Enrolled and tagged courses:</h4>
           <div *ngFor="let course of enrolledCourses" class="card w-100  mt-2" style="width: 18rem;">
             <div class="card-body">
               <a [routerLink]="['/details', course.id]">

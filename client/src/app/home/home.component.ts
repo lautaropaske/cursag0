@@ -8,7 +8,28 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'home',
   templateUrl : './home.component.html',
-  providers: [NgbCarouselConfig]
+  providers: [NgbCarouselConfig],
+  styles: [`
+    .star {
+      position: relative;  
+      display: inline-block;
+      font-size: 1rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+
+    .progress {
+      background-color: #aaa;
+    }
+  `]
 })
 export class HomeComponent implements OnInit{
 

@@ -77,7 +77,6 @@ export class DashboardComponent implements OnInit{
 
   createCourse(): void{
     this.router.navigate(['create_course']);
-
   }
 
 }

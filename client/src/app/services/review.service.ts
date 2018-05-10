@@ -15,6 +15,10 @@ export class ReviewService {
     return this.http.post<Review>(URL,review);
   }
 
+  updateReview(review: Review) : Observable<Review>{
+    return this.http.put<Review>(URL,review);
+  }
+
   getReviewsOfCourse(courseId: number): Observable<Review[]> {
     return this.http.get<Review[]>(URL+'?courseId='+ courseId);
   }

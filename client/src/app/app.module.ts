@@ -28,7 +28,7 @@ import {SearchService} from "./services/search.service";
 import {UnitService} from "./services/unit.service";
 import {EndbarComponent} from "./endbar/endbar.component";
 import {ReviewService} from "./services/review.service";
-import {ReviewFormComponent} from "./course/detail/review/form/review-form.component";
+import {ReviewComponent} from "./course/detail/review/review.component";
 
 @NgModule({
   declarations: [
@@ -43,9 +43,9 @@ import {ReviewFormComponent} from "./course/detail/review/form/review-form.compo
     UnitFormComponent,
     EditCourseComponent,
     LocalCourseComponent,
+    ReviewComponent,
     SearchComponent,
-    EndbarComponent,
-    ReviewFormComponent
+    EndbarComponent
   ],
   imports: [
     NgbModule.forRoot(),

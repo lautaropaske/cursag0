@@ -16,6 +16,6 @@ export class ReviewService {
   }
 
   getReviewsOfCourse(courseId: number): Observable<Review[]> {
-    return this.http.get<Review[]>(URL+'/'+ courseId);
+    return this.http.get<Review[]>(URL+'?courseId='+ courseId);
   }
 }

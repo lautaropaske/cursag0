@@ -20,11 +20,7 @@
 
         <!--hibernate search-->
         <property name="hibernate.search.default.directory_provider">filesystem</property>
-        <property name="hibernate.search.default.indexBase">/tmp</property>
-        <property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
-
-        <!--esta config generaba una exception-->
-        <!--<property name="hibernate.search.default.indexBase">/lucene-indexes</property>-->
+        <property name="hibernate.search.default.indexBase">/cursago-indexes</property>
 
         <mapping class="model.Course"/>
         <mapping class="model.ExtCourse"/>

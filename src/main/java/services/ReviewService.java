@@ -13,7 +13,7 @@ public class ReviewService {
     private Session session;
 
     public ReviewService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        SessionFactory sf = SessionFactoryManager.getInstance();
         this.session  = sf.openSession();
     }
 
@@ -46,6 +46,7 @@ public class ReviewService {
         transaction.commit();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Review> getReviewsOfCourse(int courseId) {
         Transaction transaction = session.beginTransaction();
         List<Review> reviews = session.createQuery("FROM Review WHERE reviewed.id = " +courseId).list();

@@ -16,7 +16,7 @@ public class LogService {
     private Session session;
 
     public LogService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        SessionFactory sf = SessionFactoryManager.getInstance();
         this.session  = sf.openSession();
     }
 

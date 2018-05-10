@@ -10,6 +10,7 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
   templateUrl : './home.component.html',
   providers: [NgbCarouselConfig],
   styles: [`
+   
     .star {
       position: relative;  
       display: inline-block;

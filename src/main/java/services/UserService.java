@@ -1,11 +1,17 @@
 package services;
 
+import model.Course;
 import model.LocalCourse;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+
+import java.util.List;
 
 public class UserService {
 
@@ -14,7 +20,7 @@ public class UserService {
     private Session session;
 
     public UserService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        SessionFactory sf = SessionFactoryManager.getInstance();
         this.session  = sf.openSession();
     }
 
@@ -46,4 +52,5 @@ public class UserService {
         session.delete(session.get(User.class,id));
         transaction.commit();
     }
+
 }

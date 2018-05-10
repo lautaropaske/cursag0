@@ -14,7 +14,7 @@ public class UnitService {
     private Session session;
 
     public UnitService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        SessionFactory sf = SessionFactoryManager.getInstance();
         this.session  = sf.openSession();
     }
 

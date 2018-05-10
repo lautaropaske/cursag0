@@ -17,31 +17,20 @@ public class SearchServiceTest {
 
     @Test
     public void searchCourses() {
-        String requestToken = "java";
+        UserService us = new UserService();
+        User author = us.getUser(1);
 
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
-        Session session = sf.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        User author = session.get(User.class,1);
-
+        CourseService cs = new CourseService();
         Course course = new ExtCourse("Java", "java Michael Javson jab jab java jabbers javajavadoo", 1,author,"link","source");
+        cs.registerCourse(course);
 
-        session.save(author);
-        session.save(course);
-        transaction.commit();
-
-        SearchService ss = new SearchService();
-
-        List result = ss.searchCourses(requestToken);
+        String requestToken = "java";
+        List result = cs.searchCourses(requestToken);
 
         try {
             assertTrue(result.contains(course));
         } finally {
-            Transaction newTransaction = session.beginTransaction();
-            session.delete(course);
-            newTransaction.commit();
-            session.close();
+            cs.deleteCourse(course.getId());
         }
     }
 }

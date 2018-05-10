@@ -8,16 +8,23 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+
 
 import java.util.*;
 
 public class CourseService {
 
     private Session session;
+    private FullTextSession fts;
+
 
     public CourseService(){
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        SessionFactory sf = SessionFactoryManager.getInstance();
         this.session  = sf.openSession();
+        this.fts = Search.getFullTextSession(this.session);
     }
 
     public Course getCourse(int id) {
@@ -135,6 +142,7 @@ public class CourseService {
         return course;
     }
 
+    @SuppressWarnings("unchecked")
     public List<Course> getCourses() {
         Transaction transaction = session.beginTransaction();
         List<Course> courses = session.createQuery("FROM Course").list();
@@ -150,6 +158,7 @@ public class CourseService {
         transaction.commit();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Course> getSamplePopularCouses() {
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("FROM Course ORDER BY rating DESC");
@@ -168,6 +177,35 @@ public class CourseService {
         result.add(session.get(Course.class,22));
         result.add(session.get(Course.class,24));
         transaction.commit();
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Course> searchCourses(String token) {
+        try {
+            fts.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Transaction tx = fts.beginTransaction();
+
+        QueryBuilder queryBuilder = fts.getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Course.class)
+                .get();
+
+        org.apache.lucene.search.Query query = queryBuilder/*.keyword().fuzzy().onFields("description","name").matching(token).createQuery();*/.simpleQueryString()
+                .onField("description").andField("name")
+                .matching(token)
+                .createQuery();
+
+        org.hibernate.query.Query hibQuery = fts.createFullTextQuery(query, Course.class);
+
+        List result = hibQuery.getResultList();
+
+        tx.commit();
+
         return result;
     }
 }

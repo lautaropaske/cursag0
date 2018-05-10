@@ -1,7 +1,7 @@
 package resources;
 
 import model.Course;
-import services.SearchService;
+import services.CourseService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,10 +13,10 @@ import java.util.List;
 @Path("search")
 public class SearchResource {
 
-    private SearchService service;
+    private CourseService service;
 
     public SearchResource() {
-        service = new SearchService();
+        service = new CourseService();
     }
 
     @GET

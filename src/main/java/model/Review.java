@@ -1,5 +1,8 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -40,8 +43,13 @@ public class Review {
         return publisher;
     }
 
+    @JsonIgnore
     public Course getReviewed() {
         return reviewed;
     }
 
+    @JsonProperty
+    public void setReviewed(Course reviewed) {
+        this.reviewed = reviewed;
+    }
 }

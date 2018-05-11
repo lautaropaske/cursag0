@@ -2,16 +2,13 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
 public class LocalCourse extends Course {
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "parent", cascade = CascadeType.REMOVE)
     private List<Unit> units;
 
     public LocalCourse(){

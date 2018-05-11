@@ -13,14 +13,15 @@ import java.util.List;
 
 public class LogService {
 
-    private Session session;
+    private SessionFactory sf;
 
     public LogService(){
-        SessionFactory sf = SessionFactoryManager.getInstance();
-        this.session  = sf.openSession();
+        this.sf = SessionFactoryManager.getInstance();
     }
 
     public User logUser(String mail, String pass) {
+        Session session  = sf.openSession();
+
         Transaction transaction = session.beginTransaction();
 
         @Language("SQL")
@@ -30,8 +31,10 @@ public class LogService {
         query.setParameter("mail", mail);
         List<User> results = query.list();
 
+        transaction.commit();
+        session.close();
+
         if(results.get(0).getPassword().equals(pass)){
-            transaction.commit();
             return results.get(0);
         }
 

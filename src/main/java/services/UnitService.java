@@ -11,21 +11,23 @@ import org.hibernate.cfg.Configuration;
 
 public class UnitService {
 
-    private Session session;
+    private SessionFactory sf;
 
     public UnitService(){
-        SessionFactory sf = SessionFactoryManager.getInstance();
-        this.session  = sf.openSession();
+        this.sf = SessionFactoryManager.getInstance();
     }
 
     public Unit createUnit(Unit unit) {
+        Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(unit);
         transaction.commit();
+        session.close();
         return unit;
     }
 
     public Unit getUnit(int courseId, int index) {
+        Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
 
         LocalCourse course = (LocalCourse) session.get(Course.class,courseId);
@@ -39,6 +41,8 @@ public class UnitService {
         }
 
         transaction.commit();
+        session.close();
+
         return response;
     }
 }

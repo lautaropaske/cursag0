@@ -13,11 +13,11 @@ import java.util.Set;
 @Entity
 @Indexed
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Course implements Comparable<Course>{
+public class Course implements Comparable<Course> {
 
     @Id
     @DocumentId
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Field(termVector = TermVector.YES)
@@ -71,7 +71,9 @@ public class Course implements Comparable<Course>{
         return rating;
     }
 
-    public User getPublisher() { return publisher; }
+    public User getPublisher() {
+        return publisher;
+    }
 
     public Set<UserCourse> getEnrolledStudents() {
         return enrolledStudents;
@@ -90,8 +92,24 @@ public class Course implements Comparable<Course>{
         return reviews;
     }
 
-    public void removeReview(Review review){
-        //TODO acualizar el rating
+    public void removeReview(Review review) {
+        Review selectedReview = null;
+        for (Review aReview : reviews) {
+            if (aReview.getId() == review.getId())
+                selectedReview = aReview;
+        }
+
+        if(selectedReview != null){
+            int l = reviews.size();
+            if(l <=1){
+                this.rating = 0;
+                this.reviews.remove(selectedReview);
+            }
+            else {
+                this.rating = ((this.rating * l) - selectedReview.getRating()) / (l - 1);
+                this.reviews.remove(selectedReview);
+            }
+        }
     }
 
     public void addReview(Review review) {

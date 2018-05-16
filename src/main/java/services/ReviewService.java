@@ -45,10 +45,17 @@ public class ReviewService {
         Course reviewedCourse = session.get(Course.class,review.getReviewed().getId());
         reviewedCourse.removeReview(review);
         reviewedCourse.addReview(review);
-        session.persist(reviewedCourse);
-        session.update(review);
+        session.saveOrUpdate(reviewedCourse);
         transaction.commit();
         session.close();
+
+
+        Session session2  = sf.openSession();
+        Transaction transaction2 = session2.beginTransaction();
+        session2.saveOrUpdate(review);
+        transaction2.commit();
+        session2.close();
+
         return review;
     }
 

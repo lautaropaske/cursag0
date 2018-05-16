@@ -26,7 +26,7 @@ public class User {
     private String surname;
 
     //TODO Estudiar fetch eager
-    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE) //cascade: 'If ONE is removed, remove MANY' (If a user is deleted, delete his courses'
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Collection<Course> published;
 

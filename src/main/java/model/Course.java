@@ -7,6 +7,8 @@ import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,36 +21,32 @@ public class Course implements Comparable<Course>{
     @DocumentId
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
-
     @Field(termVector = TermVector.YES)
     private String name;
-
     @Field
     private String description;
-
     private double price;
-
     private double rating;
-
     @ManyToOne
     private User publisher;
-
     @OneToMany(mappedBy = "course")
     @JsonIgnore
     private Set<UserCourse> enrolledStudents = new HashSet<>();
-
     @OneToMany(mappedBy = "reviewed")
     @JsonIgnore
     private Set<Review> reviews = new HashSet<>();
+    @ManyToMany
+    @JsonIgnore
+    private Collection<Program> partOf;
 
-    public Course() {
-    }
+    public Course(){}
 
     protected Course(String name, String description, double price, User publisher) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.publisher = publisher;
+        this.partOf = new ArrayList<>();
     }
 
     public int getId() {
@@ -67,9 +65,7 @@ public class Course implements Comparable<Course>{
         return price;
     }
 
-    public double getRating() {
-        return rating;
-    }
+    public double getRating() { return rating;}
 
     public User getPublisher() { return publisher; }
 

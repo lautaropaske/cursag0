@@ -11,15 +11,11 @@ public class Review {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
-
     private String textContent;
-
     @Column(nullable = false)
     private int rating;
-
     @ManyToOne
     private User publisher;
-
     @ManyToOne
     private Course reviewed;
 

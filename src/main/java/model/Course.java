@@ -90,6 +90,10 @@ public class Course implements Comparable<Course>{
         return reviews;
     }
 
+    public void removeReview(Review review){
+        //TODO acualizar el rating
+    }
+
     public void addReview(Review review) {
         reviews.add(review);
         int r = reviews.size();

@@ -1,5 +1,6 @@
 package services;
 
+import model.Course;
 import model.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,6 +30,9 @@ public class ReviewService {
     public Review registerReview(Review review){
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
+        Course reviewedCourse = session.get(Course.class,review.getReviewed().getId());
+        reviewedCourse.addReview(review);
+        session.persist(reviewedCourse);
         session.save(review);
         transaction.commit();
         session.close();
@@ -38,6 +42,10 @@ public class ReviewService {
     public Review updateReview(Review review) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
+        Course reviewedCourse = session.get(Course.class,review.getReviewed().getId());
+        reviewedCourse.removeReview(review);
+        reviewedCourse.addReview(review);
+        session.persist(reviewedCourse);
         session.update(review);
         transaction.commit();
         session.close();

@@ -33,19 +33,20 @@ public class ReviewResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Review registerReview(Review review){
         return service.registerReview(review);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Review updateReview(Review review) {
         return service.updateReview(review);
     }
 
     @DELETE
     @Path("/{reviewID}")
-    @Consumes(MediaType.APPLICATION_JSON)
     public void deleteReview(@PathParam("reviewID") int id) {
         service.deleteReview(id);
     }

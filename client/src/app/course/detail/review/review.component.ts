@@ -7,20 +7,20 @@ import {Review} from "../../../models/Review";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {User} from "../../../models/User";
+import {ReviewResp} from "../../../models/ReviewResp";
 
 @Component({
   selector: 'review',
   template: `
     <div [formGroup]="reviewForm">
-      <div class="form-group">
+      <div class="form-group" style=" margin-bottom: 0.2rem">
         <label class="center-block">Rating:</label>
-        <input class="form-control" formControlName="rating" [(ngModel)]="review.rating">
         <ng-template #t let-fill="fill">
         <span class="star" [class.full]="fill === 100">
           <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
         </span>
         </ng-template>
-        <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="false" max="5" class="mr-3" (leave)="hovered=0"></ngb-rating>
+        <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="false" max="5" class="ml-3" (leave)="hovered=0"></ngb-rating>
       </div>
       <div class="form-group">
         <label class="center-block">Comment:</label>
@@ -28,8 +28,12 @@ import {User} from "../../../models/User";
       </div>
       <div class="text-center">
         <div style="margin-bottom: 1em">
-          <button type="submit" [disabled]="reviewForm.pristine" (click)="postReview();" class="btn btn-primary">Create</button>
-        </div>
+          <div *ngIf="!madeReview">
+            <button type="submit" [disabled]="reviewForm.pristine" (click)="postReview();" class="btn btn-primary">Submit review</button>
+          </div>
+          <div *ngIf="madeReview">
+            <button type="button" (click)="updateReview();" class="btn btn-primary">Edit review</button>
+          </div>
       </div>
     </div>
     
@@ -51,7 +55,7 @@ import {User} from "../../../models/User";
     .star {
       position: relative;  
       display: inline-block;
-      font-size: 1rem;
+      font-size: 1.2rem;
       color: #d3d3d3;
     }
     .full {
@@ -74,7 +78,7 @@ import {User} from "../../../models/User";
 export class ReviewComponent implements OnInit{
 
 
-  reviews: Review[] = [];
+  reviews: ReviewResp[] = [];
   @Input() courseId;
 
   reviewForm : FormGroup;
@@ -82,19 +86,29 @@ export class ReviewComponent implements OnInit{
 
   madeReview: boolean;
 
+  loaded: boolean;
+
   ngOnInit(): void {
 
     this.reviewService.getReviewsOfCourse(this.courseId).subscribe(
-      reviews => {
+      reviewsResp => {
         console.log("course id is " + this.courseId);
         console.log("reviews where found successfully.");
-        console.log(reviews);
-        this.reviews = reviews;
-        let personalReview =reviews.find(review => this.review.publisher.id == +localStorage.getItem("id"));
+        console.log(reviewsResp);
+        this.reviews = reviewsResp;
+        let personalReview = reviewsResp.find(review => this.review.publisher.id == +localStorage.getItem("id"));
         if(personalReview){
-          this.review = personalReview;
+          let course: Course = Course.create_empty();
+          course.id = this.courseId;
+          this.review = new Review(personalReview.id, personalReview.textContent, personalReview.rating,
+                          personalReview.publisher, course);
+
+          console.log("The current review selected is " );
+          console.log(this.review );
           this.madeReview = true;
         }
+
+        this.loaded = true;
 
       },
       err => {
@@ -127,17 +141,31 @@ export class ReviewComponent implements OnInit{
   }
 
   postReview() : void {
-    debugger;
     this.reviewService.addReview(this.review).subscribe(
       review => {
         console.log("Review was successfully created");
         console.log(review);
-        this.reviews.push(review);
+        this.reviews.push(new ReviewResp(review.id,review.textContent, review.rating, review.publisher));
         this.review = review;
         this.madeReview = true;
       },
       err => {
         console.log("Review could not be created");
+      }
+    );
+  }
+
+  updateReview() : void {
+    this.reviewService.updateReview(this.review).subscribe(
+      review => {
+        console.log("Review was successfully updated");
+        console.log(review);
+        this.reviews.splice(this.reviews.indexOf(this.reviews.find(review => this.review.publisher.id == +localStorage.getItem("id")))
+          ,1);
+        this.reviews.push(review);
+      },
+      err => {
+        console.log("Review could not be updated");
       }
     );
   }

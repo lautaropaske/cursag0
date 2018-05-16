@@ -31,6 +31,10 @@ public class Review {
         this.publisher = publisher;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getTextContent() {
         return textContent;
     }

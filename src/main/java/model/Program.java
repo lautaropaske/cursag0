@@ -1,10 +1,13 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import sun.nio.cs.US_ASCII;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Program {
@@ -19,6 +22,9 @@ public class Program {
     @ManyToMany
     @JsonIgnore
     private Collection<Course> courses;
+    @ManyToMany
+    @JsonIgnore
+    private Set<User> enrolledStudents = new HashSet<>();
 
     public Program(){}
 

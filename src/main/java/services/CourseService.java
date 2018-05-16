@@ -182,7 +182,6 @@ public class CourseService {
 
     public void deleteCourse(int id) {
         Session session  = sf.openSession();
-
         Transaction transaction = session.beginTransaction();
         session.delete(session.get(Course.class,id));
         transaction.commit();

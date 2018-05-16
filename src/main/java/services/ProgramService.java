@@ -1,0 +1,137 @@
+package services;
+
+import model.Program;
+import model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import java.util.*;
+
+public class ProgramService {
+
+    private SessionFactory sf;
+
+    public ProgramService(){
+        this.sf = SessionFactoryManager.getInstance();
+    }
+
+    public Program getProgram(int id) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        Program program = session.get(Program.class,id);
+        transaction.commit();
+        session.close();
+        return program;
+    }
+
+//    public Set<Program> getProgramsEnrolledBy(int id) {
+//        Session session  = sf.openSession();
+//        Transaction transaction = session.beginTransaction();
+//        User user = session.get(User.class,id);
+//
+//        final Set<Program> enrolled = new HashSet<>();
+//        final Set<UserProgram> relations = user.getEnrolledPrograms();
+//        relations.forEach(relation -> enrolled.add(relation.getProgram()));
+//
+//        transaction.commit();
+//        session.close();
+//        return enrolled;
+//    }
+
+    public Collection<Program> getProgramsPublishedBy(int id) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class,id);
+        final Collection<Program> published = user.getPublishedPrograms();
+        transaction.commit();
+        session.close();
+        return published;
+    }
+
+//    public int enrollmentStatus(int userId, int courseId) {
+//        Session session  = sf.openSession();
+//        Transaction transaction = session.beginTransaction();
+//
+//        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+//
+//        UserCourse uc = session.get(UserCourse.class,id);
+//
+//        int response;
+//        if(uc == null){
+//            response = -1;
+//        }
+//        else{
+//            response = uc.getProgress();
+//        }
+//
+//        transaction.commit();
+//        session.close();
+//        return response;
+//    }
+//
+//    public boolean enrollInCourse(int userId, int courseId) {
+//        Session session  = sf.openSession();
+//        Transaction transaction = session.beginTransaction();
+//        Course course = session.get(Course.class,courseId);
+//        User user = session.get(User.class,userId);
+//
+//        UserCourse uc = new UserCourse(user, course, 0);
+//        session.persist(uc);
+//        transaction.commit();
+//        session.close();
+//        return true;
+//    }
+//
+//    public boolean unenrollInCourse(int userId, int courseId) {
+//        Session session  = sf.openSession();
+//
+//        Transaction transaction = session.beginTransaction();
+//
+//        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+//        UserCourse uc = session.get(UserCourse.class,id);
+//        session.delete(uc);
+//        transaction.commit();
+//        session.close();
+//        return true;
+//    }
+
+    public Program registerProgram(Program program) {
+        Session session  = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        session.save(program);
+        transaction.commit();
+        session.close();
+        return program;
+    }
+
+    public Program updateProgram(Program program) {
+        Session session  = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        session.update(program);
+        transaction.commit();
+        session.close();
+        return program;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Program> getPrograms() {
+        Session session  = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        List<Program> programs = session.createQuery("FROM Program").list();
+        transaction.commit();
+        session.close();
+        return programs;
+    }
+
+    public void deleteProgram(int id) {
+        Session session  = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        session.delete(session.get(Program.class,id));
+        transaction.commit();
+    }
+}

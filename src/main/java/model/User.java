@@ -24,12 +24,17 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Collection<Course> published;
+    @OneToMany
+    private Collection<Program> publishedPrograms;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserCourse> enrolledCourses = new HashSet<>();
+    @ManyToMany
+    @JsonIgnore
+    private Set<Program> enrolledPrograms = new HashSet<>();
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE)
     private Set<Review> madeReviews = new HashSet<>();
-    private boolean isAdmin = false; // set only in db manager (from IDEA UI or HSQLDB GUI)
+    private boolean isAdmin; // set only in db manager (from IDEA UI or HSQLDB GUI)
 
     public User(){}
 
@@ -60,6 +65,7 @@ public class User {
     }
 
     public Collection<Course> getPublished() {
+        if(isAdmin) return null;
         return published;
     }
 
@@ -83,4 +89,8 @@ public class User {
         this.enrolledCourses = enrolledCourses;
     }
 
+    public Collection<Program> getPublishedPrograms() {
+        if(!isAdmin) return null;
+        return publishedPrograms;
+    }
 }

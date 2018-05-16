@@ -34,6 +34,7 @@ import {ReviewResp} from "../../../models/ReviewResp";
           <div *ngIf="madeReview">
             <button type="button" (click)="updateReview();" class="btn btn-primary">Edit review</button>
           </div>
+        </div>
       </div>
     </div>
     
@@ -47,8 +48,6 @@ import {ReviewResp} from "../../../models/ReviewResp";
       <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="true" max="5" class="mr-3"></ngb-rating>
       <p>"{{review.textContent}}" <b> - {{review.publisher.name}} {{review.publisher.surname}} </b></p>
       
-      
-
     </div>
   `,
   styles: [`
@@ -86,7 +85,6 @@ export class ReviewComponent implements OnInit{
 
   madeReview: boolean;
 
-  loaded: boolean;
 
   ngOnInit(): void {
 
@@ -96,8 +94,10 @@ export class ReviewComponent implements OnInit{
         console.log("reviews where found successfully.");
         console.log(reviewsResp);
         this.reviews = reviewsResp;
-        let personalReview = reviewsResp.find(review => this.review.publisher.id == +localStorage.getItem("id"));
-        if(personalReview){
+        let personalReview = reviewsResp.find(aReview => aReview.publisher.id === +localStorage.getItem("id"));
+        console.log("personal review: ");
+        console.log(personalReview);
+        if(personalReview != undefined){
           let course: Course = Course.create_empty();
           course.id = this.courseId;
           this.review = new Review(personalReview.id, personalReview.textContent, personalReview.rating,
@@ -107,8 +107,6 @@ export class ReviewComponent implements OnInit{
           console.log(this.review );
           this.madeReview = true;
         }
-
-        this.loaded = true;
 
       },
       err => {

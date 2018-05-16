@@ -2,7 +2,6 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -112,5 +111,13 @@ public class Course implements Comparable<Course> {
         reviews.add(review);
         int r = reviews.size();
         rating = rating * (r-1)/(r) + (review.getRating()/r);
+    }
+
+    public Collection<Program> getPartOf() {
+        return partOf;
+    }
+
+    public void setPartOf(Collection<Program> partOf) {
+        this.partOf = partOf;
     }
 }

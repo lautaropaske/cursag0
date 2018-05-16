@@ -14,28 +14,22 @@ public class User {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-
     @NaturalId
     private String mail;
-
     @JsonIgnore
     private String password;
-
     private String name;
-
     private String surname;
-
     //TODO Estudiar fetch eager
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Collection<Course> published;
-
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserCourse> enrolledCourses = new HashSet<>();
-
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE)
     private Set<Review> madeReviews = new HashSet<>();
+    private boolean isAdmin = false; // set only in db manager (from IDEA UI or HSQLDB GUI)
 
     public User(){}
 
@@ -44,6 +38,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.isAdmin = false;
     }
 
     public String getPassword() {
@@ -74,6 +69,10 @@ public class User {
 
     public Set<UserCourse> getEnrolledCourses() {
         return enrolledCourses;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public void setPublished(Collection<Course> published) {

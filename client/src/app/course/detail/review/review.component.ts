@@ -14,17 +14,17 @@ import {ReviewResp} from "../../../models/ReviewResp";
   template: `
     <div [formGroup]="reviewForm">
       <div class="form-group" style=" margin-bottom: 0.2rem">
-        <label class="center-block">Rating:</label>
+        <!--<label class="center-block">Rating:</label>-->
         <ng-template #t let-fill="fill">
         <span class="star" [class.full]="fill === 100">
           <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
         </span>
         </ng-template>
-        <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="false" max="5" class="ml-3" (leave)="hovered=0"></ngb-rating>
+        <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="false" max="5"  (leave)="hovered=0"></ngb-rating>
       </div>
       <div class="form-group">
-        <label class="center-block">Comment:</label>
-        <textarea class="form-control" formControlName="textContent" rows="2" [(ngModel)]="review.textContent"></textarea>
+        <!--<label class="center-block">Comment:</label>-->
+        <textarea class="form-control" placeholder="Leave a comment of your review" formControlName="textContent" rows="2" [(ngModel)]="review.textContent"></textarea>
       </div>
       <div class="text-center">
         <div style="margin-bottom: 1em">
@@ -95,8 +95,7 @@ export class ReviewComponent implements OnInit{
         console.log(reviewsResp);
         this.reviews = reviewsResp;
         let personalReview = reviewsResp.find(aReview => aReview.publisher.id === +localStorage.getItem("id"));
-        console.log("personal review: ");
-        console.log(personalReview);
+
         if(personalReview != undefined){
           let course: Course = Course.create_empty();
           course.id = this.courseId;
@@ -139,6 +138,7 @@ export class ReviewComponent implements OnInit{
   }
 
   postReview() : void {
+    console.log(this.review);
     this.reviewService.addReview(this.review).subscribe(
       review => {
         console.log("Review was successfully created");

@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -16,29 +17,40 @@ public class User {
     private int id;
     @NaturalId
     private String mail;
-    @JsonIgnore
     private String password;
     private String name;
     private String surname;
-    //TODO Estudiar fetch eager
+    
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Collection<Course> published;
-    @OneToMany
+
+    @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
     private Collection<Program> publishedPrograms;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserCourse> enrolledCourses = new HashSet<>();
-    @ManyToMany
+
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "User_Program",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "program_id") }
+    )
     @JsonIgnore
     private Set<Program> enrolledPrograms = new HashSet<>();
+
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Review> madeReviews = new HashSet<>();
+
     private boolean isAdmin; // set only in db manager (from IDEA UI or HSQLDB GUI)
 
     public User(){}
 
-    public User(String mail, String password, String name, String surname){
+    public User(String mail, String password, String name, String surname,Boolean isAdmin){
         this.mail = mail;
         this.password = password;
         this.name = name;
@@ -65,7 +77,6 @@ public class User {
     }
 
     public Collection<Course> getPublished() {
-        if(isAdmin) return null;
         return published;
     }
 
@@ -77,6 +88,7 @@ public class User {
         return enrolledCourses;
     }
 
+    @JsonProperty(value="isAdmin")
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -89,8 +101,35 @@ public class User {
         this.enrolledCourses = enrolledCourses;
     }
 
+    public void setAdmin(boolean isAdmin) {
+        isAdmin = isAdmin;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public Collection<Program> getPublishedPrograms() {
-        if(!isAdmin) return null;
         return publishedPrograms;
+    }
+
+    public Set<Program> getEnrolledPrograms() {
+        return enrolledPrograms;
+    }
+
+    public Set<Review> getMadeReviews() {
+        return madeReviews;
     }
 }

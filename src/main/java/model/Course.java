@@ -26,17 +26,23 @@ public class Course implements Comparable<Course> {
     private String description;
     private double price;
     private double rating;
+
+
     @ManyToOne
     private User publisher;
+
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnore
+    private Set<Program> programs = new HashSet<Program>();
+
+
     @OneToMany(mappedBy = "course")
     @JsonIgnore
     private Set<UserCourse> enrolledStudents = new HashSet<>();
     @OneToMany(mappedBy = "reviewed")
     @JsonIgnore
     private Set<Review> reviews = new HashSet<>();
-    @ManyToMany
-    @JsonIgnore
-    private Collection<Program> partOf;
+
 
     public Course(){}
 
@@ -45,7 +51,6 @@ public class Course implements Comparable<Course> {
         this.description = description;
         this.price = price;
         this.publisher = publisher;
-        this.partOf = new ArrayList<>();
     }
 
     public int getId() {
@@ -113,11 +118,4 @@ public class Course implements Comparable<Course> {
         rating = rating * (r-1)/(r) + (review.getRating()/r);
     }
 
-    public Collection<Program> getPartOf() {
-        return partOf;
-    }
-
-    public void setPartOf(Collection<Program> partOf) {
-        this.partOf = partOf;
-    }
 }

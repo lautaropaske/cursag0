@@ -30,6 +30,5 @@
         <mapping class="model.Review"/>
         <mapping class="model.UserCourse"/>
         <mapping class="model.Program"/>
-        <mapping class="model.Admin"/>
     </session-factory>
 </hibernate-configuration>

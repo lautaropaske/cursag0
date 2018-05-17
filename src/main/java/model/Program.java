@@ -17,12 +17,20 @@ public class Program {
     private String name;
     private String description;
     private double rating;
+
     @ManyToOne
     private User publisher;
-    @ManyToMany
+
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "Program_Course",
+            joinColumns = { @JoinColumn(name = "program_id") },
+            inverseJoinColumns = { @JoinColumn(name = "course_id") }
+    )
     @JsonIgnore
-    private Collection<Course> courses;
-    @ManyToMany
+    private Set<Course> courses = new HashSet<>();
+
+    @ManyToMany(mappedBy = "enrolledPrograms")
     @JsonIgnore
     private Set<User> enrolledStudents = new HashSet<>();
 
@@ -32,7 +40,6 @@ public class Program {
         this.name = name;
         this.description = description;
         this.publisher = publisher;
-        this.courses = new ArrayList<>();
     }
 
     public void addCourse(Course course) {
@@ -55,5 +62,25 @@ public class Program {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public Collection<Course> getCourses() {
+        return courses;
+    }
+
+    public Set<User> getEnrolledStudents() {
+        return enrolledStudents;
     }
 }

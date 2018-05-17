@@ -49,7 +49,7 @@ export class CourseFormComponent{
 
   publishLocalCourse() : void {
     let id = localStorage.getItem("id");
-    let publisher: User = new User(+id,null,null,null,null);
+    let publisher: User = new User(+id,null,null,null,null, false);
 
     this.locCourse.publisher = publisher;
 
@@ -68,7 +68,7 @@ export class CourseFormComponent{
 
   publishExternalCourse() : void {
     let id = localStorage.getItem("id");
-    let publisher: User = new User(+id,null,null,null,null);
+    let publisher: User = new User(+id,null,null,null,null,false);
 
     this.extCourse.publisher = publisher;
 

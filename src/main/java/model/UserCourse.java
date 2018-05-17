@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 @Entity
+@Table(name = "User_Course")
 public class UserCourse {
 
     @EmbeddedId

@@ -4,13 +4,13 @@ import { AuthService } from './auth.service';
 
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AdminAuthGuardService implements CanActivate {
 
   constructor(public auth: AuthService, public router: Router) {}
 
 
   canActivate(): boolean {
-    if (!this.auth.isAuthenticated()) {
+    if (!this.auth.adminIsAuthenticated()) {
       this.router.navigate(['access']);
 
       console.log("User has not been authenticated and has been redirected");

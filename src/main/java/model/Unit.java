@@ -14,6 +14,8 @@ public class Unit {
     private String name;
     private String videoLink;
     private int number;
+    @Lob
+    @Column(length = 1000)
     private String textContent;
 
     public Unit(){}

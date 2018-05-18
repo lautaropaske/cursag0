@@ -27,6 +27,7 @@ public class UserResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public User registerUser(User user){
+        //TODO verificar que no exista un usuario con el mismo mail.
         return service.registerUser(user);
     }
 

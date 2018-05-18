@@ -19,7 +19,7 @@ public class ReviewPersistenceTest {
 
         User user = session.find(User.class, 1);
         String textContent = "Good course 11321";
-        Review review = new Review(textContent,4,user);
+        Review review = new Review(textContent,4,user, new Course());
 
         int id = (int) session.save(review);
         transaction.commit();

@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit{
   logout():void{
     localStorage.clear();
     this.router.navigateByUrl('/search', {skipLocationChange: true}).then(()=>
-      this.router.navigate(['home'])); //not redirecting
+      this.router.navigate(['home']));
   }
 
   search(token: String) : void{

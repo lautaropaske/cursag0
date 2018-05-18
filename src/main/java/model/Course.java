@@ -23,6 +23,8 @@ public class Course implements Comparable<Course> {
     @Field(termVector = TermVector.YES)
     private String name;
     @Field
+    @Lob
+    @Column(length = 1000)
     private String description;
     private double price;
     private double rating;
@@ -115,7 +117,7 @@ public class Course implements Comparable<Course> {
     public void addReview(Review review) {
         reviews.add(review);
         int r = reviews.size();
-        rating = rating * (r-1)/(r) + (review.getRating()/r);
+        rating = (rating * (r-1) + review.getRating())/(double)r;
     }
 
 }

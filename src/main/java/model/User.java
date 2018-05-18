@@ -2,6 +2,8 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -22,6 +24,7 @@ public class User {
     private String surname;
     
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
+    @Fetch(FetchMode.SELECT)
     @JsonIgnore
     private Collection<Course> published;
 

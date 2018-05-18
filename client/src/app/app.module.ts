@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {AccessComponent} from "./access/access.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {AuthGuardService} from "./services/auth/auth-guard.service";
+import {UserAuthGuardService} from "./services/auth/user-auth-guard.service";
 import {AuthService} from "./services/auth/auth.service";
 import {HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from "./home/home.component";
@@ -29,6 +29,8 @@ import {UnitService} from "./services/unit.service";
 import {EndbarComponent} from "./endbar/endbar.component";
 import {ReviewService} from "./services/review.service";
 import {ReviewComponent} from "./course/detail/review/review.component";
+import {AdminAuthGuardService} from "./services/auth/admin-auth-guard.service";
+import {AdminPanelComponent} from "./adminpanel/admin-panel.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {ReviewComponent} from "./course/detail/review/review.component";
     LocalCourseComponent,
     ReviewComponent,
     SearchComponent,
-    EndbarComponent
+    EndbarComponent,
+    AdminPanelComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -55,7 +58,7 @@ import {ReviewComponent} from "./course/detail/review/review.component";
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [ReverseAuthGuardService,AuthGuardService,
+  providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService],
   bootstrap: [AppComponent]
 })

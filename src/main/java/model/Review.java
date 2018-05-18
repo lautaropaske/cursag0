@@ -21,10 +21,11 @@ public class Review {
 
     public Review() {}
 
-    public Review(String textContent, int rating, User publisher){
+    public Review(String textContent, int rating, User publisher, Course reviewed){
         this.textContent = textContent;
         this.rating = rating;
         this.publisher = publisher;
+        this.reviewed = reviewed;
     }
 
     public int getId() {

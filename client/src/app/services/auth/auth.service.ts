@@ -3,13 +3,23 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class AuthService {
 
-  public isAuthenticated(): boolean {
+  public userIsAuthenticated(): boolean {
 
     const token = localStorage.getItem('token');
+    const type = localStorage.getItem('type');
 
-    if(token == "cursago"){
-      return true;
-    }
-    return false;
+
+    return token == "cursago" && type == "user";
+
+  }
+
+  public adminIsAuthenticated(): boolean {
+
+    const token = localStorage.getItem('token');
+    const type = localStorage.getItem('type');
+
+
+    return token == "cursago" && type == "admin";
+
   }
 }

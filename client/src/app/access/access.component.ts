@@ -48,6 +48,14 @@ export class AccessComponent {
     localStorage.setItem("id", '' + user.id);
     localStorage.setItem("name", '' + user.name);
     localStorage.setItem("surname", '' + user.surname);
-    this.router.navigate(['dashboard']);
+    if(user.isAdmin){
+      localStorage.setItem("type", "admin");
+      this.router.navigate(['adminpanel']);
+    }
+    else{
+      localStorage.setItem("type", "user");
+      this.router.navigate(['dashboard']);
+    }
+
   }
 }

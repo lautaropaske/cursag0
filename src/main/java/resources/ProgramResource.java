@@ -55,6 +55,18 @@ public class ProgramResource {
     }
 
     @GET
+    @Path("/addcourse")
+    public boolean addCourseToProgram(@QueryParam("programId") int programId, @QueryParam("courseId") int courseId){
+        return service.addCourseToProgram(programId, courseId);
+    }
+
+    @GET
+    @Path("/removecourse")
+    public boolean removeCourseFromProgram(@QueryParam("programId") int programId, @QueryParam("courseId") int courseId){
+        return service.removeCourseFromProgram(programId, courseId);
+    }
+
+    @GET
     @Path("/{programID}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Program getProgram(@PathParam("programID") int id) {
@@ -62,7 +74,6 @@ public class ProgramResource {
     }
 
     @POST
-    @Path("/external")
     @Consumes(MediaType.APPLICATION_JSON)
     public Program registerProgram(Program program) {
         return service.registerProgram(program);
@@ -70,7 +81,6 @@ public class ProgramResource {
 
 
     @PUT
-    @Path("/external")
     @Consumes(MediaType.APPLICATION_JSON)
     public Program updateProgram(Program program) {
         return service.updateProgram(program);

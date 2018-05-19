@@ -15,6 +15,8 @@ public class Program {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String name;
+    @Lob
+    @Column(length = 1000)
     private String description;
     private double rating;
 

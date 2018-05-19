@@ -94,6 +94,10 @@ public class Course implements Comparable<Course> {
         return reviews;
     }
 
+    public Set<Program> getPrograms() {
+        return programs;
+    }
+
     public void removeReview(Review review) {
         Review selectedReview = null;
         for (Review aReview : reviews) {

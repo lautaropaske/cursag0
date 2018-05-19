@@ -1,5 +1,6 @@
 package services;
 
+import model.Course;
 import model.Program;
 import model.User;
 import org.hibernate.Session;
@@ -50,6 +51,36 @@ public class ProgramService {
         user.getEnrolledPrograms().remove(program);
 
         session.persist(user);
+        transaction.commit();
+        session.close();
+        return true;
+    }
+
+    public boolean addCourseToProgram(int programId, int courseId) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        Program program = session.get(Program.class,programId);
+        Course course = session.get(Course.class,courseId);
+
+        program.getCourses().add(course);
+        course.getPrograms().add(program);
+
+        session.persist(program);
+        transaction.commit();
+        session.close();
+        return true;
+    }
+
+    public boolean removeCourseFromProgram(int programId, int courseId) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        Program program = session.get(Program.class,programId);
+        Course course = session.get(Course.class,courseId);
+
+        program.getCourses().remove(course);
+        course.getPrograms().remove(program);
+
+        session.persist(program);
         transaction.commit();
         session.close();
         return true;

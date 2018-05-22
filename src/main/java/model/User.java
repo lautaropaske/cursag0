@@ -28,7 +28,8 @@ public class User {
     @JsonIgnore
     private Collection<Course> published;
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "publisher",cascade = CascadeType.REMOVE)
+    @Fetch(FetchMode.SELECT)
     @JsonIgnore
     private Collection<Program> publishedPrograms;
 
@@ -58,7 +59,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.isAdmin = false;
+        this.isAdmin = isAdmin;
     }
 
     public String getPassword() {

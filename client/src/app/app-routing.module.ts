@@ -12,7 +12,9 @@ import {LocalCourseComponent} from "./course/local/local-course.component";
 import {UnitFormComponent} from "./unitForm/unit-form.component";
 import {SearchComponent} from "./search/search.component";
 import {EditCourseComponent} from "./course/edit/edit-course.component";
-import {AdminPanelComponent} from "./adminpanel/admin-panel.component";
+import {AdminPanelComponent} from "./admin/panel/admin-panel.component";
+import {ProgramFormComponent} from "./program/form/program-form.component";
+import {ProgramDetailComponent} from "./program/detail/program-detail.component";
 
 
 const routes: Routes = [
@@ -20,6 +22,9 @@ const routes: Routes = [
   { path: 'access',  component:AccessComponent, canActivate: [ReverseAuthGuard]},
 
   { path: 'adminpanel',  component:AdminPanelComponent, canActivate: [AdminAuthGuard] },
+  { path: 'create_program',  component:ProgramFormComponent, canActivate: [AdminAuthGuard] },
+
+  { path: "program_detail/:id", component: ProgramDetailComponent }, //Todos pueden ver los programas?
 
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },
   { path: "details/:id", component: CourseDetailComponent,canActivate: [UserAuthGuard] },
@@ -27,6 +32,7 @@ const routes: Routes = [
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [UserAuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [UserAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [UserAuthGuard]},
+
   { path: 'search/:token', component: SearchComponent},
   { path: '**', redirectTo: 'home' }
 ];

@@ -1,9 +1,13 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 @Entity
 public class ExtCourse extends Course {
+    @Lob
+    @Column(length = 1000)
     private String link;
     private String source;
 

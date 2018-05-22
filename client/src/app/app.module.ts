@@ -30,7 +30,11 @@ import {EndbarComponent} from "./endbar/endbar.component";
 import {ReviewService} from "./services/review.service";
 import {ReviewComponent} from "./course/detail/review/review.component";
 import {AdminAuthGuardService} from "./services/auth/admin-auth-guard.service";
-import {AdminPanelComponent} from "./adminpanel/admin-panel.component";
+import {AdminPanelComponent} from "./admin/panel/admin-panel.component";
+import {ProgramService} from "./services/program.service";
+import {AdminNavbarComponent} from "./admin/navbar/admin-navbar.component";
+import {ProgramDetailComponent} from "./program/detail/program-detail.component";
+import {ProgramFormComponent} from "./program/form/program-form.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +52,10 @@ import {AdminPanelComponent} from "./adminpanel/admin-panel.component";
     ReviewComponent,
     SearchComponent,
     EndbarComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AdminNavbarComponent,
+    ProgramDetailComponent,
+    ProgramFormComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -59,7 +66,8 @@ import {AdminPanelComponent} from "./adminpanel/admin-panel.component";
     FormsModule
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService,
-    AuthService, UserService, CourseService, SearchService, UnitService, ReviewService],
+    AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,
+    ProgramService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

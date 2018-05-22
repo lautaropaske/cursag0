@@ -11,9 +11,9 @@ export class AdminAuthGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (!this.auth.adminIsAuthenticated()) {
-      this.router.navigate(['access']);
+     this.router.navigate(['access']);
 
-      console.log("User has not been authenticated and has been redirected");
+      console.log("Admin has not been authenticated and has been redirected");
       return false;
     }
     return true;

@@ -2,6 +2,8 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +35,8 @@ public class Course implements Comparable<Course> {
     @ManyToOne
     private User publisher;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "courses")
+    @Fetch(FetchMode.SELECT)
     @JsonIgnore
     private Set<Program> programs = new HashSet<Program>();
 

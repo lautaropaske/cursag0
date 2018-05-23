@@ -1,6 +1,7 @@
 package services;
 
 import model.Course;
+import model.Program;
 import model.User;
 import model.UserCourse;
 import org.hibernate.Session;
@@ -178,12 +179,18 @@ public class CourseService {
         return courses;
     }
 
-    //TODO verificar mejor práctica para hacer el delete. Tomamos el ID pq el component tira error al hacer this.http.delete(...,OBJECT)
-
     public void deleteCourse(int id) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(session.get(Course.class,id));
+        Course course = session.get(Course.class,id);
+
+        final Set<Program> programs = course.getPrograms();
+        programs.forEach(program -> {
+            program.getCourses().remove(course);
+            session.persist(program);
+        });
+        //TODO borrar comentarios y la relacion de usuarios que estan inscriptos
+        session.delete(course);
         transaction.commit();
     }
 

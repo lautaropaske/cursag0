@@ -9,7 +9,6 @@ import {Course} from "../../models/Course";
   template: `
     <admin-navbar></admin-navbar>
     <div class="container">
-      <h2>TODO detail del program.</h2>
       <h2>{{program.name}}</h2>
       <p>{{program.description}}</p>
       
@@ -20,6 +19,7 @@ import {Course} from "../../models/Course";
             <h5 class="card-title">{{course.name}}</h5>
           </a>
           <p class="card-text">{{course.description}}</p>
+          <p class="card-text">Rating: {{course.rating}}</p>
           <p class="card-text">Publisher: {{course.publisher.surname}}</p>
         </div>
       </div>

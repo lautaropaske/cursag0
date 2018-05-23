@@ -1,4 +1,5 @@
-<navbar></navbar>
+<navbar *ngIf="!isAdmin"></navbar>
+<admin-navbar *ngIf="isAdmin"></admin-navbar>
 <div *ngIf="loadedStatus && loadedCourse">
 
 <div class="jumbotron jumbotron-fluid">
@@ -17,49 +18,77 @@
     <p class="card-text">Price: {{course.price}}</p>
     <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
 
-    <!--INSCRIBIRSE A CURSO LOCAL-->
-    <div *ngIf="isLocal">
-      <div *ngIf="isEnrolled">
-        <div *ngIf="status == -2">
-          <p style="font-weight: 800">You have finished this course, make sure to leave a comment to help the publisher and community!
-          </p>
-        </div>
-        <div *ngIf="status != -2">
-        <div class="row d-flex align-items-center">
-          <div class="col-md-8">
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped" [style.width]="status/course.units.length*100 + '%'">
 
-                <small class="justify-content-center d-flex position-absolute w-100">
-                  completed {{status}} out of {{course.units.length}}
-                </small>
+    <div *ngIf="!isAdmin">
+
+      <!--INSCRIBIRSE A CURSO LOCAL-->
+      <div *ngIf="isLocal">
+        <div *ngIf="isEnrolled">
+          <div *ngIf="status == -2">
+            <p style="font-weight: 800">You have finished this course, make sure to leave a comment to help the publisher and community!
+            </p>
+          </div>
+          <div *ngIf="status != -2">
+          <div class="row d-flex align-items-center">
+            <div class="col-md-8">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped" [style.width]="status/course.units.length*100 + '%'">
+
+                  <small class="justify-content-center d-flex position-absolute w-100">
+                    completed {{status}} out of {{course.units.length}}
+                  </small>
+                </div>
               </div>
             </div>
+            <div class="col-md-4">
+              <button type="button" (click)="doCourse();" class="btn mt-2 btn-primary">Continue Course</button>
+            </div>
+
           </div>
-          <div class="col-md-4">
-            <button type="button" (click)="doCourse();" class="btn mt-2 btn-primary">Continue Course</button>
           </div>
+          <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unenroll</button>
 
         </div>
-        </div>
-        <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unenroll</button>
 
+        <div *ngIf="!isEnrolled">
+          <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
+        </div>
       </div>
 
-      <div *ngIf="!isEnrolled">
-        <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
+      <!-- HACER FAVORITE UN CURSO EXTERNO-->
+      <div *ngIf="!isLocal">
+        <div *ngIf="isEnrolled">
+          <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unfavorite</button>
+        </div>
+
+        <div *ngIf="!isEnrolled">
+          <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Tag course</button>
+        </div>
       </div>
     </div>
 
-    <!-- HACER FAVORITE UN CURSO EXTERNO-->
-    <div *ngIf="!isLocal">
-      <div *ngIf="isEnrolled">
-        <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unfavorite</button>
+    <div *ngIf="isAdmin">
+      <p>Seleciona el programa en el cual metes este curso</p>
+
+      <div class="row d-flex align-items-center">
+        <div class="col-md-8">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Select the program" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <button type="button" (click)="addToProgram();" class="btn mt-2 btn-primary">Add course to program</button>
+        </div>
+
       </div>
 
-      <div *ngIf="!isEnrolled">
-        <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Tag course</button>
-      </div>
     </div>
   </div>
 </div>

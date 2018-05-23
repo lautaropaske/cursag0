@@ -18,6 +18,7 @@ export class AccessComponent {
   login(email: string, password: string): void {
     this.userService.getUser(email, password).subscribe(
       user => {
+
         console.log("User was found in database, and has been logged in");
         console.log(user);
         this.redirectValidUser(user);

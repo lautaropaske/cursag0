@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {UserAuthGuardService as UserAuthGuard} from "./services/auth/user-auth-guard.service";
 import {AdminAuthGuardService as AdminAuthGuard} from "./services/auth/admin-auth-guard.service";
+import {UserAdminAuthGuardService as UserAdminAuthGuard} from "./services/auth/useradmin-auth-guard";
 import {ReverseAuthGuardService as ReverseAuthGuard} from "./services/auth/reverse-auth-guard.service";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";
@@ -24,10 +25,11 @@ const routes: Routes = [
   { path: 'adminpanel',  component:AdminPanelComponent, canActivate: [AdminAuthGuard] },
   { path: 'create_program',  component:ProgramFormComponent, canActivate: [AdminAuthGuard] },
 
-  { path: "program_detail/:id", component: ProgramDetailComponent }, //Todos pueden ver los programas?
+  { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAdminAuthGuard] },
+  { path: "details/:id", component: CourseDetailComponent,canActivate: [UserAdminAuthGuard] },
+
 
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },
-  { path: "details/:id", component: CourseDetailComponent,canActivate: [UserAuthGuard] },
   { path: "local/:courseId/:progress", component: LocalCourseComponent,canActivate: [UserAuthGuard] },
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [UserAuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [UserAuthGuard] },

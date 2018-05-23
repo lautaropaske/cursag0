@@ -35,6 +35,9 @@ import {ProgramService} from "./services/program.service";
 import {AdminNavbarComponent} from "./admin/navbar/admin-navbar.component";
 import {ProgramDetailComponent} from "./program/detail/program-detail.component";
 import {ProgramFormComponent} from "./program/form/program-form.component";
+import {UserAdminAuthGuardService} from "./services/auth/useradmin-auth-guard";
+
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -63,9 +66,10 @@ import {ProgramFormComponent} from "./program/form/program-form.component";
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
-  providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService,
+  providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,
     ProgramService],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
-<navbar></navbar>
+<navbar *ngIf="!isAdmin"></navbar>
+<admin-navbar *ngIf="isAdmin"></admin-navbar>
 
 <div class="container mt-5">
   <p>Courses:</p>

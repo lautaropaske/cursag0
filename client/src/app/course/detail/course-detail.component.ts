@@ -2,6 +2,12 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
+import {FormControl} from "@angular/forms";
+import {ProgramService} from "../../services/program.service";
+import {Program} from "../../models/Program";
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'course-detail',
@@ -33,6 +39,16 @@ import {Course} from "../../models/Course";
       font-size: 120%;
       font-weight: 500;
     }
+
+    .example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .example-full-width {
+      width: 100%;
+    }
   `]
 })
 export class CourseDetailComponent implements OnInit{
@@ -46,14 +62,49 @@ export class CourseDetailComponent implements OnInit{
   loadedStatus: boolean;
   loadedCourse: boolean;
 
+  isAdmin: boolean;
+  programs: Program[];
 
-  constructor(private courseService: CourseService,private router: Router, private route: ActivatedRoute) {}
+  myControl: FormControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+
+  filter(val: string): string[] {
+    return this.programs.filter(program =>
+      program.name.toLowerCase().indexOf(val.toLowerCase()) === 0).map(program => program.name);
+  }
+
+  constructor(private courseService: CourseService, private programService: ProgramService,
+              private router: Router, private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
+
     const idOfCourse = +this.route.snapshot.params["id"];
     this.sessionId = +localStorage.getItem("id");
 
+    if(localStorage.getItem("type") == "admin"){
+      this.isAdmin = true;
+      this.programService.getAllPrograms().subscribe(
+        programs=> {
+          this.programs = programs;
+          this.filteredOptions = this.myControl.valueChanges
+            .pipe(
+              startWith(''),
+              map(val => this.filter(val))
+            );
+
+        },
+        err => {
+          console.log("error when obtaining programs");
+          this.course = null;
+        }
+      );
+
+    }
+    else{
+      this.isAdmin = false;
+      this.programs = null;
+    }
     this.courseService.enrollmentStatus(this.sessionId, idOfCourse).subscribe(
       status=> {
         if(status == -1){

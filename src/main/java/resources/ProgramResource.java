@@ -28,6 +28,13 @@ public class ProgramResource {
     }
 
     @GET
+    @Path("/courses/{programID}")
+    public Set<Course> getCoursesOfProgram(@PathParam("programID") int id) {
+        return service.getCoursesOfProgram(id);
+    }
+
+
+    @GET
     @Path("/enrolledBy/{userID}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Set<Program> getEnrolledPrograms(@PathParam("userID") int id){

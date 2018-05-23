@@ -26,6 +26,17 @@ public class ProgramService {
         return program;
     }
 
+    public Set<Course> getCoursesOfProgram(int id) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        Program program = session.get(Program.class,id);
+        final Set<Course> courses = program.getCourses();
+        transaction.commit();
+        session.close();
+        return courses;
+
+    }
+
     public boolean enrollInProgram(int userId, int programId) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();

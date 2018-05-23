@@ -1,13 +1,12 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import sun.nio.cs.US_ASCII;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Program {
@@ -23,12 +22,13 @@ public class Program {
     @ManyToOne
     private User publisher;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "Program_Course",
             joinColumns = { @JoinColumn(name = "program_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") }
     )
+    @Fetch(FetchMode.SELECT)
     @JsonIgnore
     private Set<Course> courses = new HashSet<>();
 
@@ -78,7 +78,7 @@ public class Program {
         return rating;
     }
 
-    public Collection<Course> getCourses() {
+    public Set<Course> getCourses() {
         return courses;
     }
 

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {Program} from "../models/Program";
+import {Course} from "../models/Course";
 
 const URL ="http://localhost:8080/program";
 
@@ -44,6 +45,10 @@ export class ProgramService {
 
   getProgramById(id: number): Observable<Program> {
     return this.http.get<Program>(URL + '/'+id);
+  }
+
+  getCoursesOfProgram(id: number): Observable<Course[]>{
+    return this.http.get<Course[]>(URL + '/courses/'+id);
   }
 
   createProgram(program: Program) : Observable<Program>{

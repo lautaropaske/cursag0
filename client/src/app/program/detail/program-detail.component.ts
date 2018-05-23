@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ProgramService} from "../../services/program.service";
 import {Program} from "../../models/Program";
 import {ActivatedRoute} from "@angular/router";
+import {Course} from "../../models/Course";
 
 @Component({
   selector: 'program-detail',
@@ -11,6 +12,17 @@ import {ActivatedRoute} from "@angular/router";
       <h2>TODO detail del program.</h2>
       <h2>{{program.name}}</h2>
       <p>{{program.description}}</p>
+      
+      <h5>Lista de los cursos del programa: </h5>
+      <div *ngFor="let course of courses" class="card w-75  mt-2" style="width: 18rem;">
+        <div class="card-body">
+          <a [routerLink]="['/details', course.id]">
+            <h5 class="card-title">{{course.name}}</h5>
+          </a>
+          <p class="card-text">{{course.description}}</p>
+          <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+        </div>
+      </div>
     </div>
     
   `
@@ -18,6 +30,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ProgramDetailComponent implements OnInit{
 
   program: Program;
+  courses: Course[];
 
   ngOnInit(): void {
     const idOfProgram = +this.route.snapshot.params["id"];
@@ -32,6 +45,19 @@ export class ProgramDetailComponent implements OnInit{
         console.log(err)
       }
     );
+
+    this.programService.getCoursesOfProgram(idOfProgram).subscribe(
+      courses => {
+        console.log("Obtained courses of program successfully");
+        this.courses = courses;
+
+      },
+      err => {
+        console.log("error when fetching courses");
+        console.log(err)
+      }
+    );
+
   }
 
   constructor(private programService: ProgramService, private route: ActivatedRoute) {

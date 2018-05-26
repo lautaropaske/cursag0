@@ -12,17 +12,21 @@ import {Course} from "../../models/Course";
       <h2>{{program.name}}</h2>
       <p>{{program.description}}</p>
       
-      <h5>Lista de los cursos del programa: </h5>
-      <div *ngFor="let course of courses" class="card w-75  mt-2" style="width: 18rem;">
-        <div class="card-body">
-          <a [routerLink]="['/details', course.id]">
-            <h5 class="card-title">{{course.name}}</h5>
-          </a>
-          <p class="card-text">{{course.description}}</p>
-          <p class="card-text">Rating: {{course.rating}}</p>
-          <p class="card-text">Publisher: {{course.publisher.surname}}</p>
-        </div>
+      <h5>Courses of program: (drag and drop to alter order as desired) </h5>
+
+      <ol [dndList]
+          [dndModel]="courses">
+        <li *ngFor="let course of courses;let i = index"
+            [dndDraggable]="{draggable:true, effectAllowed:'move'}"
+            [dndObject]="course"
+            (dndMoved)="removeItem(course, courses)">
+          {{course.name}}
+        </li>
+      </ol>
+      <div *ngIf="alteredOrder">
+        <button type="button" (click)="persistOrder();" class="btn mt-2 btn-outline-warning">Save order</button>
       </div>
+      <button type="button" (click)="deleteProgram();" class="btn mt-2 btn-outline-danger">Delete program</button>
     </div>
     
   `
@@ -31,6 +35,7 @@ export class ProgramDetailComponent implements OnInit{
 
   program: Program;
   courses: Course[];
+  alteredOrder: boolean;
 
   ngOnInit(): void {
     const idOfProgram = +this.route.snapshot.params["id"];
@@ -61,6 +66,11 @@ export class ProgramDetailComponent implements OnInit{
   }
 
   constructor(private programService: ProgramService, private route: ActivatedRoute) {
+  }
+
+  public removeItem(item: any, list: any[]): void {
+    list.splice(list.indexOf(item), 1);
+    this.alteredOrder = true;
   }
 
 

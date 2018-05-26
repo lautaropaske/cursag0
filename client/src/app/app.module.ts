@@ -38,6 +38,7 @@ import {ProgramFormComponent} from "./program/form/program-form.component";
 import {UserAdminAuthGuardService} from "./services/auth/useradmin-auth-guard";
 
 import { MaterialModule } from './material.module';
+import {DndListModule} from "ngx-drag-and-drop-lists";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    DndListModule
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,

@@ -68,13 +68,13 @@
     </div>
 
     <div *ngIf="isAdmin">
-      <p>Seleciona el programa en el cual metes este curso</p>
+      <h3 class="mb-4">Select the program in which you wish to include this course</h3>
 
       <div class="row d-flex align-items-center">
         <div class="col-md-8">
           <form class="example-form">
             <mat-form-field class="example-full-width">
-              <input type="text" placeholder="Select the program" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+              <input #programName type="text" placeholder="Select the program" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                   {{ option }}
@@ -84,7 +84,7 @@
           </form>
         </div>
         <div class="col-md-4">
-          <button type="button" (click)="addToProgram();" class="btn mt-2 btn-primary">Add course to program</button>
+          <button type="button" (click)="addToProgram(programName.value);" class="btn mt-2 btn-primary">Add course to program</button>
         </div>
 
       </div>

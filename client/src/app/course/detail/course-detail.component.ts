@@ -196,4 +196,15 @@ export class CourseDetailComponent implements OnInit{
 
     )
   }
+
+  addToProgram(value: string) {
+    let selectedProgram = this.programs.find(program => program.name === value);
+    if (typeof selectedProgram !== "undefined") {
+      this.programService.addCourseToProgram(selectedProgram.id, this.course.id).subscribe(
+        result => {
+          this.router.navigate(['program_detail', selectedProgram.id]);
+        }
+      );
+    }
+  }
 }

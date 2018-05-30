@@ -37,6 +37,4 @@ dependencies {
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0' /*Sigue siendo necesario??*/
     // https://mvnrepository.com/artifact/junit/junit
     compile group: 'junit', name: 'junit', version: '4.12'
-    // http://www.baeldung.com/hibernate-search
-    compile 'org.hibernate:hibernate-search-orm:5.8.2.Final'
 }

@@ -13,16 +13,15 @@ import java.util.List;
 @Path("search")
 public class SearchResource {
 
-    private CourseService service;
+    private CourseService courseService;
 
     public SearchResource() {
-        service = new CourseService();
+        courseService = new CourseService();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> searchCourses(@QueryParam("token") String token){
-        System.out.println(token);
-        return service.searchCourses(token);
+        return courseService.searchCourses(token);
     }
 }

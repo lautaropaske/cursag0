@@ -1,14 +1,19 @@
 package services;
 
 import model.*;
+import javafx.beans.binding.BooleanBinding;
+import model.Course;
+import model.User;
+import model.UserCourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import javax.persistence.criteria.*;
+
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
 
 import java.util.*;
@@ -16,6 +21,7 @@ import java.util.*;
 public class CourseService {
 
     private SessionFactory sf;
+    public enum MatchIn { DESCRIPTION, NAME};
 
     public CourseService(){
         this.sf = SessionFactoryManager.getInstance();
@@ -203,51 +209,68 @@ public class CourseService {
         return result;
     }
 
-    //TODO must have COURSES with ID 20,22,24 in db
+    //TODO must have COURSES with ID 12,14,15 in db / NEGREADA MAL CORREGIR
 
     public List<Course> getCarouselCourses() {
         Session session  = sf.openSession();
 
         Transaction transaction = session.beginTransaction();
         List<Course> result = new ArrayList<>();
-        result.add(session.get(Course.class,20));
-        result.add(session.get(Course.class,22));
-        result.add(session.get(Course.class,24));
+        result.add(session.get(Course.class,12));
+        result.add(session.get(Course.class,14));
+        result.add(session.get(Course.class,15));
         transaction.commit();
         session.close();
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     public List<Course> searchCourses(String token) {
-        Session session  = sf.openSession();
-        FullTextSession fts = Search.getFullTextSession(session);
+        List<Course> result = new ArrayList<>();
+        Set<Course> byDescription = searchCourses(token, CourseService.MatchIn.DESCRIPTION);
+        Set<Course> byName = searchCourses(token, CourseService.MatchIn.NAME);
+        result.addAll(byDescription);
+        result.addAll(byName);
+        result.sort(Course::compareTo);
+        return result;
+    }
 
-        try {
-            fts.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    @SuppressWarnings("unchecked")
+    private Set<Course> searchCourses(String token, MatchIn column) {
+
+        // Prepare and clean token, leaving only key words
+
+        String[] keyWords = token.split(" ");
+
+        // Build query and ask database to retrieve relevant courses.
+
+        String colName = "";
+
+        if(column.equals(MatchIn.DESCRIPTION)) {
+            colName = "description";
+        } else if(column.equals(MatchIn.NAME)) {
+            colName = "name";
         }
 
-        Transaction tx = fts.beginTransaction();
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
 
-        QueryBuilder queryBuilder = fts.getSearchFactory()
-                .buildQueryBuilder()
-                .forEntity(Course.class)
-                .get();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Course> q = cb.createQuery(Course.class);
 
-        org.apache.lucene.search.Query query = queryBuilder/*.keyword().fuzzy().onFields("description","name").matching(token).createQuery();*/.simpleQueryString()
-                .onField("description").andField("name")
-                .matching(token)
-                .createQuery();
+        Root<Course> c = q.from(Course.class);
+        q = q.select(c).where(cb.like(c.get(colName), cb.parameter(String.class, "t")));
 
-        org.hibernate.query.Query hibQuery = fts.createFullTextQuery(query, Course.class);
+        Set<Course> result = new HashSet<>();
 
-        List result = hibQuery.getResultList();
+        for(String key : keyWords) {
+            Query finalQuery = session.createQuery(q);
+            finalQuery.setParameter("t", "%"+key+"%");
+            List queried = finalQuery.getResultList(); // Not finding results
+            result.addAll(queried);
+        }
 
-        tx.commit();
+        transaction.commit();
         session.close();
-
         return result;
     }
 }

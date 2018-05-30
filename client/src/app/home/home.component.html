@@ -4,21 +4,21 @@
   <ng-template ngbSlide>
     <img class="d-block w-100" src="assets/slider-1.jpg" style="height: 100vh" alt="First slide">
     <div class="carousel-caption d-none d-md-block">
-      <h3><a [routerLink]="['/details', carouselCourses[0].id]">{{carouselCourses[0].name}}</a></h3>
+      <h3><a style="color: #818182" [routerLink]="['/details', carouselCourses[0].id]">{{carouselCourses[0].name}}</a></h3>
       <p>{{carouselCourses[0].description}}</p>
     </div>
   </ng-template>
   <ng-template ngbSlide>
     <img class="d-block w-100" src="assets/slider-2.jpg" style="height: 100vh" alt="Second slide">
     <div class="carousel-caption">
-      <h3><a [routerLink]="['/details', carouselCourses[1].id]">{{carouselCourses[1].name}}</a></h3>
+      <h3><a style="color: #818182" [routerLink]="['/details', carouselCourses[1].id]">{{carouselCourses[1].name}}</a></h3>
       <p>{{carouselCourses[1].description}}</p>
     </div>
   </ng-template>
   <ng-template ngbSlide>
     <img class="d-block w-100" src="assets/slider-3.jpg" style="height: 100vh" alt="Third slide">
     <div class="carousel-caption">
-      <h3><a [routerLink]="['/details', carouselCourses[2].id]">{{carouselCourses[2].name}}</a></h3>
+      <h3><a style="color: #818182" [routerLink]="['/details', carouselCourses[2].id]">{{carouselCourses[2].name}}</a></h3>
       <p>{{carouselCourses[2].description}}</p>
     </div>
   </ng-template>
@@ -31,7 +31,7 @@
   <div class="card-deck mt-5">
     <div *ngFor="let course of courses" class="card mt-2" style="width: 18rem;">
       <div class="card-body">
-        <a [routerLink]="['/details', course.id]">
+        <a style="color: #818182" [routerLink]="['/details', course.id]">
           <h5 class="card-title">{{course.name}}</h5>
         </a>
         <ng-template #t let-fill="fill">

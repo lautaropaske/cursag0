@@ -4,7 +4,6 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.search.annotations.*;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
@@ -14,17 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Indexed
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Course implements Comparable<Course> {
 
     @Id
-    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Field(termVector = TermVector.YES)
     private String name;
-    @Field
     @Lob
     @Column(length = 1000)
     private String description;

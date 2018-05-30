@@ -55,7 +55,6 @@ public class FillDatabase {
         programService.addCourseToProgram(fullstackProgram.getId(), angular.getId());
         programService.addCourseToProgram(fullstackProgram.getId(), nodejs.getId());
 
-
-
+        System.exit(0);
     }
 }

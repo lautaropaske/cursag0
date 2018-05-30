@@ -6,16 +6,10 @@ import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
 import java.util.List;
 
 public class UserService {
-
-    //TODO consultar el correcto manejo de las connections y las sessions & transactions
 
     private SessionFactory sf;
 

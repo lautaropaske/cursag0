@@ -106,7 +106,7 @@ public class User {
     }
 
     public void setAdmin(boolean isAdmin) {
-        isAdmin = isAdmin;
+        this.isAdmin = isAdmin;
     }
 
     public void setMail(String mail) {

@@ -35,15 +35,15 @@ public class Course implements Comparable<Course> {
     @ManyToOne
     private User publisher;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "courses")
-    @Fetch(FetchMode.SELECT)
+    @OneToMany(mappedBy = "course")
     @JsonIgnore
-    private Set<Program> programs = new HashSet<Program>();
+    private Set<ProgramCourse> programs = new HashSet<>();
 
 
     @OneToMany(mappedBy = "course")
     @JsonIgnore
     private Set<UserCourse> enrolledStudents = new HashSet<>();
+
     @OneToMany(mappedBy = "reviewed")
     @JsonIgnore
     private Set<Review> reviews = new HashSet<>();
@@ -97,8 +97,12 @@ public class Course implements Comparable<Course> {
         return reviews;
     }
 
-    public Set<Program> getPrograms() {
+    public Set<ProgramCourse> getPrograms() {
         return programs;
+    }
+
+    public void setPrograms(Set<ProgramCourse> programs) {
+        this.programs = programs;
     }
 
     public void removeReview(Review review) {

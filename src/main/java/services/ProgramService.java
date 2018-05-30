@@ -2,10 +2,12 @@ package services;
 
 import model.Course;
 import model.Program;
+import model.ProgramCourse;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import pojos.CoursesOfProgramUpdate;
 
 import java.util.*;
 
@@ -26,11 +28,15 @@ public class ProgramService {
         return program;
     }
 
-    public Set<Course> getCoursesOfProgram(int id) {
+    public List<Course> getCoursesOfProgram(int id) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
         Program program = session.get(Program.class,id);
-        final Set<Course> courses = program.getCourses();
+
+        final List<Course> courses = new ArrayList<>();
+        final List<ProgramCourse> programCourses = new ArrayList<>(program.getCourses());
+        programCourses.sort(Comparator.comparingInt(ProgramCourse::getPosition));
+        programCourses.forEach(relation -> courses.add(relation.getCourse()));
         transaction.commit();
         session.close();
         return courses;
@@ -70,13 +76,11 @@ public class ProgramService {
     public boolean addCourseToProgram(int programId, int courseId) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        Program program = session.get(Program.class,programId);
         Course course = session.get(Course.class,courseId);
+        Program program = session.get(Program.class,programId);
 
-        program.getCourses().add(course);
-        course.getPrograms().add(program);
-
-        session.persist(program);
+        ProgramCourse pc = new ProgramCourse(program, course, program.getCourses().size()+1);
+        session.persist(pc);
         transaction.commit();
         session.close();
         return true;
@@ -85,13 +89,11 @@ public class ProgramService {
     public boolean removeCourseFromProgram(int programId, int courseId) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        Program program = session.get(Program.class,programId);
-        Course course = session.get(Course.class,courseId);
 
-        program.getCourses().remove(course);
-        course.getPrograms().remove(program);
+        ProgramCourse.ProgramCourseId id = new ProgramCourse.ProgramCourseId(programId, courseId);
+        ProgramCourse pc = session.get(ProgramCourse.class,id);
+        session.delete(pc);
 
-        session.persist(program);
         transaction.commit();
         session.close();
         return true;
@@ -150,10 +152,26 @@ public class ProgramService {
 
     public void deleteProgram(int id) {
         Session session  = sf.openSession();
-
         Transaction transaction = session.beginTransaction();
         session.delete(session.get(Program.class,id));
         transaction.commit();
+        session.close();
     }
 
+    public boolean updateCoursesOfProgram(CoursesOfProgramUpdate coursesUpdate) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        int programId = coursesUpdate.getId();
+        final List<Course> courses = coursesUpdate.getCourses();
+
+        for (int i = 0; i < courses.size(); i++) {
+            ProgramCourse.ProgramCourseId id = new ProgramCourse.ProgramCourseId(programId, courses.get(i).getId());
+            ProgramCourse pc = session.get(ProgramCourse.class,id);
+            pc.setPosition(i+1);
+            session.persist(pc);
+        }
+        transaction.commit();
+        session.close();
+        return true;
+    }
 }

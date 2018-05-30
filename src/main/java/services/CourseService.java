@@ -1,9 +1,6 @@
 package services;
 
-import model.Course;
-import model.Program;
-import model.User;
-import model.UserCourse;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -184,10 +181,9 @@ public class CourseService {
         Transaction transaction = session.beginTransaction();
         Course course = session.get(Course.class,id);
 
-        final Set<Program> programs = course.getPrograms();
-        programs.forEach(program -> {
-            program.getCourses().remove(course);
-            session.persist(program);
+        final Set<ProgramCourse> programCourses = course.getPrograms();
+        programCourses.forEach(programCourse -> {
+            session.delete(programCourse);
         });
         //TODO borrar comentarios y la relacion de usuarios que estan inscriptos
         session.delete(course);

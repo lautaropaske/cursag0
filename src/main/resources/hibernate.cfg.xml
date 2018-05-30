@@ -30,5 +30,6 @@
         <mapping class="model.Review"/>
         <mapping class="model.UserCourse"/>
         <mapping class="model.Program"/>
+        <mapping class="model.ProgramCourse"/>
     </session-factory>
 </hibernate-configuration>

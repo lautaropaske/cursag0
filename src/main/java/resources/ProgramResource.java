@@ -4,6 +4,7 @@ import model.Course;
 import model.ExtCourse;
 import model.LocalCourse;
 import model.Program;
+import pojos.CoursesOfProgramUpdate;
 import services.CourseService;
 import services.ProgramService;
 
@@ -29,7 +30,7 @@ public class ProgramResource {
 
     @GET
     @Path("/courses/{programID}")
-    public Set<Course> getCoursesOfProgram(@PathParam("programID") int id) {
+    public List<Course> getCoursesOfProgram(@PathParam("programID") int id) {
         return service.getCoursesOfProgram(id);
     }
 
@@ -86,6 +87,13 @@ public class ProgramResource {
         return service.registerProgram(program);
     }
 
+
+    @PUT
+    @Path("/courses")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public boolean updateCouresOfProgram(CoursesOfProgramUpdate courses) {
+        return service.updateCoursesOfProgram(courses);
+    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

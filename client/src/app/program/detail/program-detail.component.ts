@@ -3,12 +3,13 @@ import {ProgramService} from "../../services/program.service";
 import {Program} from "../../models/Program";
 import {ActivatedRoute} from "@angular/router";
 import {Course} from "../../models/Course";
+import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
 
 @Component({
   selector: 'program-detail',
   template: `
     <admin-navbar></admin-navbar>
-    <div class="container">
+    <div class="container mt-5">
       <h2>{{program.name}}</h2>
       <p>{{program.description}}</p>
       
@@ -71,6 +72,30 @@ export class ProgramDetailComponent implements OnInit{
   public removeItem(item: any, list: any[]): void {
     list.splice(list.indexOf(item), 1);
     this.alteredOrder = true;
+  }
+
+  public persistOrder(): void {
+    let courses = this.courses.map<Course>(course => this.getSendable(course));
+    let updatedCourses = new CoursesOfProgramUpdate(this.program.id, courses);
+    this.programService.updateCoursesOfProgram(updatedCourses).subscribe(
+      resp => {
+        console.log(this.courses);
+        console.log("update of courses was successful");
+        this.alteredOrder = false;
+      },
+      err => {
+        console.log("error when updating courses");
+        console.log(err)
+      }
+    );
+  }
+
+  private getSendable(course: Course): Course {
+    return new Course(course.id);
+  }
+
+  public deleteProgram(): void {
+    //TODO remove del program
   }
 
 

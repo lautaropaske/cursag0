@@ -17,20 +17,14 @@ public class Program {
     @Lob
     @Column(length = 1000)
     private String description;
-    private double rating;
+
+    @OneToMany(mappedBy = "program")
+    @JsonIgnore
+    private Set<ProgramCourse> courses = new HashSet<>();
 
     @ManyToOne
     private User publisher;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "Program_Course",
-            joinColumns = { @JoinColumn(name = "program_id") },
-            inverseJoinColumns = { @JoinColumn(name = "course_id") }
-    )
-    @Fetch(FetchMode.SELECT)
-    @JsonIgnore
-    private Set<Course> courses = new HashSet<>();
 
     @ManyToMany(mappedBy = "enrolledPrograms")
     @JsonIgnore
@@ -42,12 +36,6 @@ public class Program {
         this.name = name;
         this.description = description;
         this.publisher = publisher;
-    }
-
-    public void addCourse(Course course) {
-        courses.add(course);
-        int r = courses.size();
-        rating = rating * (r-1)/(r) + (course.getRating()/r);
     }
 
     public User getPublisher() {
@@ -74,15 +62,15 @@ public class Program {
         return description;
     }
 
-    public double getRating() {
-        return rating;
+    public Set<User> getEnrolledStudents() {
+        return enrolledStudents;
     }
 
-    public Set<Course> getCourses() {
+    public Set<ProgramCourse> getCourses() {
         return courses;
     }
 
-    public Set<User> getEnrolledStudents() {
-        return enrolledStudents;
+    public void setCourses(Set<ProgramCourse> courses) {
+        this.courses = courses;
     }
 }

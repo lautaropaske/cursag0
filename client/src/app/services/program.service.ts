@@ -3,6 +3,7 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {Program} from "../models/Program";
 import {Course} from "../models/Course";
+import {CoursesOfProgramUpdate} from "../models/CoursesOfProgramUpdate";
 
 const URL ="http://localhost:8080/program";
 
@@ -53,6 +54,10 @@ export class ProgramService {
 
   createProgram(program: Program) : Observable<Program>{
     return this.http.post<Program>(URL ,program);
+  }
+
+  updateCoursesOfProgram(courses: CoursesOfProgramUpdate) : Observable<CoursesOfProgramUpdate>{
+    return this.http.put<CoursesOfProgramUpdate>(URL+'/courses',courses);
   }
 
   editProgram(program: Program) : Observable<Program>{

@@ -24,14 +24,14 @@ export class ProgramService {
     return this.http.get<Program[]>(URL + '/enrolledBy/' + id);
   }
 
-  enrollUser(userId: number, courseId: number): Observable<boolean>{
+  enrollUser(userId: number, programId: number): Observable<boolean>{
     return this.http.get<boolean>(URL + '/enroll?userId=' +
-      userId+ '&programId=' + courseId);
+      userId+ '&programId=' + programId);
   }
 
-  unenrollUser(userId: number, courseId: number): Observable<boolean>{
+  unenrollUser(userId: number, programId: number): Observable<boolean>{
     return this.http.get<boolean>(URL + '/unenroll?userId=' +
-      userId+ '&programId=' + courseId);
+      userId+ '&programId=' + programId);
   }
 
   addCourseToProgram(programId: number, courseId: number): Observable<boolean>{

@@ -15,6 +15,7 @@ import {SearchComponent} from "./search/search.component";
 import {EditCourseComponent} from "./course/edit/edit-course.component";
 import {AdminPanelComponent} from "./admin/panel/admin-panel.component";
 import {ProgramFormComponent} from "./program/form/program-form.component";
+import {ProgramUpdateComponent} from "./program/update/program-update.component";
 import {ProgramDetailComponent} from "./program/detail/program-detail.component";
 
 
@@ -24,11 +25,11 @@ const routes: Routes = [
 
   { path: 'adminpanel',  component:AdminPanelComponent, canActivate: [AdminAuthGuard] },
   { path: 'create_program',  component:ProgramFormComponent, canActivate: [AdminAuthGuard] },
+  { path: "program_update/:id", component: ProgramUpdateComponent, canActivate: [AdminAuthGuard] },
 
-  { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAdminAuthGuard] },
   { path: "details/:id", component: CourseDetailComponent,canActivate: [UserAdminAuthGuard] },
 
-
+  { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAuthGuard] },
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },
   { path: "local/:courseId/:progress", component: LocalCourseComponent,canActivate: [UserAuthGuard] },
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [UserAuthGuard] },

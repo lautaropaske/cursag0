@@ -33,8 +33,9 @@ import {AdminAuthGuardService} from "./services/auth/admin-auth-guard.service";
 import {AdminPanelComponent} from "./admin/panel/admin-panel.component";
 import {ProgramService} from "./services/program.service";
 import {AdminNavbarComponent} from "./admin/navbar/admin-navbar.component";
-import {ProgramDetailComponent} from "./program/detail/program-detail.component";
+import {ProgramUpdateComponent} from "./program/update/program-update.component";
 import {ProgramFormComponent} from "./program/form/program-form.component";
+import {ProgramDetailComponent} from "./program/detail/program-detail.component";
 import {UserAdminAuthGuardService} from "./services/auth/useradmin-auth-guard";
 
 import { MaterialModule } from './material.module';
@@ -58,8 +59,9 @@ import {DndListModule} from "ngx-drag-and-drop-lists";
     EndbarComponent,
     AdminPanelComponent,
     AdminNavbarComponent,
-    ProgramDetailComponent,
-    ProgramFormComponent
+    ProgramUpdateComponent,
+    ProgramFormComponent,
+    ProgramDetailComponent
   ],
   imports: [
     NgbModule.forRoot(),

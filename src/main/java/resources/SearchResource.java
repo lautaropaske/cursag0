@@ -8,7 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Path("search")
 public class SearchResource {
@@ -22,6 +24,8 @@ public class SearchResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> searchCourses(@QueryParam("token") String token){
-        return courseService.searchCourses(token);
+        List<Course> result = new ArrayList<>(courseService.searchCourses(token));
+        result.sort(Course::compareTo);
+        return result;
     }
 }

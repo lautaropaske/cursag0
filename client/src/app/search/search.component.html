@@ -2,8 +2,7 @@
 <admin-navbar *ngIf="isAdmin"></admin-navbar>
 
 <div class="container mt-5">
-  <p>Courses:</p>
-  <div *ngFor="let course of foundCourses" class="card" style="width: 18rem;">
+  <div *ngFor="let course of foundCourses" class="card w-75" style="width: 18rem;">
     <div class="card-body">
       <a [routerLink]="['/details', course.id]">
         <h5 class="card-title">{{course.name}}</h5>

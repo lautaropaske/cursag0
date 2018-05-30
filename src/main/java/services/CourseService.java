@@ -224,32 +224,11 @@ public class CourseService {
         return result;
     }
 
-    public List<Course> searchCourses(String token) {
-        List<Course> result = new ArrayList<>();
-        Set<Course> byDescription = searchCourses(token, CourseService.MatchIn.DESCRIPTION);
-        Set<Course> byName = searchCourses(token, CourseService.MatchIn.NAME);
-        result.addAll(byDescription);
-        result.addAll(byName);
-        result.sort(Course::compareTo);
-        return result;
-    }
-
     @SuppressWarnings("unchecked")
-    private Set<Course> searchCourses(String token, MatchIn column) {
+    public Set<Course> searchCourses(String token) {
 
         // Prepare and clean token, leaving only key words
-
         String[] keyWords = token.split(" ");
-
-        // Build query and ask database to retrieve relevant courses.
-
-        String colName = "";
-
-        if(column.equals(MatchIn.DESCRIPTION)) {
-            colName = "description";
-        } else if(column.equals(MatchIn.NAME)) {
-            colName = "name";
-        }
 
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
@@ -258,14 +237,17 @@ public class CourseService {
         CriteriaQuery<Course> q = cb.createQuery(Course.class);
 
         Root<Course> c = q.from(Course.class);
-        q = q.select(c).where(cb.like(c.get(colName), cb.parameter(String.class, "t")));
+        Predicate orClause =
+                cb.or(cb.like(c.get("name"), cb.parameter(String.class, "t")),
+                        cb.like(c.get("description"), cb.parameter(String.class, "t")));
+        q = q.select(c).where(orClause);
 
         Set<Course> result = new HashSet<>();
 
         for(String key : keyWords) {
             Query finalQuery = session.createQuery(q);
             finalQuery.setParameter("t", "%"+key+"%");
-            List queried = finalQuery.getResultList(); // Not finding results
+            List queried = finalQuery.getResultList();
             result.addAll(queried);
         }
 

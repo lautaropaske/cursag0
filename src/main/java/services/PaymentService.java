@@ -92,7 +92,7 @@ public class PaymentService {
 
         parameters.put(ElementNames.UrlOK ,  "https://www.reddit.com");
         parameters.put(ElementNames.UrlError ,  "https://www.facebook.com");
-        parameters.put(ElementNames.EMAILCLIENTE ,  "some2@some.com");
+        parameters.put(ElementNames.EMAILCLIENTE ,  "bettatiagustin@gmail.com");
         parameters.put(ElementNames.MAXINSTALLMENTS ,  "12");
         parameters.put(ElementNames.MININSTALLMENTS ,  "1");
         parameters.put(ElementNames.TIMEOUT ,  "1800000");

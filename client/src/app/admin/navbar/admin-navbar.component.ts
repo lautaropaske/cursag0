@@ -9,7 +9,7 @@ import {FormBuilder} from "@angular/forms";
     <nav class="navbar sticky-top navbar-dark bg-primary d-flex justify-content-between">
       <a class="navbar-brand" [routerLink]="['/dashboard']">Cursago</a>
       <form class="form-inline">
-        <input #token class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input #token class="form-control mr-sm-2" type="search" placeholder="Look up our courses!" aria-label="Search">
         <button type="button" (click)="search(token.value);" class="btn btn-outline-light my-2 my-sm-0">Search</button>
       </form>
       <div class="d-inline-flex">

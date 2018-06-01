@@ -81,6 +81,16 @@ public class ProgramResource {
         return service.getProgram(id);
     }
 
+
+    @GET
+    @Path("/courseNotPresent/{courseID}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Program> getProgramsCourseNotPresent(@PathParam("courseID") int id) {
+        return service.getProgramsCourseNotPresent(id);
+    }
+
+
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Program registerProgram(Program program) {

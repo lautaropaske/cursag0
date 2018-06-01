@@ -84,7 +84,7 @@ export class CourseDetailComponent implements OnInit{
 
     if(localStorage.getItem("type") == "admin"){
       this.isAdmin = true;
-      this.programService.getAllPrograms().subscribe(
+      this.programService.getProgramsWhereCourseIsNotPresent(idOfCourse).subscribe(
         programs=> {
           this.programs = programs;
           this.filteredOptions = this.myControl.valueChanges
@@ -202,7 +202,7 @@ export class CourseDetailComponent implements OnInit{
     if (typeof selectedProgram !== "undefined") {
       this.programService.addCourseToProgram(selectedProgram.id, this.course.id).subscribe(
         result => {
-          this.router.navigate(['program_detail', selectedProgram.id]);
+          this.router.navigate(['program_update', selectedProgram.id]);
         }
       );
     }

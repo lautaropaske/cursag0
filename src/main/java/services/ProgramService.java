@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import pojos.CoursesOfProgramUpdate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProgramService {
 
@@ -92,8 +93,16 @@ public class ProgramService {
 
         ProgramCourse.ProgramCourseId id = new ProgramCourse.ProgramCourseId(programId, courseId);
         ProgramCourse pc = session.get(ProgramCourse.class,id);
+        final Program program = pc.getProgram();
+        final int position = pc.getPosition();
+
+        program.getCourses().forEach(programCourse -> {
+            if(programCourse.getPosition() > position){
+                programCourse.setPosition(programCourse.getPosition() -1);
+                session.persist(programCourse);
+            }
+        });
         session.delete(pc);
-        //TODO ajustar todos los positions que quedaron adelante
         transaction.commit();
         session.close();
         return true;
@@ -153,7 +162,11 @@ public class ProgramService {
     public void deleteProgram(int id) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(session.get(Program.class,id));
+        final Program program = session.get(Program.class, id);
+        program.getCourses().forEach(programCourse -> {
+            session.delete(programCourse);
+        });
+        session.delete(program);
         transaction.commit();
         session.close();
     }
@@ -173,5 +186,28 @@ public class ProgramService {
         transaction.commit();
         session.close();
         return true;
+    }
+
+    public List<Program> getProgramsCourseNotPresent(int id) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Program> programs = session.createQuery("FROM Program").list();
+
+        List<Program> result = programs.stream()
+                .filter(program -> {
+                    boolean value = true;
+                    for (ProgramCourse programCourse : program.getCourses()) {
+                        if(programCourse.getCourse().getId() == id){
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .collect(Collectors.toList());
+
+        transaction.commit();
+        session.close();
+        return result;
     }
 }

@@ -16,6 +16,10 @@ export class ProgramService {
     return this.http.get<Program[]>(URL);
   }
 
+  getProgramsWhereCourseIsNotPresent(courseId: number): Observable<Program[]> {
+  return this.http.get<Program[]>(URL+ '/courseNotPresent/' + courseId);
+}
+
   getProgramsPublishedByUser(id: number): Observable<Program[]> {
     return this.http.get<Program[]>(URL + '/publishedBy/' + id);
   }
@@ -64,4 +68,7 @@ export class ProgramService {
     return this.http.put<Program>(URL ,program);
   }
 
+  deleteProgram(id: number) : Observable<Object>{
+    return this.http.delete(URL + '/'+id);
+  }
 }

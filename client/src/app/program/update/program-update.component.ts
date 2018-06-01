@@ -13,23 +13,32 @@ import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
       <h2>{{program.name}}</h2>
       <p>{{program.description}}</p>
       
-      <h5>Courses of program: (drag and drop to alter order as desired) </h5>
+      <h5>Courses of program </h5>
 
-      <ol [dndList]
-          [dndModel]="courses">
-        <li *ngFor="let course of courses;let i = index"
-            [dndDraggable]="{draggable:true, effectAllowed:'move'}"
-            [dndObject]="course"
-            (dndMoved)="removeItem(course, courses)">
-          {{course.name}}
-        </li>
-      </ol>
-      <div *ngIf="alteredOrder">
-        <button type="button" (click)="persistOrder();" class="btn mt-2 btn-outline-warning">Save order</button>
+      <div class="card" style="width: 45rem;">
+        <ul [dndList]
+            [dndModel]="courses" class="list-group list-group-flush">
+          <li *ngFor="let course of courses;let i = index"
+              [dndDraggable]="{draggable:true, effectAllowed:'move'}"
+              [dndObject]="course"
+              (dndMoved)="removeItem(course, courses)"
+              class="list-group-item d-flex justify-content-between" style="cursor: pointer">
+            <div [routerLink]="['/details', course.id]">
+              {{course.name}}
+            </div>
+            <i (click)="removeCourse(course)" class="far fa-trash-alt"></i>
+          </li>
+        </ul>
       </div>
-      <button type="button" (click)="deleteProgram();" class="btn mt-2 btn-outline-danger">Delete program</button>
+      
+      <div *ngIf="alteredOrder">
+        <button type="button" (click)="persistOrder();" class="btn mt-3 btn-outline-warning">Save order</button>
+      </div>
+      <button type="button" (click)="deleteProgram();" class="btn mt-3 btn-outline-danger">Delete program</button>
     </div>
     
+
+
   `
 })
 export class ProgramUpdateComponent implements OnInit{
@@ -96,6 +105,19 @@ export class ProgramUpdateComponent implements OnInit{
 
   public deleteProgram(): void {
     //TODO remove del program
+  }
+
+  public removeCourse(course: Course): void {
+    this.programService.removeCourseFromProgram(this.program.id, course.id).subscribe(
+      resp => {
+        console.log("course has been removed from program");
+        const index = this.courses.indexOf(course, 0);
+        if (index > -1) {
+          this.courses.splice(index, 1);
+        }
+      }
+
+    )
   }
 
 

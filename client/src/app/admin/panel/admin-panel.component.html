@@ -6,7 +6,7 @@
 
 
   <div class="list-group">
-    <a *ngFor="let program of createdPrograms" [routerLink]="['/program_update', program.id]" class="list-group-item list-group-item-action flex-column align-items-start mb-1">
+    <a *ngFor="let program of createdPrograms" [routerLink]="['/program_update', program.id]" class="list-group-item list-group-item-action flex-column align-items-start mb-3">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{program.name}}</h5>
       </div>

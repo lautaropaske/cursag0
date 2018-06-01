@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +26,7 @@ public class SearchServiceTest {
         cs.registerCourse(course);
 
         String requestToken = "java";
-        List result = cs.searchCourses(requestToken);
+        Set result = cs.searchCourses(requestToken);
 
         try {
             assertTrue(result.contains(course));

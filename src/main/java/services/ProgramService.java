@@ -93,7 +93,7 @@ public class ProgramService {
         ProgramCourse.ProgramCourseId id = new ProgramCourse.ProgramCourseId(programId, courseId);
         ProgramCourse pc = session.get(ProgramCourse.class,id);
         session.delete(pc);
-
+        //TODO ajustar todos los positions que quedaron adelante
         transaction.commit();
         session.close();
         return true;

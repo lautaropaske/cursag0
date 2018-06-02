@@ -1,45 +1,102 @@
-<section class="container">
 
-  <h3 class="display-3 text-center mb-4">Welcome to Cursago!</h3>
+<div class="d-flex justify-content-center align-items-center mb-4" style="
+                                                          background: #466368;
+                                                          background: linear-gradient(to right, #17a2b8, #c0eacf);
+                                                          /*border-radius: 6px;*/
+                                                          height: 150px;">
+  <h1 style="font-size: 70px"><em>Welcome to Cursago!</em></h1>
+</div>
+
+<section class="container">
 
   <div class="row">
 
     <div class="col-md-6" style="padding-right:20px; border-right: 1px solid #ccc;">
-      <form>
+
         <h1>Log In</h1>
+        <div *ngIf='displayLoginError'>
+          <div class="alert alert-danger alert-dismissible">
+            <a class="close" data-dismiss="alert" aria-label="close" (click)="displayLoginError=false">&times;</a>
+            {{loginErrorMessage}}
+          </div>
+        </div>
+
+      <div [formGroup]="loginForm">
+
         <div class="form-group">
-          <label for="email">Email</label>
-          <input #email type="email" class="form-control" id="email" placeholder="Email">
+          <label class="center-block">Email</label>
+          <input type="email" class="form-control" formControlName="mail" email [(ngModel)]="this.mail"
+                 [ngClass]="{
+                'is-invalid': loginForm.controls.mail.invalid && loginForm.controls.mail.dirty,
+                'is-valid': loginForm.controls.mail.valid && loginForm.controls.mail.dirty
+          }">
+        </div>
+        <div class="invalid-feedback">
+          Enter a valid email address
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input #password type="password" class="form-control" id="password" placeholder="Password">
+          <label class="center-block">Password</label>
+          <input type="password" class="form-control" formControlName="password" [(ngModel)]="this.password"
+                 [ngClass]="{
+                'is-invalid': loginForm.controls.password.invalid && loginForm.controls.password.dirty,
+                'is-valid': loginForm.controls.password.valid && loginForm.controls.password.dirty
+                }">
         </div>
-        <button type="button" (click)="login(email.value, password.value);" class="btn btn-primary">Log In</button>
-      </form>
+
+        <button type="submit" (click)="login();" class="btn btn-primary">Log In</button>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <form>
-        <h1>Register new account</h1>
+      <h1>Register new account</h1>
+      <div *ngIf='displaySignupError'>
+        <div class="alert alert-danger alert-dismissible">
+          <a class="close" data-dismiss="alert" aria-label="close" (click)="displaySignupError=false">&times;</a>
+          {{signupErrorMessage}}
+        </div>
+      </div>
+      <div [formGroup]="userForm">
         <div class="form-group">
-          <label for="inputName">First Name</label>
-          <input #name type="text" class="form-control" id="inputName" placeholder="Name">
+          <label class="center-block">First Name</label>
+          <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name"
+                 [ngClass]="{
+                'is-invalid': userForm.controls.name.invalid && userForm.controls.name.dirty,
+                'is-valid': userForm.controls.name.valid && userForm.controls.name.dirty
+          }">
         </div>
         <div class="form-group">
-          <label for="inputSurname">Last Name</label>
-          <input #surname type="text" class="form-control" id="inputSurname" placeholder="Surname">
+          <label class="center-block">Last Name</label>
+          <input type="text" class="form-control" formControlName="surname" [(ngModel)]="user.surname"
+                 [ngClass]="{
+                'is-invalid': userForm.controls.surname.invalid && userForm.controls.surname.dirty,
+                'is-valid': userForm.controls.surname.valid && userForm.controls.surname.dirty
+          }">
         </div>
         <div class="form-group">
-          <label for="inputEmail2">Email</label>
-          <input #email2 type="email" class="form-control" id="inputEmail2" placeholder="Email">
+          <label class="center-block">Email</label>
+          <input type="email" class="form-control" formControlName="mail" email [(ngModel)]="user.mail"
+                 [ngClass]="{
+                'is-invalid': userForm.controls.mail.invalid && userForm.controls.mail.dirty,
+                'is-valid': userForm.controls.mail.valid && userForm.controls.mail.dirty
+          }">
+          <div class="invalid-feedback">
+            Enter a valid email address
+          </div>
         </div>
-        <div class="form-group">
-          <label for="inputPassword2">Password</label>
-          <input #password2 type="password" class="form-control" id="inputPassword2" placeholder="Password">
+        <div class="form-group has-danger">
+          <label class="center-block">Password</label>
+          <input type="password" class="form-control " formControlName="password" [(ngModel)]="user.password"
+                 [ngClass]="{
+                'is-invalid': userForm.controls.password.invalid && userForm.controls.password.dirty,
+                'is-valid': userForm.controls.password.valid && userForm.controls.password.dirty
+          }"
+          >
+          <div class="invalid-feedback">
+            Password must be 8 characters long, add {{8 - user.password.length}} more
+          </div>
         </div>
-        <button type="button" (click)="signup(name.value, surname.value,email2.value,password2.value);" class="btn btn-primary">Create Account</button>
-      </form>
+        <button type="button" (click)="signup();" class="btn btn-primary">Create Account</button>
+      </div>
     </div>
 
   </div>

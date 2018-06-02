@@ -25,6 +25,8 @@ import {ProgramService} from "../../services/program.service";
       <p>listo a los cursos</p>
     </div>
     
+    <endbar></endbar>
+    
   `
 })
 export class ProgramDetailComponent implements OnInit {

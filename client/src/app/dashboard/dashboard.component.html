@@ -1,8 +1,12 @@
 <navbar></navbar>
 
-<div class="container mt-3">
 
-  <h2 class="mt-5 mb-5">Feel free to contribute and browse our most <a [routerLink]="['home']">popular courses</a>!</h2>
+
+<div class="banner d-flex justify-content-center align-items-center mb-4">
+  <h2 class="align-middle">Your Courses! <i>look up our most <a [routerLink]="['home']">popular courses</a>!</i></h2>
+</div>
+
+<div class="container mt-3">
 
   <div *ngIf="loadedEnrolled && loadedCreated">
 

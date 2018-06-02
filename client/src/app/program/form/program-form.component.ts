@@ -9,6 +9,8 @@ import {ProgramService} from "../../services/program.service";
     <div class="container">
       <p>TODO hacer el form</p>
     </div>
+    
+    <endbar></endbar>
   `
 })
 export class ProgramFormComponent implements OnInit{

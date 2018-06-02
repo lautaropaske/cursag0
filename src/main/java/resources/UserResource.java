@@ -1,11 +1,13 @@
 package resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import model.Course;
 import model.User;
 import services.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/user")
@@ -26,8 +28,7 @@ public class UserResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public User registerUser(User user){
-        //TODO verificar que no exista un usuario con el mismo mail.
+    public Response registerUser(User user) throws JsonProcessingException {
         return service.registerUser(user);
     }
 

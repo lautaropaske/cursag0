@@ -16,10 +16,10 @@ public class FillDatabase {
         ReviewService reviewService = new ReviewService();
         ProgramService programService = new ProgramService();
 
-        User admin = userService.registerUser(new User("admin@cursago.com", "admin", "admin", "",true));
-        User diego = userService.registerUser(new User("diegolarralde@gmail.com", "1234", "Diego", "Larralde",false));
-        User lucas = userService.registerUser(new User("lucasluppani@gmail.com", "1234", "Lucas", "Luppani",false));
-        User santi = userService.registerUser(new User("santiagofuentes@gmail.com", "1234", "Santiago", "Fuentes",false));
+        User admin = userService.saveUser(new User("admin@cursago.com", "admin", "admin", "",true));
+        User diego = userService.saveUser(new User("diegolarralde@gmail.com", "1234", "Diego", "Larralde",false));
+        User lucas = userService.saveUser(new User("lucasluppani@gmail.com", "1234", "Lucas", "Luppani",false));
+        User santi = userService.saveUser(new User("santiagofuentes@gmail.com", "1234", "Santiago", "Fuentes",false));
 
         Course jUnit = courseService.registerCourse(new LocalCourse("Learn Java Unit Testing with JUnit 5", "JUnit is most popular Java Unit Testing Framework. The new version of JUnit - Junit 5 or Jupiter is even more special. \nIn this course, we look into the important features of JUnit 5. We understand the need for unit testing and learn how to write great unit tests with JUnit 5.\n"
                 , 0, diego));

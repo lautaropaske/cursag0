@@ -26,6 +26,13 @@ import {CourseService} from "../services/course.service";
     .progress {
       background-color: #aaa;
     }
+    
+    .banner {
+      background: #466368;
+      background: linear-gradient(to right, #17a2b8, #c0eacf);
+      /*border-radius: 6px;*/
+      height: 100px;
+    }
   `]
 })
 export class DashboardComponent implements OnInit{

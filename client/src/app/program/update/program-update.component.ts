@@ -36,6 +36,7 @@ import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
       </div>
       <button type="button" (click)="deleteProgram();" class="btn mt-3 btn-outline-danger">Delete program</button>
     </div>
+    <endbar></endbar>
     
 
 

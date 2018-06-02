@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Course} from "../models/Course";
 import {CourseService} from "../services/course.service";
+import {ProgramService} from "../services/program.service";
+import {Program} from "../models/Program";
 
 @Component({
   selector: 'profile',
@@ -33,6 +35,10 @@ import {CourseService} from "../services/course.service";
       /*border-radius: 6px;*/
       height: 100px;
     }
+    
+    .card-columns {
+        column-count: 3;
+    }
   `]
 })
 export class DashboardComponent implements OnInit{
@@ -43,11 +49,11 @@ export class DashboardComponent implements OnInit{
   surname = localStorage.getItem("surname");
   createdCourses: Course[] = [];
   enrolledCourses: Course[] = [];
-  loadedCreated: boolean;
-  loadedEnrolled: boolean;
+  enrolledPrograms: Program[] = [];
 
 
-  constructor(private router: Router,private courseService: CourseService) {}
+
+  constructor(private router: Router,private courseService: CourseService, private programService: ProgramService) {}
 
   ngOnInit(): void {
     this.id = +localStorage.getItem("id");
@@ -59,7 +65,6 @@ export class DashboardComponent implements OnInit{
         console.log(courses);
         this.courseService.addLoadedCourses(courses);
         this.createdCourses = courses;
-        this.loadedCreated = true;
       },
       err => {
         console.log("Error when getting published courses.");
@@ -73,13 +78,26 @@ export class DashboardComponent implements OnInit{
         console.log(courses);
         this.courseService.addLoadedCourses(courses);
         this.enrolledCourses = courses;
-        this.loadedEnrolled = true;
       },
       err => {
         console.log("Error when getting enrolled courses.");
         this.createdCourses = null;
       }
     );
+
+    this.programService.getProgramsEnrolledByUser(this.id).subscribe(
+      programs => {
+        console.log("Enrolled programs found successfully.");
+        console.log(programs);
+        this.enrolledPrograms = programs;
+      },
+      err => {
+        console.log("Error when getting enrolled programs.");
+        this.createdCourses = null;
+      }
+    );
+
+
   }
 
   createCourse(): void{

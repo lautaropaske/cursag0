@@ -134,10 +134,4 @@ public class CourseResource {
         return service.getSamplePopularCouses();
     }
 
-    @GET
-    @Path("/carousel")
-    public List<Course> getCarouselCourses(){
-        return service.getCarouselCourses();
-    }
-
 }

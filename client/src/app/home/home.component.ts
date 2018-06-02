@@ -3,6 +3,8 @@ import {Component, OnInit} from "@angular/core";
 import {Course} from "../models/Course";
 import {CourseService} from "../services/course.service";
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ProgramService} from "../services/program.service";
+import {Program} from "../models/Program";
 
 
 @Component({
@@ -34,10 +36,12 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit{
 
-  carouselCourses: Course[] = [];
+  carouselPrograms: Program[] = [];
+  normalPrograms: Program[] = [];
   courses: Course[] = [];
+  limit: number = 150;
 
-  constructor(config: NgbCarouselConfig, private courseService: CourseService) {
+  constructor(config: NgbCarouselConfig, private programService: ProgramService, private courseService: CourseService) {
     config.interval = 5000;
     config.wrap = true;
   }
@@ -54,19 +58,28 @@ export class HomeComponent implements OnInit{
       },
       err => {
         console.log("Unable to get popular courses from database.");
-        this.courses = null;
       }
     );
 
-    this.courseService.getCarouselCourses().subscribe(
-      courses => {
-        console.log("Carousel courses where found successfully.");
-        console.log(courses);
-        this.carouselCourses = courses;
+    this.programService.getCarouselPrograms().subscribe(
+      programs => {
+        console.log("Carousel programs where found successfully.");
+        console.log(programs);
+        this.carouselPrograms = programs;
       },
       err => {
-        console.log("Unable to get carousel courses from database.");
-        this.courses = null;
+        console.log("Unable to get carousel programs from database.");
+      }
+    );
+
+    this.programService.getAllPrograms().subscribe(
+      programs => {
+        console.log("Normal programs where found successfully.");
+        console.log(programs);
+        this.normalPrograms = programs;
+      },
+      err => {
+        console.log("Unable to get normal programs from database.");
       }
     );
   }

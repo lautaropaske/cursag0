@@ -71,4 +71,9 @@ export class ProgramService {
   deleteProgram(id: number) : Observable<Object>{
     return this.http.delete(URL + '/'+id);
   }
+
+  getCarouselPrograms() : Observable<Program[]> {
+    return this.http.get<Program[]>(URL + '/carousel');
+  }
+
 }

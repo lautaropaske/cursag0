@@ -1,14 +1,30 @@
 <navbar></navbar>
+<div class="banner d-flex justify-content-center align-items-center mb-4" style="background: linear-gradient(to right, #17a2b8, #c0eacf);">
+  <h2 class="align-middle">Your pinned programs! <i>Find more programs <a [routerLink]="['home']">here</a>!</i></h2>
+</div>
 
+<div class="container mt-3">
+
+  <div class="card-columns">
+    <div *ngFor="let program of enrolledPrograms" class="card" style="display: inline-block;">
+      <div class="card-body">
+        <a [routerLink]="['/program_detail', program.id]">
+          <h5 class="card-title">{{program.name}}</h5>
+        </a>
+        <p class="card-text">{{program.description | maxLength : 200}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
 <div class="banner d-flex justify-content-center align-items-center mb-4">
   <h2 class="align-middle">Your Courses! <i>look up our most <a [routerLink]="['home']">popular courses</a>!</i></h2>
 </div>
 
-<div class="container mt-3">
 
-  <div *ngIf="loadedEnrolled && loadedCreated">
+<div class="container mt-3">
 
     <!--Si solo se inscribe (USUARIO NORMAL)-->
     <div *ngIf="createdCourses.length == 0 && enrolledCourses.length !=0">
@@ -105,8 +121,6 @@
     <div *ngIf="createdCourses.length == 0 && enrolledCourses.length == 0">
       <p>Feel free to look at our course or created your own!</p>
     </div>
-
-  </div>
 
 </div>
 

@@ -55,6 +55,9 @@ public class FillDatabase {
         programService.addCourseToProgram(fullstackProgram.getId(), angular.getId());
         programService.addCourseToProgram(fullstackProgram.getId(), nodejs.getId());
 
+        Program blockchain = programService.registerProgram(new Program("Fundamentals of Blockchain", "The blockchain is an undeniably ingenious invention – the brainchild of a person or group of people known by the pseudonym,  Satoshi Nakamoto. But since then, it has evolved into something greater, and the main question every single person is asking is: What is Blockchain? By allowing digital information to be distributed but not copied, blockchain technology created the backbone of a new type of internet. ", admin));
+
+
         System.exit(0);
     }
 }

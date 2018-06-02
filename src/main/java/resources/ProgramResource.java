@@ -117,4 +117,10 @@ public class ProgramResource {
         service.deleteProgram(id);
     }
 
+    @GET
+    @Path("/carousel")
+    public List<Program> getCarouselPrograms(){
+        return service.getCarouselCourses();
+    }
+
 }

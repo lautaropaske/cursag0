@@ -209,21 +209,6 @@ public class CourseService {
         return result;
     }
 
-    //TODO must have COURSES with ID 12,14,15 in db / NEGREADA MAL CORREGIR
-
-    public List<Course> getCarouselCourses() {
-        Session session  = sf.openSession();
-
-        Transaction transaction = session.beginTransaction();
-        List<Course> result = new ArrayList<>();
-        result.add(session.get(Course.class,12));
-        result.add(session.get(Course.class,14));
-        result.add(session.get(Course.class,15));
-        transaction.commit();
-        session.close();
-        return result;
-    }
-
     @SuppressWarnings("unchecked")
     public Set<Course> searchCourses(String token) {
 

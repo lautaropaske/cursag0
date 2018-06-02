@@ -37,7 +37,7 @@ public class User {
     @JsonIgnore
     private Set<UserCourse> enrolledCourses = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "User_Program",
             joinColumns = { @JoinColumn(name = "user_id") },

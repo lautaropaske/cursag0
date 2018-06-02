@@ -40,6 +40,7 @@ import {UserAdminAuthGuardService} from "./services/auth/useradmin-auth-guard";
 
 import { MaterialModule } from './material.module';
 import {DndListModule} from "ngx-drag-and-drop-lists";
+import {MaxLengthPipe} from "./pipes/max-length.pipe";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {DndListModule} from "ngx-drag-and-drop-lists";
     AdminNavbarComponent,
     ProgramUpdateComponent,
     ProgramFormComponent,
-    ProgramDetailComponent
+    ProgramDetailComponent,
+    MaxLengthPipe
   ],
   imports: [
     NgbModule.forRoot(),

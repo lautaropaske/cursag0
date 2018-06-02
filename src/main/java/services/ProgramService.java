@@ -210,4 +210,17 @@ public class ProgramService {
         session.close();
         return result;
     }
+
+    public List<Program> getCarouselCourses() {
+        Session session  = sf.openSession();
+
+        Transaction transaction = session.beginTransaction();
+        List<Program> result = new ArrayList<>();
+        result.add(session.get(Program.class,264));
+        result.add(session.get(Program.class,269));
+        result.add(session.get(Program.class,270));
+        transaction.commit();
+        session.close();
+        return result;
+    }
 }

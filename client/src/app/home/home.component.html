@@ -2,33 +2,46 @@
 
 <ngb-carousel>
   <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-1.jpg" style="height: 100vh" alt="First slide">
+    <img class="d-block w-100" src="assets/slider-1.jpg" style="height: 500px" alt="First slide">
     <div class="carousel-caption d-none d-md-block">
-      <h3><a style="color: #818182" class="text-muted" [routerLink]="['/details', carouselCourses[0].id]">{{carouselCourses[0].name}}</a></h3>
-      <p>{{carouselCourses[0].description}}</p>
+      <h3><a style="color: white" class="text-muted" [routerLink]="['/program_detail', carouselPrograms[0].id]">{{carouselPrograms[0].name}}</a></h3>
+      <p>{{carouselPrograms[0].description}}</p>
     </div>
   </ng-template>
   <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-2.jpg" style="height: 100vh" alt="Second slide">
+    <img class="d-block w-100" src="assets/slider-2.jpg" style="height: 500px" alt="Second slide">
     <div class="carousel-caption">
-      <h3><a style="color: #818182" class="text-muted" [routerLink]="['/details', carouselCourses[1].id]">{{carouselCourses[1].name}}</a></h3>
-      <p>{{carouselCourses[1].description}}</p>
+      <h3><a style="color: white" class="text-muted" [routerLink]="['/program_detail', carouselPrograms[1].id]">{{carouselPrograms[1].name}}</a></h3>
+      <p>{{carouselPrograms[1].description}}</p>
     </div>
   </ng-template>
   <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-3.jpg" style="height: 100vh" alt="Third slide">
+    <img class="d-block w-100" src="assets/slider-3.jpg" style="height: 500px" alt="Third slide">
     <div class="carousel-caption">
-      <h3><a style="color: #818182" class="text-muted"[routerLink]="['/details', carouselCourses[2].id]">{{carouselCourses[2].name}}</a></h3>
-      <p>{{carouselCourses[2].description}}</p>
+      <h3><a style="color: white" class="text-muted"[routerLink]="['/program_detail', carouselPrograms[2].id]">{{carouselPrograms[2].name}}</a></h3>
+      <p>{{carouselPrograms[2].description}}</p>
     </div>
   </ng-template>
 </ngb-carousel>
 
+
 <div class="container mt-5">
+  <h3>Our Programs</h3>
 
-  <h3>Take a look on our most popular courses</h3>
+  <div class="card-deck mt-3">
+    <div *ngFor="let program of normalPrograms" class="card mt-2" style="width: 18rem;">
+      <div class="card-body">
+        <a style="color: #818182" [routerLink]="['/program_detail', program.id]">
+          <h5 class="card-title">{{program.name}}</h5>
+        </a>
+        <p class="card-text">{{program.description | maxLength : 200}}</p>
+      </div>
+    </div>
+  </div>
 
-  <div class="card-deck mt-5">
+  <h3 class="mt-5">Take a look on our most popular courses</h3>
+
+  <div class="card-deck mt-3">
     <div *ngFor="let course of courses" class="card mt-2" style="width: 18rem;">
       <div class="card-body">
         <a style="color: #818182" [routerLink]="['/details', course.id]">
@@ -40,9 +53,8 @@
           </span>
         </ng-template>
         <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-
-        <p class="card-text">{{course.description}}</p>
-        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+        <p class="card-text">Price: {{course.price}}</p>
+        <p class="card-text">{{course.description | maxLength : 200}}</p>
       </div>
     </div>
   </div>

@@ -42,7 +42,7 @@
           </ng-template>
           <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-          <p class="card-text">{{course.description}}</p>
+          <p class="card-text">{{course.description | maxLength : 200}}</p>
           <p class="card-text">Publisher: {{course.publisher.surname}}</p>
         </div>
       </div>
@@ -64,7 +64,7 @@
           </ng-template>
           <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-          <p class="card-text">{{course.description}}</p>
+          <p class="card-text">{{course.description | maxLength : 200}}</p>
           <p class="card-text">Publisher: {{course.publisher.surname}}</p>
         </div>
       </div>
@@ -88,7 +88,7 @@
               </ng-template>
               <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-              <p class="card-text">{{course.description}}</p>
+              <p class="card-text">{{course.description | maxLength : 200}}</p>
               <p class="card-text">Publisher: {{course.publisher.surname}}</p>
             </div>
           </div>
@@ -109,7 +109,7 @@
               </ng-template>
               <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-              <p class="card-text">{{course.description}}</p>
+              <p class="card-text">{{course.description | maxLength : 200}}</p>
               <p class="card-text">Publisher: {{course.publisher.surname}}</p>
             </div>
           </div>

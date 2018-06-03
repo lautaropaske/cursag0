@@ -2,14 +2,20 @@
 <admin-navbar *ngIf="isAdmin"></admin-navbar>
 
 <div class="container mt-5">
-  <div *ngFor="let course of foundCourses" class="card w-75" style="width: 18rem;">
-    <div class="card-body">
-      <a [routerLink]="['/details', course.id]">
-        <h5 class="card-title">{{course.name}}</h5>
-      </a>
-      <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
-      <p class="card-text">{{course.description}}</p>
-      <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+  <div *ngIf="foundCourses.length > 0">
+    <div *ngFor="let course of foundCourses" class="card w-75" style="width: 18rem;">
+      <div class="card-body">
+        <a [routerLink]="['/details', course.id]">
+          <h5 class="card-title">{{course.name}}</h5>
+        </a>
+        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
+        <p class="card-text">{{course.description}}</p>
+        <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+      </div>
     </div>
+  </div>
+  <div *ngIf="foundCourses.length == 0">
+    <h3 class="mt-5">No matches where found</h3>
+
   </div>
 </div>

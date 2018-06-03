@@ -62,6 +62,13 @@ public class ProgramResource {
         return service.unenrollInProgram(userId, programId);
     }
 
+
+    @GET
+    @Path("/isfavorite")
+    public boolean isFavorite(@QueryParam("userId") int userId, @QueryParam("programId") int programId){
+        return service.isFavorite(userId, programId);
+    }
+
     @GET
     @Path("/addcourse")
     public boolean addCourseToProgram(@QueryParam("programId") int programId, @QueryParam("courseId") int courseId){
@@ -89,14 +96,11 @@ public class ProgramResource {
         return service.getProgramsCourseNotPresent(id);
     }
 
-
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Program registerProgram(Program program) {
         return service.registerProgram(program);
     }
-
 
     @PUT
     @Path("/courses")

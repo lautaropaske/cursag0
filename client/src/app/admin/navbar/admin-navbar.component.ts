@@ -7,14 +7,21 @@ import {FormBuilder} from "@angular/forms";
   selector: 'admin-navbar',
   template: `
     <nav class="navbar sticky-top navbar-dark bg-primary d-flex justify-content-between">
-      <a class="navbar-brand" [routerLink]="['/dashboard']">Cursago</a>
+      <div [routerLink]="['/adminpanel']" style="cursor: pointer; color:white" class="form-inline">
+        <div style="font-size:2em;" class="mr-3">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <a class="navbar-brand">Cursago</a>
+      </div>
       <form class="form-inline">
-        <input #token class="form-control mr-sm-2" type="search" placeholder="Look up our courses!" aria-label="Search">
-        <button type="button" (click)="search(token.value);" class="btn btn-outline-light my-2 my-sm-0">Search</button>
+        <input #token style="width: 300px" class="form-control mr-sm-2" type="search" placeholder="Look up our courses!" aria-label="Search">
+        <button type="button" (click)="search(token.value);" class="btn btn-outline-light my-2 my-sm-0">
+          <i class="fas fa-search"></i>
+        </button>
       </form>
       <div class="d-inline-flex">
         <button type="button" (click)="createProgram();" class="btn btn-outline-light my-2 my-sm-0">Create Program</button>
-        <a class="nav-item nav-link" (click)="logout();">Logout</a>
+        <a style="cursor: pointer" class="nav-item nav-link" (click)="logout();">Logout</a>
         
       </div>
     </nav>

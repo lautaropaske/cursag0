@@ -31,7 +31,7 @@ import {Program} from "../models/Program";
     
     .banner {
       background: #466368;
-      background: linear-gradient(to right, #17a2b8, #c0eacf);
+      background: linear-gradient(to right, #e0e0e0, #f9f9f9);
       /*border-radius: 6px;*/
       height: 100px;
     }

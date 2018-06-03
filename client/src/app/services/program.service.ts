@@ -38,6 +38,11 @@ export class ProgramService {
       userId+ '&programId=' + programId);
   }
 
+  isFavorite(userId: number, programId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/isfavorite?userId=' +
+      userId+ '&programId=' + programId);
+  }
+
   addCourseToProgram(programId: number, courseId: number): Observable<boolean>{
     return this.http.get<boolean>(URL + '/addcourse?programId=' +
       programId+ '&courseId=' + courseId);

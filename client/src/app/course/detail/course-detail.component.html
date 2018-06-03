@@ -58,11 +58,15 @@
       <!-- HACER FAVORITE UN CURSO EXTERNO-->
       <div *ngIf="!isLocal">
         <div *ngIf="isEnrolled">
-          <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unfavorite</button>
+          <div style="font-size:3em; color:gold">
+            <i style="cursor:pointer;" title="Unfavorite Course" (click)="unenroll()" class="fas fa-star"></i>
+          </div>
         </div>
 
         <div *ngIf="!isEnrolled">
-          <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Tag course</button>
+          <div style="font-size:3em; color:gold">
+            <i style="cursor:pointer;" title="Mark as favorite" (click)="enroll()" class="far fa-star"></i>
+          </div>
         </div>
       </div>
     </div>

@@ -8,21 +8,41 @@ import {ProgramService} from "../../services/program.service";
   selector: 'program-detail',
   template: `
     <navbar></navbar>
-    <div class="container mt-5">
-      <h2>{{program.name}}</h2>
-      <p>{{program.description}}</p>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-3">{{program.name}}</h1>
+        <p class="lead">{{program.description}}</p>
 
-      <div *ngIf="isEnrolled">
-        <button type="button" (click)="unenroll();" class="btn mt-2 btn-danger">Unfavorite</button>
-      </div>
+        <div *ngIf="isEnrolled">
+          <div style="font-size:3em; color:gold">
+            <i style="cursor:pointer;" title="Unfavorite Program" (click)="unenroll()" class="fas fa-star"></i>
+          </div>
+        </div>
 
-      <div *ngIf="!isEnrolled">
-        <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Tag Program</button>
+        <div *ngIf="!isEnrolled">
+          <div style="font-size:3em; color:gold">
+            <i style="cursor:pointer;" title="Mark as favorite" (click)="enroll()" class="far fa-star"></i>
+          </div>
+        </div>
+        
       </div>
       
-      <h5>Courses of program:</h5>
+     
+    </div>
+    
+    <div class="container mt-5">
+      <h3>Courses of program:</h3>
 
-      <p>listo a los cursos</p>
+      <div *ngFor="let course of courses" class="card w-75  mt-2" style="width: 18rem;">
+        <div class="card-body">
+          <a [routerLink]="['/details', course.id]">
+            <h5 class="card-title">{{course.name}}</h5>
+          </a>
+
+          <p class="card-text">{{course.description}}</p>
+        </div>
+      </div>
+      
     </div>
     
     <endbar></endbar>
@@ -38,8 +58,20 @@ export class ProgramDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const idOfProgram = +this.route.snapshot.params["id"];
-
     this.sessionId = +localStorage.getItem("id");
+
+    this.programService.isFavorite(this.sessionId, idOfProgram).subscribe(
+      isEnrolled => {
+        console.log("Status obtained successfully");
+        this.isEnrolled = isEnrolled;
+
+      },
+      err => {
+        console.log("error when getting status of enrollment");
+        console.log(err)
+      }
+    );
+
     this.programService.getProgramById(idOfProgram).subscribe(
       program => {
         console.log("Obtained program successfully");
@@ -63,8 +95,6 @@ export class ProgramDetailComponent implements OnInit {
         console.log(err)
       }
     );
-
-    //Get status of enrollment of program
 
   }
 

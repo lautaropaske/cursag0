@@ -74,6 +74,23 @@ public class ProgramService {
         return true;
     }
 
+
+    public boolean isFavorite(int userId, int programId) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class,userId);
+        final Set<Program> enrolled = user.getEnrolledPrograms();
+        boolean result = false;
+        for (Program program : enrolled) {
+            if(program.getId() == programId){
+                result = true;
+            }
+        }
+        transaction.commit();
+        session.close();
+        return result;
+    }
+
     public boolean addCourseToProgram(int programId, int courseId) {
         Session session  = sf.openSession();
         Transaction transaction = session.beginTransaction();

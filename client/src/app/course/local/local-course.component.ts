@@ -32,10 +32,11 @@ export class LocalCourseComponent implements OnInit{
     if(this.course == null){
       this.courseService.getCourse(courseId).subscribe(
         course => {
-          console.log("Course was found successfully.");
-          console.log(course);
           this.courseService.addLoadedCourses([course]);
           this.course = course;
+          this.unit = this.course.units[this.progress];
+          console.log("Course was found successfully.");
+          console.log(course);
 
         },
         err => {
@@ -49,14 +50,14 @@ export class LocalCourseComponent implements OnInit{
 
   nextUnit(): void {
     this.courseService.makeProgress(+localStorage.getItem("id"),this.course.id)
-      .subscribe()
+      .subscribe();
     this.progress = this.progress + 1;
     this.unit = this.course.units[this.progress];
   }
 
   previousUnit(): void {
     this.courseService.goBack(+localStorage.getItem("id"),this.course.id)
-      .subscribe()
+      .subscribe();
     this.progress = this.progress - 1;
     this.unit = this.course.units[this.progress];
   }

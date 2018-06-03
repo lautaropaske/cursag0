@@ -1,10 +1,18 @@
 <nav class="navbar sticky-top navbar-light bg-light d-flex justify-content-between">
-  <a class="navbar-brand" [routerLink]="['/dashboard']">Cursago</a>
+  <div [routerLink]="['/dashboard']" style="cursor: pointer" class="form-inline">
+    <div style="font-size:2em; color:blue" class="mr-3">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+    <a class="navbar-brand">Cursago</a>
+  </div>
+
   <form class="form-inline">
-    <input #token class="form-control mr-sm-2" type="search" placeholder="Look up our courses!" aria-label="Search">
-    <button type="button" (click)="search(token.value);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+    <input #token style="width: 300px" class="form-control mr-sm-2" type="search" placeholder="Look up our courses!" aria-label="Search">
+    <button type="button" (click)="search(token.value);" class="btn btn-outline-secondary my-2 my-sm-0">
+      <i class="fas fa-search"></i>
+    </button>
   </form>
-  <div class="d-inline-flex">
+  <div style="cursor:pointer;" class="d-inline-flex">
     <a class="nav-item nav-link" (click)="createCourse();">Contribute</a>
     <div  *ngIf="loggedIn">
       <a class="nav-item nav-link" (click)="logout();">Logout</a>

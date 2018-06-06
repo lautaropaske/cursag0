@@ -29,23 +29,35 @@ public class PaymentService {
     }
 
 
-    public Map<String,Object> initiatePayment(int userId, int courseId){
+    public Map<String,String> initiatePayment(int userId, int courseId){
         final User user = userService.getUser(userId);
         final Course course = courseService.getCourse(courseId);
+        Map<String, Object> response = tpc.sendAuthorizeRequest(getParameters(course), getFraudControl(user));
 
-        return tpc.sendAuthorizeRequest(getParameters(course.getPrice()),
-                                    getFraudControl(user.getName(),user.getSurname(),user.getMail()));
+        Map<String,String> resultMap =new HashMap<String,String>();
+        for (Map.Entry<String, Object>  entry: response.entrySet()) {
+            if(entry.getValue() instanceof String){
+                resultMap.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
+        String requestKeyVal = resultMap.get("RequestKey");
+
+        user.setRequestKey(requestKeyVal);
+        userService.updateUser(user); //Se guarda la requestKey
+
+        return resultMap;
+
     }
 
-    private Map<String,String> getFraudControl(String name, String surname, String email) {
+    private Map<String,String> getFraudControl(User user) {
         Map<String, String> fraud = new HashMap<>();
         fraud.put("CSBTCITY" , "Villa General Belgrano");
         fraud.put("CSBTCOUNTRY", "AR");
 
-        fraud.put("CSBTEMAIL", email);
+        fraud.put("CSBTEMAIL", user.getMail());
 
-        fraud.put("CSBTFIRSTNAME", name);
-        fraud.put("CSBTLASTNAME" , surname);
+        fraud.put("CSBTFIRSTNAME", user.getName());
+        fraud.put("CSBTLASTNAME" , user.getSurname());
 
         fraud.put("CSBTPHONENUMBER" , "5411186895");
         fraud.put("CSBTPOSTALCODE", "1010");
@@ -58,7 +70,7 @@ public class PaymentService {
         //Retai);
         fraud.put("CSSTCITY" , "Villa General Belgrano");
         fraud.put("CSSTCOUNTRY" , "AR");
-        fraud.put("CSSTEMAIL" , "some@some.com");
+        fraud.put("CSSTEMAIL" , "agbettati@bedes.com.ar");
         fraud.put("CSSTFIRSTNAME" , "Juan");
         fraud.put("CSSTLASTNAME" , "Perez");
         fraud.put("CSSTPHONENUMBER" , "541160913988");
@@ -75,7 +87,7 @@ public class PaymentService {
         return fraud;
     }
 
-    private Map<String,String> getParameters(double price) {
+    private Map<String,String> getParameters(Course course) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put(ElementNames.Endpoint, "https://developers.todopago.com.ar/services/t/1.1/");
         parameters.put(ElementNames.AuthorizeWSDL , "https://developers.todopago.com.ar/services/t/1.1/Authorize?wsdl");
@@ -88,10 +100,10 @@ public class PaymentService {
         parameters.put(ElementNames.OperationID ,  "8004"); //número único que identifica la operación, generado por el comercio
         parameters.put(ElementNames.CurrencyCode ,  "032");
 
-        parameters.put(ElementNames.Amount ,  price + "");
+        parameters.put(ElementNames.Amount ,  course.getPrice() + "");
 
-        parameters.put(ElementNames.UrlOK ,  "https://www.reddit.com");
-        parameters.put(ElementNames.UrlError ,  "https://www.facebook.com");
+        parameters.put(ElementNames.UrlOK ,  "http://localhost:4200/details/" + course.getId());
+        parameters.put(ElementNames.UrlError ,  "http://localhost:4200/home");
         parameters.put(ElementNames.EMAILCLIENTE ,  "bettatiagustin@gmail.com");
         parameters.put(ElementNames.MAXINSTALLMENTS ,  "12");
         parameters.put(ElementNames.MININSTALLMENTS ,  "1");
@@ -103,12 +115,12 @@ public class PaymentService {
     }
 
     public Map<String,Object> verifyPayment(int userId, String answerKey) {
+        final User user = userService.getUser(userId);
 
-        //TODO que usuario se guarde la requestKey
         Map<String,String> parameters = new HashMap<>();
         parameters.put(ElementNames.Security,"A793D307441615AF6AAAD7497A75DE59");
         parameters.put(ElementNames.Merchant,"2159");
-        parameters.put(ElementNames.RequestKey,"sarasaaa");
+        parameters.put(ElementNames.RequestKey,user.getRequestKey());
         parameters.put(ElementNames.AnswerKey,answerKey);
         return tpc.getAuthorizeAnswer(parameters);
     }

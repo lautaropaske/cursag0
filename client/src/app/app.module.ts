@@ -41,6 +41,7 @@ import {UserAdminAuthGuardService} from "./services/auth/useradmin-auth-guard";
 import { MaterialModule } from './material.module';
 import {DndListModule} from "ngx-drag-and-drop-lists";
 import {MaxLengthPipe} from "./pipes/max-length.pipe";
+import {PaymentService} from "./services/payment.service";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import {MaxLengthPipe} from "./pipes/max-length.pipe";
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,
-    ProgramService],
+    ProgramService, PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

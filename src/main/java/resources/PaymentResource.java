@@ -28,16 +28,7 @@ public class PaymentResource {
     @Path("/initiate")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, String> initiatePayment(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId) throws MalformedURLException {
-        Map<String, Object> response = paymentService.initiatePayment(userId, courseId);
-
-        Map<String,String> resultMap =new HashMap<String,String>();
-        for (Map.Entry<String, Object>  entry: response.entrySet()) {
-            if(entry.getValue() instanceof String){
-                resultMap.put(entry.getKey(), entry.getValue().toString());
-            }
-        }
-
-        return resultMap;
+        return paymentService.initiatePayment(userId, courseId);
     }
 
     @GET
@@ -54,8 +45,4 @@ public class PaymentResource {
         }
         return resultMap;
     }
-
-
-
-
 }

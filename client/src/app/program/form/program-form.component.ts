@@ -4,14 +4,7 @@ import {ProgramService} from "../../services/program.service";
 
 @Component({
   selector: 'program-form',
-  template: `
-    <admin-navbar></admin-navbar>
-    <div class="container">
-      <p>TODO hacer el form</p>
-    </div>
-    
-    <endbar></endbar>
-  `
+  templateUrl : './program-form.component.html'
 })
 export class ProgramFormComponent implements OnInit{
 

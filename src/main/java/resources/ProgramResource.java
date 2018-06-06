@@ -1,11 +1,8 @@
 package resources;
 
 import model.Course;
-import model.ExtCourse;
-import model.LocalCourse;
 import model.Program;
 import pojos.CoursesOfProgramUpdate;
-import services.CourseService;
 import services.ProgramService;
 
 import javax.ws.rs.*;
@@ -124,7 +121,7 @@ public class ProgramResource {
     @GET
     @Path("/carousel")
     public List<Program> getCarouselPrograms(){
-        return service.getCarouselCourses();
+        return service.getCarouselPrograms();
     }
 
 }

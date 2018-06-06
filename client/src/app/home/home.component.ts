@@ -12,16 +12,18 @@ import {Program} from "../models/Program";
   templateUrl : './home.component.html',
   providers: [NgbCarouselConfig],
   styles: [`
-   
+
     .star {
-      position: relative;  
+      position: relative;
       display: inline-block;
       font-size: 1rem;
       color: #d3d3d3;
     }
+
     .full {
       color: red;
     }
+
     .half {
       position: absolute;
       display: inline-block;
@@ -30,8 +32,9 @@ import {Program} from "../models/Program";
     }
 
     .progress {
-      background-color: #aaa;
+      background-color: rgba(255, 255, 255, 0.98);
     }
+
   `]
 })
 export class HomeComponent implements OnInit{

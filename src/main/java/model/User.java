@@ -22,7 +22,13 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    
+
+    @JsonIgnore
+    private String requestKey;
+
+    private boolean isAdmin; // set only in db manager (from IDEA UI or HSQLDB GUI)
+
+
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "publisher", cascade = CascadeType.REMOVE)
     @Fetch(FetchMode.SELECT)
     @JsonIgnore
@@ -50,7 +56,6 @@ public class User {
     @JsonIgnore
     private Set<Review> madeReviews = new HashSet<>();
 
-    private boolean isAdmin; // set only in db manager (from IDEA UI or HSQLDB GUI)
 
     public User(){}
 
@@ -60,6 +65,7 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.isAdmin = isAdmin;
+        this.requestKey = null;
     }
 
     public String getPassword() {
@@ -135,5 +141,13 @@ public class User {
 
     public Set<Review> getMadeReviews() {
         return madeReviews;
+    }
+
+    public String getRequestKey() {
+        return requestKey;
+    }
+
+    public void setRequestKey(String requestKey) {
+        this.requestKey = requestKey;
     }
 }

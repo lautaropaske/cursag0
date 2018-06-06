@@ -48,41 +48,53 @@ export class CourseFormComponent{
   }
 
   publishLocalCourse() : void {
-    let id = localStorage.getItem("id");
-    let publisher: User = new User(+id,null,null,null,null, false);
+    if(this.locCourseForm.valid) {
+      let id = localStorage.getItem("id");
+      let publisher: User = new User(+id, null, null, null, null, false);
 
-    this.locCourse.publisher = publisher;
+      this.locCourse.publisher = publisher;
 
-    this.courseService.addLocalCourse(this.locCourse).subscribe(
-      course => {
-        console.log("LocalCourse was successfully created");
-        console.log(course);
-        this.router.navigate(['/details',course.id]);
-      },
-      err => {
-        console.log("LocalCourse could not be created");
-        this.displayError = true;
-      }
-    );
+      this.courseService.addLocalCourse(this.locCourse).subscribe(
+        course => {
+          console.log("LocalCourse was successfully created");
+          console.log(course);
+          this.router.navigate(['/details', course.id]);
+        },
+        err => {
+          console.log("LocalCourse could not be created");
+          this.displayError = true;
+        }
+      );
+    }
+    else {
+      this.displayError = true;
+    }
   }
 
   publishExternalCourse() : void {
-    let id = localStorage.getItem("id");
-    let publisher: User = new User(+id,null,null,null,null,false);
+    if (this.extCourseForm.valid) {
+      let id = localStorage.getItem("id");
+      let publisher: User = new User(+id, null, null, null, null, false);
 
-    this.extCourse.publisher = publisher;
+      this.extCourse.publisher = publisher;
 
-    this.courseService.addExtCourse(this.extCourse).subscribe(
-      course => {
-        console.log("ExtCourse was successfully created");
-        console.log(course);
-        this.router.navigate(['/details',course.id]); // cambiar por una redirección al url del curso
-      },
-      err => {
-        console.log("ExtCourse could not be created");
-        this.displayError = true;
-      }
-    );
+      this.courseService.addExtCourse(this.extCourse).subscribe(
+        course => {
+          console.log("ExtCourse was successfully created");
+          console.log(course);
+          this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
+        },
+        err => {
+          console.log("ExtCourse could not be created");
+          this.displayError = true;
+        }
+      );
+    }
+    else {
+      this.displayError = true;
+    }
+
+
   }
 
   changePost() {

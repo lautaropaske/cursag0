@@ -183,7 +183,11 @@ public class ProgramService {
         program.getCourses().forEach(programCourse -> {
             session.delete(programCourse);
         });
+        for (User user : program.getEnrolledStudents()) {
+            user.getEnrolledPrograms().remove(program);
+        }
         session.delete(program);
+        session.flush();
         transaction.commit();
         session.close();
     }
@@ -228,14 +232,14 @@ public class ProgramService {
         return result;
     }
 
-    public List<Program> getCarouselCourses() {
+    public List<Program> getCarouselPrograms() {
         Session session  = sf.openSession();
 
         Transaction transaction = session.beginTransaction();
         List<Program> result = new ArrayList<>();
-        result.add(session.get(Program.class,264));
-        result.add(session.get(Program.class,269));
-        result.add(session.get(Program.class,270));
+        result.add(session.get(Program.class,285));
+        result.add(session.get(Program.class,290));
+        result.add(session.get(Program.class,291));
         transaction.commit();
         session.close();
         return result;

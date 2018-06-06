@@ -8,6 +8,7 @@ import {Program} from "../../models/Program";
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {PaymentService} from "../../services/payment.service";
 
 @Component({
   selector: 'course-detail',
@@ -74,7 +75,7 @@ export class CourseDetailComponent implements OnInit{
   }
 
   constructor(private courseService: CourseService, private programService: ProgramService,
-              private router: Router, private route: ActivatedRoute) {}
+              private paymentService: PaymentService, private router: Router, private route: ActivatedRoute) {}
 
 
   ngOnInit(): void {
@@ -149,8 +150,6 @@ export class CourseDetailComponent implements OnInit{
     this.isPublisher = this.course.publisher.id == this.sessionId;
     this.isLocal = this.course.link == null;
     this.loadedCourse = true;
-
-
   }
 
   deleteCourse(): void{
@@ -186,6 +185,24 @@ export class CourseDetailComponent implements OnInit{
     )
   }
 
+  buyCourse(): void {
+    this.paymentService.initiatePayment(this.sessionId, this.course.id).subscribe(
+      response => {
+        if(response.StatusCode == "-1"){
+          window.location.href = response.URL_Request;
+        }
+        else{
+          console.log("Todo pago responded with an error.");
+          console.log(response);
+        }
+      },
+      err => {
+        console.log("Error when initiating payment.");
+      }
+
+    )
+  }
+
   unenroll(): void{
     this.courseService.unenrollUser(this.sessionId, this.course.id).subscribe(
       result => {
@@ -193,7 +210,6 @@ export class CourseDetailComponent implements OnInit{
           this.isEnrolled = false;
         }
       }
-
     )
   }
 

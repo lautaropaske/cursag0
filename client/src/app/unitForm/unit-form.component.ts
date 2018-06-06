@@ -21,11 +21,11 @@ export class UnitFormComponent implements OnInit{
 
   constructor(private router: Router,private route: ActivatedRoute, private unitService: UnitService,
               private fb : FormBuilder, private courseService: CourseService) {
-    this.displayError = false;
   }
 
 
   ngOnInit(): void {
+    this.displayError = false;
     this.idOfParentCourse = +this.route.snapshot.params["id"];
     this.createUnitForm();
     this.unit = Unit.createEmpty();
@@ -41,27 +41,26 @@ export class UnitFormComponent implements OnInit{
   }
 
   publishUnit() : void {
-    let parentCourse: Course = new Course(+this.idOfParentCourse);
-
-    this.unit.parent = parentCourse;
-
-    console.log(this.unit);
-    this.unitService.addUnit(this.unit).subscribe(
-      unit => {
-        console.log("Unit was successfully created");
-        console.log(unit);
-        this.courseService.removeLoadedCourse(this.idOfParentCourse);
-        this.router.navigate(['/details',this.idOfParentCourse]);
-      },
-      err => {
-        console.log("error ocurred when adding unit");
-        this.displayError = true;
-      }
-    );
+    if(this.unitForm.valid) {
+      let parentCourse: Course = new Course(+this.idOfParentCourse);
+      this.unit.parent = parentCourse;
+      console.log(this.unit);
+      this.unitService.addUnit(this.unit).subscribe(
+        unit => {
+          console.log("Unit was successfully created");
+          console.log(unit);
+          this.courseService.removeLoadedCourse(this.idOfParentCourse);
+          this.router.navigate(['/details', this.idOfParentCourse]);
+        },
+        err => {
+          console.log("error ocurred when adding unit");
+          this.displayError = true;
+        }
+      );
+    }
+    else{
+      this.displayError = true;
+    }
   }
-
-
-
-
 
 }

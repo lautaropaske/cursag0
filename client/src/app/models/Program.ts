@@ -15,7 +15,7 @@ export class Program {
     this.publisher = publisher;
   }
 
-  static create_empty() : Program{
+  static createEmpty() : Program{
     return new Program(undefined,'','', undefined);
   }
 }

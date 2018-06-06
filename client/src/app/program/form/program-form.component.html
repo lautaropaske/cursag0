@@ -1,6 +1,37 @@
-<admin-navbar></admin-navbar>
-<div class="container">
-  <p>TODO hacer el form</p>
+<navbar></navbar>
+
+
+
+
+<div class="row mt-4">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <h1>Creating a new Program</h1>
+    <div *ngIf='displayError'>
+      <div class="alert alert-danger alert-dismissible">
+        <a class="close" data-dismiss="alert" aria-label="close" (click)="displayError=false">&times;</a>
+        <strong>Something went wrong</strong> We couldn't submit your program, try again.
+      </div>
+    </div>
+    <div [formGroup]="programForm">
+      <div class="form-group">
+        <label class="center-block">Name:</label>
+        <input class="form-control" formControlName="name" [(ngModel)]="program.name">
+      </div>
+
+      <div class="form-group">
+        <label class="center-block">Description:</label>
+        <textarea #description class="form-control" formControlName="description" rows="3" placeholder="Detailed description of the scope of this program" [(ngModel)]="program.description"></textarea>
+      </div>
+      <div class="text-center">
+        <div style="margin-bottom: 1em">
+          <button type="submit" [disabled]="programForm.pristine" (click)="publishProgram();" class="btn btn-primary">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+
 </div>
 
 <endbar></endbar>

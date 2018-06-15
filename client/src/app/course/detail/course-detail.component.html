@@ -52,8 +52,23 @@
         </div>
 
         <div *ngIf="!isEnrolled">
-          <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
-          <!--<i class="fa fa-spinner fa-spin"></i>-->
+          <div *ngIf="course.price > 0">
+            <button type="button" title="Start Payment" style="font-size: 1.5em" (click)="buyCourse();" class="btn mt-2 btn-success">
+              <div class="d-flex align-items-center">
+                Purchase
+                <i *ngIf="!startsPayment" style="margin-left:10px; font-size: 1.5em" class="far fa-credit-card"></i>
+                <i *ngIf="startsPayment" style="margin-left:10px; font-size: 1.5em" class="fa fa-spinner fa-spin"></i>
+              </div>
+            </button>
+            <p style="font-size: 0.9em; margin-top: 10px"><em>Powered by TodoPago</em></p>
+
+
+          </div>
+          <div *ngIf="course.price == 0">
+            <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
+          </div>
+
+
         </div>
       </div>
 

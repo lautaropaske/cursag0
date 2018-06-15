@@ -102,8 +102,8 @@ public class PaymentService {
 
         parameters.put(ElementNames.Amount ,  course.getPrice() + "");
 
-        parameters.put(ElementNames.UrlOK ,  "http://localhost:4200/details/" + course.getId());
-        parameters.put(ElementNames.UrlError ,  "http://localhost:4200/home");
+        parameters.put(ElementNames.UrlOK ,  "http://localhost:4200/payment/" + course.getId());
+        parameters.put(ElementNames.UrlError ,  "http://localhost:4200/payment/" + course.getId());
         parameters.put(ElementNames.EMAILCLIENTE ,  "bettatiagustin@gmail.com");
         parameters.put(ElementNames.MAXINSTALLMENTS ,  "12");
         parameters.put(ElementNames.MININSTALLMENTS ,  "1");

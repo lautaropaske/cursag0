@@ -42,6 +42,7 @@ import { MaterialModule } from './material.module';
 import {DndListModule} from "ngx-drag-and-drop-lists";
 import {MaxLengthPipe} from "./pipes/max-length.pipe";
 import {PaymentService} from "./services/payment.service";
+import {PaymentComponent} from "./payment/payment.component";
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {PaymentService} from "./services/payment.service";
     ProgramUpdateComponent,
     ProgramFormComponent,
     ProgramDetailComponent,
+    PaymentComponent,
     MaxLengthPipe
   ],
   imports: [

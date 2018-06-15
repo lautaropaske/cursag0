@@ -75,7 +75,7 @@ public class FillDatabase {
         programService.enrollInProgram(apu.getId(), testingProgram.getId());
 
         courseService.enrollInCourse(apu.getId(), jUnit.getId());
-        courseService.enrollInCourse(apu.getId(), html.getId());
+        courseService.enrollInCourse(apu.getId(), angular.getId());
         courseService.enrollInCourse(apu.getId(), javascript.getId());
 
 

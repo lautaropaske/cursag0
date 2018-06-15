@@ -62,6 +62,7 @@ export class CourseDetailComponent implements OnInit{
   isEnrolled: boolean;
   loadedStatus: boolean;
   loadedCourse: boolean;
+  startsPayment: boolean;
 
   isAdmin: boolean;
   programs: Program[];
@@ -186,6 +187,7 @@ export class CourseDetailComponent implements OnInit{
   }
 
   buyCourse(): void {
+    this.startsPayment = true;
     this.paymentService.initiatePayment(this.sessionId, this.course.id).subscribe(
       response => {
         if(response.StatusCode == "-1"){
@@ -194,10 +196,12 @@ export class CourseDetailComponent implements OnInit{
         else{
           console.log("Todo pago responded with an error.");
           console.log(response);
+          this.startsPayment = false;
         }
       },
       err => {
         console.log("Error when initiating payment.");
+        this.startsPayment = false;
       }
 
     )

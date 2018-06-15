@@ -17,6 +17,7 @@ import {AdminPanelComponent} from "./admin/panel/admin-panel.component";
 import {ProgramFormComponent} from "./program/form/program-form.component";
 import {ProgramUpdateComponent} from "./program/update/program-update.component";
 import {ProgramDetailComponent} from "./program/detail/program-detail.component";
+import {PaymentComponent} from "./payment/payment.component";
 
 
 const routes: Routes = [
@@ -35,6 +36,8 @@ const routes: Routes = [
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [UserAuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [UserAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [UserAuthGuard]},
+  { path: "payment/:id", component: PaymentComponent, canActivate: [UserAuthGuard] },
+
 
   { path: 'search/:token', component: SearchComponent},
   { path: '**', redirectTo: 'home' }

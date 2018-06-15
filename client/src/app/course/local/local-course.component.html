@@ -3,11 +3,12 @@
   <div class="row">
     <div class="col-md-4" style="padding-right:20px; border-right: 2px solid #ccc;">
       <h3 class="display-5 mb-4">List of Units:</h3>
-        <div class="d-inline-flex" *ngFor="let unit of course.units; let i = index">
+        <div  *ngFor="let unit of course.units; let i = index">
+          <div class="d-inline-flex">
           <i *ngIf="i < progress" style="color: darkgreen;font-size:1.5em;" class="far fa-check-square mr-3"></i>
           <i *ngIf="i >= progress" style="font-size:1.5em;" class="far fa-square mr-3"></i>
-
           <p>{{unit.name}}</p>
+          </div>
         </div>
     </div>
     <div class="col-md-8 pr-4">

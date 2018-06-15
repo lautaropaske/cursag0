@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ProgramService} from "../../services/program.service";
 import {Program} from "../../models/Program";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Course} from "../../models/Course";
 import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
 
@@ -76,7 +76,7 @@ export class ProgramUpdateComponent implements OnInit{
 
   }
 
-  constructor(private programService: ProgramService, private route: ActivatedRoute) {
+  constructor(private programService: ProgramService, private route: ActivatedRoute,private router: Router) {
   }
 
   public removeItem(item: any, list: any[]): void {
@@ -105,7 +105,15 @@ export class ProgramUpdateComponent implements OnInit{
   }
 
   public deleteProgram(): void {
-    //TODO remove del program
+    this.programService.deleteProgram(this.program.id).subscribe(
+      data => {
+        console.log("Delete probably went well");
+        this.router.navigate(['adminpanel']);
+      },
+      err => {
+        console.log("Error when making delete.");
+      }
+    )
   }
 
   public removeCourse(course: Course): void {

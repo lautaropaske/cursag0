@@ -1,28 +1,40 @@
 <navbar></navbar>
 
-<ngb-carousel>
-  <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-1.jpg" style="height: 500px" alt="First slide">
-    <div class="carousel-caption d-none d-md-block">
-      <h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[0].id]">{{carouselPrograms[0].name}}</a></h3>
-      <p>{{carouselPrograms[0].description}}</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-2.jpg" style="height: 500px" alt="Second slide">
-    <div class="carousel-caption">
-      <h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[1].id]">{{carouselPrograms[1].name}}</a></h3>
-      <p>{{carouselPrograms[1].description}}</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img class="d-block w-100" src="assets/slider-3.jpg" style="height: 500px" alt="Third slide">
-    <div class="carousel-caption">
-      <h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[2].id]">{{carouselPrograms[2].name}}</a></h3>
-      <p>{{carouselPrograms[2].description}}</p>
-    </div>
-  </ng-template>
-</ngb-carousel>
+<!--<ngb-carousel>-->
+  <!--<ng-template ngbSlide>-->
+    <!--<img class="d-block w-100" src="assets/slider-1.jpg" style="height: 500px" alt="First slide">-->
+    <!--<div class="carousel-caption d-none d-md-block">-->
+      <!--<h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[0].id]">{{carouselPrograms[0].name}}</a></h3>-->
+      <!--<p>{{carouselPrograms[0].description}}</p>-->
+    <!--</div>-->
+  <!--</ng-template>-->
+  <!--<ng-template ngbSlide>-->
+    <!--<img class="d-block w-100" src="assets/slider-2.jpg" style="height: 500px" alt="Second slide">-->
+    <!--<div class="carousel-caption">-->
+      <!--<h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[1].id]">{{carouselPrograms[1].name}}</a></h3>-->
+      <!--<p>{{carouselPrograms[1].description}}</p>-->
+    <!--</div>-->
+  <!--</ng-template>-->
+  <!--<ng-template ngbSlide>-->
+    <!--<img class="d-block w-100" src="assets/slider-3.jpg" style="height: 500px" alt="Third slide">-->
+    <!--<div class="carousel-caption">-->
+      <!--<h3><a style="color: white" [routerLink]="['/program_detail', carouselPrograms[2].id]">{{carouselPrograms[2].name}}</a></h3>-->
+      <!--<p>{{carouselPrograms[2].description}}</p>-->
+    <!--</div>-->
+  <!--</ng-template>-->
+<!--</ngb-carousel>-->
+
+<div class="bgImgCenter">
+  <div class="verticalLine">
+    <h1 style="margin-left: 30px; color:white;
+    font-size: 3.5rem; font-family: 'Open Sans', sans-serif;">Quality Education</h1>
+    <h1 style="margin-left: 30px;
+    font-size: 3rem; font-family: 'Open Sans', sans-serif;
+    padding-top: 35px; color: white">A Community Commitment.</h1>
+  </div>
+
+
+</div>
 
 
 <div class="container mt-5">
@@ -39,7 +51,7 @@
     </div>
   </div>
 
-  <h3 class="mt-5">Take a look on our most popular courses</h3>
+  <h3 class="mt-5">Take a look at the most popular courses</h3>
 
   <div class="card-deck mt-3">
     <div *ngFor="let course of courses" class="card mt-2" style="width: 18rem;">

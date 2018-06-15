@@ -35,6 +35,19 @@ import {Program} from "../models/Program";
       background-color: rgba(255, 255, 255, 0.98);
     }
 
+    .bgImgCenter{
+      background-image: url("assets/fondoEditado.jpg");
+      background-size: 100% 92vh;
+      width: 100%;
+      height: 92vh;
+      padding-top: 126px;
+    }
+
+    .verticalLine {
+      border-left: 7px solid white;
+      margin-left:30px;
+    }
+
   `]
 })
 export class HomeComponent implements OnInit{

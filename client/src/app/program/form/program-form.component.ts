@@ -44,7 +44,7 @@ export class ProgramFormComponent implements OnInit{
         program => {
           console.log("Program was successfully created");
           console.log(program);
-          this.router.navigate(['/program_update', this.program.id]);
+          this.router.navigate(['program_update', program.id]);
         },
         err => {
           console.log("error ocurred when adding program");

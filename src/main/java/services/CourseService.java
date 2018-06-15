@@ -191,7 +191,16 @@ public class CourseService {
         programCourses.forEach(programCourse -> {
             session.delete(programCourse);
         });
-        //TODO borrar comentarios y la relacion de usuarios que estan inscriptos
+
+        final Set<UserCourse> enrolledStudents = course.getEnrolledStudents();
+        enrolledStudents.forEach(studentCourse ->{
+            session.delete(studentCourse);
+        });
+
+        course.getReviews().forEach(review -> {
+            session.delete(review);
+        });
+
         session.delete(course);
         transaction.commit();
     }

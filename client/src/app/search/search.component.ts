@@ -5,7 +5,24 @@ import {Course} from "../models/Course";
 
 @Component({
   selector : 'search',
-  templateUrl : './search.component.html'
+  templateUrl : './search.component.html',
+  styles: [`
+    .star {
+      position: relative;  
+      display: inline-block;
+      font-size: 1rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+  `]
 })
 
 export class SearchComponent{

@@ -22,8 +22,8 @@ public class UnitResource {
     }
 
 //    http://localhost:8080/unit?courseId=14&index=0
-    @GET
-    public Unit getUnit(@QueryParam("courseId") int courseId, @QueryParam("index") int index){
-        return unitService.getUnit(courseId, index);
-    }
+//    @GET
+//    public Unit getUnit(@QueryParam("courseId") int courseId, @QueryParam("index") int index){
+//        return unitService.getUnit(courseId, index);
+//    }
 }

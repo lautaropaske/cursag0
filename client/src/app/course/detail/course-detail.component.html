@@ -8,17 +8,20 @@
     <p class="lead">{{course.description}}</p>
     <hr class="my-4">
 
-    <ng-template #t let-fill="fill">
-  <span class="star" [class.full]="fill === 100">
-    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
-  </span>
-    </ng-template>
-    <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+    <div style="display: flex; justify-content: space-between">
+      <ng-template #t let-fill="fill">
+        <span class="star" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+        </span>
+      </ng-template>
+      <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+      <div>
+        <p style="font-size: 1.2em" class="card-text">Publisher: <b>{{course.publisher.surname}}, {{course.publisher.name}}</b></p>
+      </div>
+    </div>
 
-    <p *ngIf="course.price > 0" class="card-text">Price: {{course.price}}</p>
-    <p *ngIf="course.price == 0" class="card-text">Free!</p>
-    <p class="card-text">Publisher: {{course.publisher.surname}}, {{course.publisher.name}}</p>
-
+    <p style="font-size: 1.5em;" *ngIf="course.price > 0" class="card-text">Price: $ {{course.price}}</p>
+    <p style="font-size: 1.5em;" *ngIf="course.price == 0" class="card-text">Free!</p>
 
     <div *ngIf="!isAdmin">
 

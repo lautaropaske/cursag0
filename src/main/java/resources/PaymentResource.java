@@ -1,5 +1,6 @@
 package resources;
 
+import services.CourseService;
 import services.PaymentService;
 
 import javax.ws.rs.GET;
@@ -19,9 +20,11 @@ import java.util.Map;
 public class PaymentResource {
 
     private PaymentService paymentService;
+    private CourseService courseService;
 
     public PaymentResource() throws MalformedURLException {
        paymentService = new PaymentService();
+       courseService = new CourseService();
     }
 
     @GET
@@ -34,7 +37,7 @@ public class PaymentResource {
     @GET
     @Path("/verify")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, String> verifyPayment(@QueryParam("userId") int userId, @QueryParam("answerKey") String answerKey) throws MalformedURLException {
+    public Map<String, String> verifyPayment(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId, @QueryParam("answerKey") String answerKey) throws MalformedURLException {
         Map<String, Object> response = paymentService.verifyPayment(userId, answerKey);
 
         Map<String,String> resultMap =new HashMap<String,String>();
@@ -42,6 +45,9 @@ public class PaymentResource {
             if(entry.getValue() instanceof String){
                 resultMap.put(entry.getKey(), entry.getValue().toString());
             }
+        }
+        if("-1".equals(resultMap.get("StatusCode")) && "APROBADA".equals(resultMap.get("StatusMessage"))){
+            this.courseService.enrollInCourse(userId, courseId);
         }
         return resultMap;
     }

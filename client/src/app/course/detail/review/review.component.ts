@@ -14,7 +14,6 @@ import {ReviewResp} from "../../../models/ReviewResp";
   template: `
     <div [formGroup]="reviewForm">
       <div class="form-group" style=" margin-bottom: 0.2rem">
-        <!--<label class="center-block">Rating:</label>-->
         <ng-template #t let-fill="fill">
         <span class="star" [class.full]="fill === 100">
           <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
@@ -23,7 +22,6 @@ import {ReviewResp} from "../../../models/ReviewResp";
         <ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="false" max="5"  (leave)="hovered=0"></ngb-rating>
       </div>
       <div class="form-group">
-        <!--<label class="center-block">Comment:</label>-->
         <textarea class="form-control" placeholder="Leave a comment of your review" formControlName="textContent" rows="2" [(ngModel)]="review.textContent"></textarea>
       </div>
       <div class="text-center">
@@ -158,7 +156,7 @@ export class ReviewComponent implements OnInit{
       review => {
         console.log("Review was successfully updated");
         console.log(review);
-        this.reviews.splice(this.reviews.indexOf(this.reviews.find(review => this.review.publisher.id == +localStorage.getItem("id")))
+        this.reviews.splice(this.reviews.indexOf(this.reviews.find(aReview => aReview.publisher.id == +localStorage.getItem("id")))
           ,1);
         this.reviews.push(review);
       },

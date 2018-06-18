@@ -85,7 +85,7 @@ public class Course implements Comparable<Course> {
 
     @Override
     public int compareTo(@NotNull Course o) {
-        return Double.compare(this.getRating(), o.getRating());
+        return Double.compare(o.getRating(), this.getRating());
     }
 
     public Set<Review> getReviews() {

@@ -75,42 +75,46 @@
       <div class="row">
         <div class="col-md-5" style="padding-right:20px; border-right: 2px solid #ccc;">
           <h4>Created courses:</h4>
-          <div *ngFor="let course of createdCourses" class="card w-100  mt-2" style="width: 18rem;">
-            <div class="card-body">
-              <a [routerLink]="['/details', course.id]">
-                <h5 class="card-title">{{course.name}}</h5>
-              </a>
+          <div style="overflow-y: scroll; height: 600px">
+            <div *ngFor="let course of createdCourses" class="card w-100  mt-2" style="width: 18rem;">
+              <div class="card-body">
+                <a [routerLink]="['/details', course.id]">
+                  <h5 class="card-title">{{course.name}}</h5>
+                </a>
 
-              <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
-              </span>
-              </ng-template>
-              <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                </span>
+                </ng-template>
+                <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-              <p class="card-text">{{course.description | maxLength : 200}}</p>
-              <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+                <p class="card-text">{{course.description | maxLength : 200}}</p>
+                <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="col-md-7">
           <h4>Enrolled and tagged courses:</h4>
-          <div *ngFor="let course of enrolledCourses" class="card w-100  mt-2" style="width: 18rem;">
-            <div class="card-body">
-              <a [routerLink]="['/details', course.id]">
-                <h5 class="card-title">{{course.name}}</h5>
-              </a>
+          <div style="overflow-y: scroll; height: 600px">
+            <div *ngFor="let course of enrolledCourses" class="card w-100  mt-2" style="width: 18rem;">
+              <div class="card-body">
+                <a [routerLink]="['/details', course.id]">
+                  <h5 class="card-title">{{course.name}}</h5>
+                </a>
 
-              <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
-              </span>
-              </ng-template>
-              <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                </span>
+                </ng-template>
+                <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-              <p class="card-text">{{course.description | maxLength : 200}}</p>
-              <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+                <p class="card-text">{{course.description | maxLength : 200}}</p>
+                <p class="card-text">Publisher: {{course.publisher.surname}}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -16,10 +16,4 @@ export class UnitService {
     return this.http.post<Unit>(URL,unit);
   }
 
-
-  //
-  // getUnit(courseId: number, index: number): Observable<Unit>{
-  //   return this.http.get<Unit>(URL + '?courseId=' +
-  //     courseId+ '&index=' + index);
-  // }
 }

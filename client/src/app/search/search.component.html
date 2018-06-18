@@ -3,13 +3,20 @@
 
 <div class="container mt-5">
   <div *ngIf="foundCourses.length > 0">
-    <div *ngFor="let course of foundCourses" class="card w-75" style="width: 18rem;">
+    <div *ngFor="let course of foundCourses" class="card w-75 mb-2" style="width: 18rem;">
       <div class="card-body">
         <a [routerLink]="['/details', course.id]">
           <h5 class="card-title">{{course.name}}</h5>
         </a>
-        <h6 class="card-subtitle mb-2 text-muted">{{course.rating}}</h6>
-        <p class="card-text">{{course.description}}</p>
+
+        <ng-template #t let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+          </span>
+        </ng-template>
+        <ngb-rating [(rate)]="course.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+
+        <p class="card-text">{{course.description | maxLength: 300}}</p>
         <p class="card-text">Publisher: {{course.publisher.surname}}</p>
       </div>
     </div>

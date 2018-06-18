@@ -22,6 +22,7 @@ import {PaymentService} from "../services/payment.service";
       </div>
       <h3 class="mt-4" *ngIf="!loading && !result">We recieved the following response: "{{errorMessage}}"</h3>
     </div>
+    <endbar></endbar>
   `,
   styles: [`
   `]
@@ -41,7 +42,7 @@ export class PaymentComponent implements OnInit{
     this.loading = true;
     this.courseId = +this.route.snapshot.params["id"];
 
-    this.paymentService.verifyPayment(+localStorage.getItem("id"), this.getParam("Answer")).subscribe(
+    this.paymentService.verifyPayment(+localStorage.getItem("id"),this.courseId, this.getParam("Answer")).subscribe(
       resp => {
         console.log("Todo pago has responded correctly");
         console.log(resp);

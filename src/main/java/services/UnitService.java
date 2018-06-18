@@ -26,23 +26,23 @@ public class UnitService {
         return unit;
     }
 
-    public Unit getUnit(int courseId, int index) {
-        Session session  = sf.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        LocalCourse course = (LocalCourse) session.get(Course.class,courseId);
-
-        Unit response;
-        if(course == null){
-            response = null;
-        }
-        else{
-            response = course.getUnits().get(index);
-        }
-
-        transaction.commit();
-        session.close();
-
-        return response;
-    }
+//    public Unit getUnit(int courseId, int index) {
+//        Session session  = sf.openSession();
+//        Transaction transaction = session.beginTransaction();
+//
+//        LocalCourse course = (LocalCourse) session.get(Course.class,courseId);
+//
+//        Unit response;
+//        if(course == null){
+//            response = null;
+//        }
+//        else{
+//            response = course.getUnits().get(index);
+//        }
+//
+//        transaction.commit();
+//        session.close();
+//
+//        return response;
+//    }
 }

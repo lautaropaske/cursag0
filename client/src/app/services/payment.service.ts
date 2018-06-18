@@ -16,8 +16,8 @@ export class PaymentService {
       userId+ '&courseId=' + courseId);
   }
 
-  verifyPayment(userId: number, answerKey: string): Observable<VerifyResp>{
+  verifyPayment(userId: number,courseId: number, answerKey: string): Observable<VerifyResp>{
     return this.http.get<VerifyResp>(URL + '/verify?userId=' +
-      userId+ '&answerKey=' + answerKey);
+      userId +'&courseId='+courseId+'&answerKey=' + answerKey);
   }
 }

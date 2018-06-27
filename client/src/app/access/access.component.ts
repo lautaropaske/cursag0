@@ -107,9 +107,10 @@ export class AccessComponent implements OnInit{
 
   redirectValidUser(user: User): void{
     localStorage.setItem("token","cursago");
-    localStorage.setItem("id", '' + user.id);
-    localStorage.setItem("name", '' + user.name);
-    localStorage.setItem("surname", '' + user.surname);
+    localStorage.setItem("id", ''+user.id);
+    localStorage.setItem("name", user.name);
+    localStorage.setItem("surname", user.surname);
+    localStorage.setItem("encodedUser", btoa(user.mail +':'+user.password));
     if(user.isAdmin){
       localStorage.setItem("type", "admin");
       this.router.navigate(['adminpanel']);

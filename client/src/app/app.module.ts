@@ -8,7 +8,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {UserAuthGuardService} from "./services/auth/user-auth-guard.service";
 import {AuthService} from "./services/auth/auth.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from "./home/home.component";
 import {CourseDetailComponent} from "./course/detail/course-detail.component";
 import {CourseFormComponent} from "./course/form/course-form.component";
@@ -43,6 +43,7 @@ import {DndListModule} from "ngx-drag-and-drop-lists";
 import {MaxLengthPipe} from "./pipes/max-length.pipe";
 import {PaymentService} from "./services/payment.service";
 import {PaymentComponent} from "./payment/payment.component";
+import {RequestInterceptor} from "./services/auth/request.interceptor";
 
 @NgModule({
   declarations: [
@@ -80,7 +81,12 @@ import {PaymentComponent} from "./payment/payment.component";
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,
-    ProgramService, PaymentService],
+    ProgramService, PaymentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

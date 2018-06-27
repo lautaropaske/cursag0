@@ -52,7 +52,6 @@ import {Program} from "../models/Program";
 })
 export class HomeComponent implements OnInit{
 
-  carouselPrograms: Program[] = [];
   normalPrograms: Program[] = [];
   courses: Course[] = [];
   limit: number = 150;
@@ -74,17 +73,6 @@ export class HomeComponent implements OnInit{
       },
       err => {
         console.log("Unable to get popular courses from database.");
-      }
-    );
-
-    this.programService.getCarouselPrograms().subscribe(
-      programs => {
-        console.log("Carousel programs where found successfully.");
-        console.log(programs);
-        this.carouselPrograms = programs;
-      },
-      err => {
-        console.log("Unable to get carousel programs from database.");
       }
     );
 

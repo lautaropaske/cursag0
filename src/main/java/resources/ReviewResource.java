@@ -3,6 +3,8 @@ package resources;
 import model.Review;
 import services.ReviewService;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -17,6 +19,7 @@ public class ReviewResource {
     }
 
     @GET
+    @PermitAll
     @Path("/{reviewID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Review getReview(@PathParam("reviewID") int id){
@@ -26,12 +29,14 @@ public class ReviewResource {
 
 //    http://localhost:8080/review?courseId=14
     @GET
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public List<Review> getReviewsOfCourse(@QueryParam("courseId") int courseId){
         return service.getReviewsOfCourse(courseId);
     }
 
     @POST
+    @RolesAllowed("USER")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Review registerReview(Review review){
@@ -39,6 +44,7 @@ public class ReviewResource {
     }
 
     @PUT
+    @RolesAllowed("USER")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Review updateReview(Review review) {
@@ -46,6 +52,7 @@ public class ReviewResource {
     }
 
     @DELETE
+    @RolesAllowed({"USER", "ADMIN"})
     @Path("/{reviewID}")
     public void deleteReview(@PathParam("reviewID") int id) {
         service.deleteReview(id);

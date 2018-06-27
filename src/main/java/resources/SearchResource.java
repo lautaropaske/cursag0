@@ -3,6 +3,7 @@ package resources;
 import model.Course;
 import services.CourseService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,6 +23,7 @@ public class SearchResource {
     }
 
     @GET
+    @RolesAllowed({"USER", "ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> searchCourses(@QueryParam("token") String token){
         List<Course> result = new ArrayList<>(courseService.searchCourses(token));

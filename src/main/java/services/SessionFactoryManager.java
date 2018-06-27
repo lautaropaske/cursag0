@@ -28,7 +28,7 @@ public class SessionFactoryManager {
     }
 
     //returns the same instance every time someone asks for an instance
-    static SessionFactory getInstance() {
+    public static SessionFactory getInstance() {
         if (INSTANCE == null) createInstance();
         return INSTANCE;
     }

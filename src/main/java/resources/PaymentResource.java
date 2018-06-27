@@ -3,6 +3,7 @@ package resources;
 import services.CourseService;
 import services.PaymentService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,6 +29,7 @@ public class PaymentResource {
     }
 
     @GET
+    @RolesAllowed("USER")
     @Path("/initiate")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, String> initiatePayment(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId) throws MalformedURLException {
@@ -35,6 +37,7 @@ public class PaymentResource {
     }
 
     @GET
+    @RolesAllowed("USER")
     @Path("/verify")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, String> verifyPayment(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId, @QueryParam("answerKey") String answerKey) throws MalformedURLException {

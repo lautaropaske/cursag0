@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import model.User;
 import services.LogService;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,6 +19,7 @@ public class LogResource {
     public LogResource(){ this.logService = new LogService();}
 
     @GET
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Response logUser(@QueryParam("mail") String mail, @QueryParam("pass") String pass) throws JsonProcessingException {
         return logService.logUser(mail,pass);

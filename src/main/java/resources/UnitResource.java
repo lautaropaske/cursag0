@@ -3,6 +3,7 @@ package resources;
 import model.Unit;
 import services.UnitService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -16,6 +17,7 @@ public class UnitResource {
     public UnitResource() { this.unitService = new UnitService();}
 
     @POST
+    @RolesAllowed({"USER", "ADMIN"})
     @Consumes(MediaType.APPLICATION_JSON)
     public Unit createUnit(Unit unit){
         return unitService.createUnit(unit);

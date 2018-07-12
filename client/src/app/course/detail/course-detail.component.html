@@ -6,6 +6,12 @@
   <div class="container">
     <h1 class="display-3">{{course.name}}</h1>
     <p class="lead">{{course.description}}</p>
+    <div class="d-flex justify-content-end">
+    <share-button button="facebook" text="Share" [showText]="true" [size]="-1"></share-button>
+    <share-button button="twitter" text="Tweet" [showText]="true" [size]="-1"></share-button>
+    <share-button button="whatsapp" text="Message" [showText]="true" [size]="-1"></share-button>
+    <share-button button="reddit" text="Post" [showText]="true" [size]="-1"></share-button>
+    </div>
     <hr class="my-4">
 
     <div style="display: flex; justify-content: space-between">

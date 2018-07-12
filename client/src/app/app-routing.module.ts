@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'create_program',  component:ProgramFormComponent, canActivate: [AdminAuthGuard] },
   { path: "program_update/:id", component: ProgramUpdateComponent, canActivate: [AdminAuthGuard] },
 
-  { path: "details/:id", component: CourseDetailComponent,canActivate: [UserAdminAuthGuard] },
+  { path: "course/:id", component: CourseDetailComponent,canActivate: [UserAdminAuthGuard] },
 
   { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAuthGuard] },
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },

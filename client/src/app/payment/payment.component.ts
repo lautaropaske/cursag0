@@ -20,7 +20,12 @@ import {PaymentService} from "../services/payment.service";
         <h1 *ngIf="!loading && result" class="mt-5 ml-5">Your payment was successfull!</h1>
         <h1 *ngIf="!loading && !result" class="mt-5 ml-5">An error has ocurred when making the payment</h1>
       </div>
-      <h3 class="mt-4" *ngIf="!loading && !result">We recieved the following response: "{{errorMessage}}"</h3>
+      <div class="row">
+        <button type="button" class="btn mt-2 btn-success mt-4" [routerLink]="['/course', courseId]" *ngIf="!loading && result">Go to course!</button>
+  
+        <h4 class="mt-4" *ngIf="!loading && !result">We recieved the following response:</h4>
+        <p *ngIf="!loading && !result">"{{errorMessage}}"</p>
+      </div>
     </div>
     <endbar></endbar>
   `,

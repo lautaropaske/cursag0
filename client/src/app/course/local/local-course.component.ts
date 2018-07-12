@@ -66,7 +66,7 @@ export class LocalCourseComponent implements OnInit{
     this.courseService.finished(+localStorage.getItem("id"),this.course.id)
       .subscribe();
     this.courseService.removeLoadedCourse(this.course.id);
-    this.router.navigate(['/details', this.course.id]);
+    this.router.navigate(['/course', this.course.id]);
   }
 
   getUrl(): SafeResourceUrl{

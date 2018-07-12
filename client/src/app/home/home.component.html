@@ -56,7 +56,7 @@
   <div class="card-deck mt-3">
     <div *ngFor="let course of courses" class="card mt-2" style="width: 18rem;">
       <div class="card-body">
-        <a style="color: #818182" [routerLink]="['/details', course.id]">
+        <a style="color: #818182" [routerLink]="['/course', course.id]">
           <h5 class="card-title">{{course.name}}</h5>
         </a>
         <ng-template #t let-fill="fill">

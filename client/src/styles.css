@@ -1,3 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/styling/bootstrap.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*!*para share buttons*!*/
+@import '~@ngx-share/button/styles/share-buttons.css';
+@import '~@ngx-share/button/styles/themes/default/default-theme.css';

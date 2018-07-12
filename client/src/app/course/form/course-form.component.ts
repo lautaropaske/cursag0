@@ -58,7 +58,7 @@ export class CourseFormComponent{
         course => {
           console.log("LocalCourse was successfully created");
           console.log(course);
-          this.router.navigate(['/details', course.id]);
+          this.router.navigate(['/course', course.id]);
         },
         err => {
           console.log("LocalCourse could not be created");
@@ -82,7 +82,7 @@ export class CourseFormComponent{
         course => {
           console.log("ExtCourse was successfully created");
           console.log(course);
-          this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
+          this.router.navigate(['/course', course.id]); // cambiar por una redirección al url del curso
         },
         err => {
           console.log("ExtCourse could not be created");

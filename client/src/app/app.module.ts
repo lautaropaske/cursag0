@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ShareButtonModule } from '@ngx-share/button';
 
 import { AppComponent } from './app.component';
 import {AccessComponent} from "./access/access.component";
@@ -77,7 +77,8 @@ import {RequestInterceptor} from "./services/auth/request.interceptor";
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    DndListModule
+    DndListModule,
+    ShareButtonModule.forRoot()
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,
     AuthService, UserService, CourseService, SearchService, UnitService, ReviewService,

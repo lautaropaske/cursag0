@@ -67,7 +67,7 @@ export class EditCourseComponent implements OnInit{
           console.log("Course has been updated");
           console.log(course);
           this.courseService.removeLoadedCourse(this.course.id);
-          this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
+          this.router.navigate(['/course', course.id]); // cambiar por una redirección al url del curso
         },
         err => {
           console.log("error ocurred when updating");
@@ -82,7 +82,7 @@ export class EditCourseComponent implements OnInit{
           console.log(course);
           this.courseService.removeLoadedCourse(this.course.id);
           this.courseService.addLoadedCourses([this.course]);
-          this.router.navigate(['/details', course.id]); // cambiar por una redirección al url del curso
+          this.router.navigate(['/course', course.id]); // cambiar por una redirección al url del curso
         },
         err => {
           console.log("error ocurred when updating");

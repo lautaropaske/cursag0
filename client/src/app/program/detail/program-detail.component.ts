@@ -36,7 +36,7 @@ import {CourseService} from "../../services/course.service";
 
       <div *ngFor="let course of courses" class="card w-75  mt-2" style="width: 18rem;">
         <div class="card-body">
-          <a [routerLink]="['/details', course.id]">
+          <a [routerLink]="['/course', course.id]">
             <h5 class="card-title">{{course.name}}</h5>
           </a>
           <p class="card-text">{{course.description}}</p>

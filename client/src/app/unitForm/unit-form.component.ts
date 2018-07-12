@@ -50,7 +50,7 @@ export class UnitFormComponent implements OnInit{
           console.log("Unit was successfully created");
           console.log(unit);
           this.courseService.removeLoadedCourse(this.idOfParentCourse);
-          this.router.navigate(['/details', this.idOfParentCourse]);
+          this.router.navigate(['/course', this.idOfParentCourse]);
         },
         err => {
           console.log("error ocurred when adding unit");

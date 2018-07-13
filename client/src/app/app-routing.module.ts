@@ -32,7 +32,7 @@ const routes: Routes = [
 
   { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAuthGuard] },
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },
-  { path: "local/:courseId/:progress", component: LocalCourseComponent,canActivate: [UserAuthGuard] },
+  { path: "local/:courseId", component: LocalCourseComponent,canActivate: [UserAuthGuard] },
   { path: "create_unit/:id", component: UnitFormComponent,canActivate: [UserAuthGuard] },
   { path: "edit_course/:id", component: EditCourseComponent,canActivate: [UserAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [UserAuthGuard]},

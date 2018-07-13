@@ -24,28 +24,42 @@ export class LocalCourseComponent implements OnInit{
 
   ngOnInit(): void {
     const courseId = +this.route.snapshot.params["courseId"];
-    this.progress = +this.route.snapshot.params["progress"];
+    const userId = +localStorage.getItem("id");
 
 
+    this.courseService.enrollmentStatus(userId, courseId).subscribe(
+      status=> {
+        if(status >= 0){
+          this.progress = status;
 
-    this.course = this.courseService.getLoadedCourseById(courseId);
-    if(this.course == null){
-      this.courseService.getCourse(courseId).subscribe(
-        course => {
-          this.courseService.addLoadedCourses([course]);
-          this.course = course;
-          this.unit = this.course.units[this.progress];
-          console.log("Course was found successfully.");
-          console.log(course);
+          this.courseService.getCourse(courseId).subscribe(
+            course => {
+              this.courseService.addLoadedCourses([course]);
+              this.course = course;
+              this.unit = this.course.units[this.progress];
+              console.log("Course was found successfully.");
+              console.log(course);
 
-        },
-        err => {
-          console.log("Unable to get courses from database.");
-          this.course = null;
+            },
+            err => {
+              console.log("Unable to get courses from database.");
+              this.course = null;
+            }
+          );
+
         }
-      );
-    }
-    this.unit = this.course.units[this.progress];
+        else if(status == -2){
+          //Has finished the course
+          this.router.navigate(['/course', this.course.id]);
+        }
+
+      },
+      err => {
+        console.log("error when verifing enrollment");
+        this.course = null;
+      }
+    );
+
   }
 
   nextUnit(): void {
@@ -64,9 +78,13 @@ export class LocalCourseComponent implements OnInit{
 
   finished(): void {
     this.courseService.finished(+localStorage.getItem("id"),this.course.id)
-      .subscribe();
-    this.courseService.removeLoadedCourse(this.course.id);
-    this.router.navigate(['/course', this.course.id]);
+      .subscribe(
+        resp => {
+          this.courseService.removeLoadedCourse(this.course.id);
+          this.router.navigate(['/course', this.course.id]);
+        }
+      );
+
   }
 
   getUrl(): SafeResourceUrl{

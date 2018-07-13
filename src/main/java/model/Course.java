@@ -43,6 +43,8 @@ public class Course implements Comparable<Course> {
     @JsonIgnore
     private Set<Review> reviews = new HashSet<>();
 
+    private boolean deleted;
+
 
     public Course(){}
 
@@ -51,6 +53,7 @@ public class Course implements Comparable<Course> {
         this.description = description;
         this.price = price;
         this.publisher = publisher;
+        this.deleted = false;
     }
 
     public int getId() {
@@ -98,6 +101,14 @@ public class Course implements Comparable<Course> {
 
     public void setPrograms(Set<ProgramCourse> programs) {
         this.programs = programs;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void deleteCourse() {
+        deleted = true;
     }
 
     public void removeReview(Review review) {

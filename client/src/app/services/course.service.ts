@@ -80,6 +80,11 @@ export class CourseService {
       userId+ '&courseId=' + courseId);
   }
 
+  resetProgress(userId: number, courseId: number): Observable<boolean>{
+    return this.http.get<boolean>(URL + '/reset?userId=' +
+      userId+ '&courseId=' + courseId);
+  }
+
   delete(id: number): Observable<Object>{
     return this.http.delete(URL + '/'+id);
   }

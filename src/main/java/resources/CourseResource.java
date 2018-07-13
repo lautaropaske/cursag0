@@ -91,6 +91,13 @@ public class CourseResource {
 
     @GET
     @RolesAllowed("USER")
+    @Path("/reset")
+    public boolean reset(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
+        return service.reset(userId, courseId);
+    }
+
+    @GET
+    @RolesAllowed("USER")
     @Path("/unenroll")
     public boolean unenrollUserToCourse(@QueryParam("userId") int userId, @QueryParam("courseId") int courseId){
         return service.unenrollInCourse(userId, courseId);

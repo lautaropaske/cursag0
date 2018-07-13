@@ -171,7 +171,7 @@ export class CourseDetailComponent implements OnInit{
   }
 
   doCourse(): void{
-    this.router.navigate(['/local', this.course.id, this.status]);
+    this.router.navigate(['/local', this.course.id]);
   }
 
   enroll(): void {
@@ -212,6 +212,16 @@ export class CourseDetailComponent implements OnInit{
       result => {
         if(result){
           this.isEnrolled = false;
+        }
+      }
+    )
+  }
+
+  reset(): void{
+    this.courseService.resetProgress(this.sessionId, this.course.id).subscribe(
+      result => {
+        if(result){
+          this.status = 0;
         }
       }
     )

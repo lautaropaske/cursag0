@@ -1,5 +1,6 @@
 package resources;
 
+import model.Payment;
 import services.CourseService;
 import services.PaymentService;
 
@@ -50,6 +51,8 @@ public class PaymentResource {
             }
         }
         if("-1".equals(resultMap.get("StatusCode")) && "APROBADA".equals(resultMap.get("StatusMessage"))){
+            double amount = Double.parseDouble(resultMap.get("AMOUNT"));
+            this.paymentService.savePayment(userId, courseId,amount);
             this.courseService.enrollInCourse(userId, courseId);
         }
         return resultMap;

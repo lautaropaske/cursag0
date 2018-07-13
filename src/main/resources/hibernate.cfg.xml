@@ -27,5 +27,6 @@
         <mapping class="model.UserCourse"/>
         <mapping class="model.Program"/>
         <mapping class="model.ProgramCourse"/>
+        <mapping class="model.Payment"/>
     </session-factory>
 </hibernate-configuration>

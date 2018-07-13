@@ -3,7 +3,12 @@ package services;
 import ar.com.todopago.api.ElementNames;
 import ar.com.todopago.api.TodoPagoConector;
 import model.Course;
+import model.Payment;
+import model.Unit;
 import model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.jws.soap.SOAPBinding;
 import java.net.MalformedURLException;
@@ -18,14 +23,26 @@ public class PaymentService {
     private TodoPagoConector tpc;
     private UserService userService;
     private CourseService courseService;
+    private SessionFactory sf;
 
     public PaymentService() throws MalformedURLException {
+        this.sf = SessionFactoryManager.getInstance();
         userService = new UserService();
         courseService = new CourseService();
 
         Map<String, List<String>> parameters = new HashMap<String, List<String>>();
         parameters.put(ElementNames.Authorization, Collections.singletonList("PRISMA A793D307441615AF6AAAD7497A75DE59"));
         this.tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint, parameters,true);
+    }
+
+    public Payment savePayment(int consumerId, int courseId, double amount) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        Payment payment = new Payment(amount,new Date(),this.userService.getUser(consumerId), this.courseService.getCourse(courseId));
+        session.save(payment);
+        transaction.commit();
+        session.close();
+        return payment;
     }
 
 
@@ -47,6 +64,17 @@ public class PaymentService {
 
         return resultMap;
 
+    }
+
+    public Map<String,Object> verifyPayment(int userId, String answerKey) {
+        final User user = userService.getUser(userId);
+
+        Map<String,String> parameters = new HashMap<>();
+        parameters.put(ElementNames.Security,"A793D307441615AF6AAAD7497A75DE59");
+        parameters.put(ElementNames.Merchant,"2159");
+        parameters.put(ElementNames.RequestKey,user.getRequestKey());
+        parameters.put(ElementNames.AnswerKey,answerKey);
+        return tpc.getAuthorizeAnswer(parameters);
     }
 
     private Map<String,String> getFraudControl(User user) {
@@ -114,14 +142,5 @@ public class PaymentService {
         return parameters;
     }
 
-    public Map<String,Object> verifyPayment(int userId, String answerKey) {
-        final User user = userService.getUser(userId);
 
-        Map<String,String> parameters = new HashMap<>();
-        parameters.put(ElementNames.Security,"A793D307441615AF6AAAD7497A75DE59");
-        parameters.put(ElementNames.Merchant,"2159");
-        parameters.put(ElementNames.RequestKey,user.getRequestKey());
-        parameters.put(ElementNames.AnswerKey,answerKey);
-        return tpc.getAuthorizeAnswer(parameters);
-    }
 }

@@ -17,6 +17,7 @@ import org.hibernate.query.Query;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CourseService {
 
@@ -33,7 +34,12 @@ public class CourseService {
         Course course = session.get(Course.class,id);
         transaction.commit();
         session.close();
-        return course;
+        if(!course.isDeleted()) {
+            return course;
+        }
+        else {
+            return null;
+        }
     }
 
     public Set<Course> getCoursesEnrolledBy(int id) {
@@ -43,7 +49,11 @@ public class CourseService {
 
         final Set<Course> enrolled = new HashSet<>();
         final Set<UserCourse> relations = user.getEnrolledCourses();
-        relations.forEach(relation -> enrolled.add(relation.getCourse()));
+        relations.forEach(relation -> {
+            if(!relation.getCourse().isDeleted()) {
+                enrolled.add(relation.getCourse());
+            }
+        });
 
         transaction.commit();
         session.close();
@@ -57,7 +67,8 @@ public class CourseService {
         final Collection<Course> published = user.getPublished();
         transaction.commit();
         session.close();
-        return published;
+        return published.stream().filter(course -> !course.isDeleted()).collect(Collectors.toList());
+
     }
 
     public int enrollmentStatus(int userId, int courseId) {
@@ -148,7 +159,18 @@ public class CourseService {
         transaction.commit();
         session.close();
         return true;
+    }
 
+    public boolean reset(int userId, int courseId) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        UserCourse.UserCourseId id = new UserCourse.UserCourseId(userId, courseId);
+        UserCourse uc = session.get(UserCourse.class,id);
+        uc.setProgress(0);
+        session.persist(uc);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     public Course registerCourse(Course course) {
@@ -174,9 +196,8 @@ public class CourseService {
     @SuppressWarnings("unchecked")
     public List<Course> getCourses() {
         Session session  = sf.openSession();
-
         Transaction transaction = session.beginTransaction();
-        List<Course> courses = session.createQuery("FROM Course").list();
+        List<Course> courses = session.createQuery("FROM Course WHERE deleted = false").list();
         transaction.commit();
         session.close();
         return courses;
@@ -201,7 +222,8 @@ public class CourseService {
             session.delete(review);
         });
 
-        session.delete(course);
+        course.deleteCourse();
+        session.update(course);
         transaction.commit();
     }
 
@@ -210,7 +232,7 @@ public class CourseService {
         Session session  = sf.openSession();
 
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("FROM Course ORDER BY rating DESC");
+        Query query = session.createQuery("FROM Course WHERE deleted = false ORDER BY rating DESC");
         query.setMaxResults(4);
         List<Course> result = query.list();
         transaction.commit();
@@ -241,8 +263,8 @@ public class CourseService {
         for(String key : keyWords) {
             Query finalQuery = session.createQuery(q);
             finalQuery.setParameter("t", "%"+key+"%");
-            List queried = finalQuery.getResultList();
-            result.addAll(queried);
+            List<Course> queried = finalQuery.getResultList();
+            result.addAll(queried.stream().filter(course -> !course.isDeleted()).collect(Collectors.toList()));
         }
 
         transaction.commit();

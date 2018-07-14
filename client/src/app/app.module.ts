@@ -46,6 +46,8 @@ import {PaymentComponent} from "./payment/payment.component";
 import {RequestInterceptor} from "./services/auth/request.interceptor";
 import {MatListModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatTableModule} from "@angular/material/table";
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     MatListModule,
     DndListModule,
+    MatTableModule,
+    MatPaginatorModule,
     ShareButtonModule.forRoot()
   ],
   providers: [ReverseAuthGuardService,UserAuthGuardService, AdminAuthGuardService, UserAdminAuthGuardService,

@@ -24,6 +24,7 @@ public class FillDatabase {
         User paske = userService.saveUser(new User("lautaro.paskevicius@ing.austral.edu.ar", "1234", "Lautaro", "Paskevicius",false));
         User gonza = userService.saveUser(new User("gonza@gmail.com", "1234", "Gonzalo", "Perez",false));
         User juan = userService.saveUser(new User("juan@gmail.com", "1234", "Juan", "Perez",false));
+        User pablo = userService.saveUser(new User("pablo@gmail.com", "1234", "Pablo", "Gonzales",false));
 
         Course jUnit = courseService.registerCourse(new LocalCourse("Learn Java Unit Testing with JUnit 5", "JUnit is most popular Java Unit Testing Framework. The new version of JUnit - Junit 5 or Jupiter is even more special. \nIn this course, we look into the important features of JUnit 5. We understand the need for unit testing and learn how to write great unit tests with JUnit 5.\n"
                 , 11, apu));
@@ -37,9 +38,13 @@ public class FillDatabase {
 
         courseService.enrollInCourse(paske.getId(), jUnit.getId());
         courseService.enrollInCourse(gonza.getId(), jUnit.getId());
+        courseService.enrollInCourse(pablo.getId(), jUnit.getId());
+        courseService.enrollInCourse(juan.getId(), jUnit.getId());
 
         paymentService.savePayment(paske.getId(), jUnit.getId(), 11);
         paymentService.savePayment(gonza.getId(), jUnit.getId(), 11);
+        paymentService.savePayment(pablo.getId(), jUnit.getId(), 11);
+        paymentService.savePayment(juan.getId(), jUnit.getId(), 11);
 
 
         Course introUnitTesting = courseService.registerCourse(new ExtCourse("Foundations of Unit Testing", "Testing and debugging are places where developers spend a lot of their time. Code doesn’t always perform as expected and, with complex applications, it’s very easy to break code with minor changes. Unit tests and test-driven-development exist to help us manage expectations of our functionality and to ensure that other developers working on our code are aware when a change they made affects already existing functionality.",

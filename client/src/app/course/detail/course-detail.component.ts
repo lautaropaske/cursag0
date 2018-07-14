@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
@@ -10,7 +10,8 @@ import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {PaymentService} from "../../services/payment.service";
 import {PaymentOfCourse} from "../../models/PaymentOfCourse";
-import {MatTableDataSource} from "@angular/material";
+import {ViewChild} from '@angular/core';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'course-detail',
@@ -72,6 +73,7 @@ export class CourseDetailComponent implements OnInit{
   totalRevenue: number = 0;
   dataSource: MatTableDataSource<PaymentOfCourse>;
   displayedColumns = ['user', 'date', 'price'];
+  @ViewChild('Paginator') paginator: MatPaginator;
 
   isAdmin: boolean;
   programs: Program[];
@@ -156,6 +158,7 @@ export class CourseDetailComponent implements OnInit{
               console.log("Found payments");
               console.log(this.payments);
               this.dataSource = new MatTableDataSource<PaymentOfCourse>(payments);
+              this.dataSource.paginator = this.paginator;
             },
             err => {
               console.log("Unable to get payments.");

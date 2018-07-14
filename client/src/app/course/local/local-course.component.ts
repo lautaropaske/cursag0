@@ -16,6 +16,7 @@ export class LocalCourseComponent implements OnInit{
   course: Course;
   unit: Unit;
   progress: number;
+  isPublisher: boolean;
 
 
   constructor(private courseService: CourseService,
@@ -26,65 +27,81 @@ export class LocalCourseComponent implements OnInit{
     const courseId = +this.route.snapshot.params["courseId"];
     const userId = +localStorage.getItem("id");
 
+    this.courseService.getCourse(courseId).subscribe(
+      course => {
+        this.courseService.addLoadedCourses([course]);
 
-    this.courseService.enrollmentStatus(userId, courseId).subscribe(
-      status=> {
-        if(status >= 0){
-          this.progress = status;
+        console.log("Course was found successfully.");
+        console.log(course);
+        this.course = course;
 
-          this.courseService.getCourse(courseId).subscribe(
-            course => {
-              this.courseService.addLoadedCourses([course]);
-              this.course = course;
-              this.unit = this.course.units[this.progress];
-              console.log("Course was found successfully.");
-              console.log(course);
+        this.isPublisher = course.publisher.id == userId;
+        if(!this.isPublisher) {
+          this.courseService.enrollmentStatus(userId, courseId).subscribe(
+            status => {
+              if (status >= 0) {
+                this.progress = status;
+
+              }
+              else if (status == -2) {
+                //Has finished the course
+                this.router.navigate(['/course', this.course.id]);
+              }
 
             },
             err => {
-              console.log("Unable to get courses from database.");
-              this.course = null;
+              console.log("error when verifing enrollment");
             }
           );
+        }
+        else{
+          this.progress = 0;
+        }
 
-        }
-        else if(status == -2){
-          //Has finished the course
-          this.router.navigate(['/course', this.course.id]);
-        }
+        this.unit = this.course.units[this.progress];
 
       },
       err => {
-        console.log("error when verifing enrollment");
+        console.log("Unable to get courses from database.");
         this.course = null;
       }
     );
 
+
+
   }
 
   nextUnit(): void {
-    this.courseService.makeProgress(+localStorage.getItem("id"),this.course.id)
-      .subscribe();
+    if (!this.isPublisher) {
+      this.courseService.makeProgress(+localStorage.getItem("id"), this.course.id)
+        .subscribe();
+    }
     this.progress = this.progress + 1;
     this.unit = this.course.units[this.progress];
   }
 
   previousUnit(): void {
-    this.courseService.goBack(+localStorage.getItem("id"),this.course.id)
-      .subscribe();
+    if (!this.isPublisher) {
+      this.courseService.goBack(+localStorage.getItem("id"), this.course.id)
+        .subscribe();
+    }
     this.progress = this.progress - 1;
     this.unit = this.course.units[this.progress];
   }
 
   finished(): void {
-    this.courseService.finished(+localStorage.getItem("id"),this.course.id)
-      .subscribe(
-        resp => {
-          this.courseService.removeLoadedCourse(this.course.id);
-          this.router.navigate(['/course', this.course.id]);
-        }
-      );
-
+    if (!this.isPublisher) {
+      this.courseService.finished(+localStorage.getItem("id"), this.course.id)
+        .subscribe(
+          resp => {
+            this.courseService.removeLoadedCourse(this.course.id);
+            this.router.navigate(['/course', this.course.id]);
+          }
+        );
+    }
+    else{
+      this.router.navigate(['/course', this.course.id]);
+    }
   }
 
   getUrl(): SafeResourceUrl{

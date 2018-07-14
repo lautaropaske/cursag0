@@ -44,6 +44,8 @@ import {MaxLengthPipe} from "./pipes/max-length.pipe";
 import {PaymentService} from "./services/payment.service";
 import {PaymentComponent} from "./payment/payment.component";
 import {RequestInterceptor} from "./services/auth/request.interceptor";
+import {MatListModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import {RequestInterceptor} from "./services/auth/request.interceptor";
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    BrowserAnimationsModule,
+    MatListModule,
     DndListModule,
     ShareButtonModule.forRoot()
   ],

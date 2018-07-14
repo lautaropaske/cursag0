@@ -61,7 +61,7 @@
         </div>
 
         <div *ngIf="!isEnrolled">
-          <div *ngIf="course.price > 0">
+          <div *ngIf="course.price > 0 && !isPublisher">
             <button type="button" title="Start Payment" style="font-size: 1.5em" (click)="buyCourse();" class="btn mt-2 btn-success">
               <div class="d-flex align-items-center">
                 Purchase
@@ -76,9 +76,45 @@
           <div *ngIf="course.price == 0">
             <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
           </div>
+        </div>
 
+        <div *ngIf="course.price > 0 && isPublisher && isLocal">
+
+          <p>Total Revenue from course: $ {{totalRevenue}}</p>
+          <a *ngIf="!showPayment" (click)="showPayment = true">Show more</a>
+          <div *ngIf="showPayment">
+            <a (click)="showPayment = false">Hide</a>
+
+            <mat-table #table class="mat-elevation-z8" [dataSource]="dataSource">
+
+              <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.consumer.surname}}, {{element.consumer.name}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> Price Paid </mat-header-cell>
+                <mat-cell *matCellDef="let element">$ {{element.amount}}</mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 20]"
+                           [showFirstLastButtons]="true">
+            </mat-paginator>
+
+          </div>
 
         </div>
+
       </div>
 
       <!-- HACER FAVORITE UN CURSO EXTERNO-->

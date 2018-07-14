@@ -1,17 +1,17 @@
 package resources;
 
+import model.Course;
 import model.Payment;
+import pojos.PaymentOfCourse;
 import services.CourseService;
 import services.PaymentService;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +27,22 @@ public class PaymentResource {
     public PaymentResource() throws MalformedURLException {
        paymentService = new PaymentService();
        courseService = new CourseService();
+    }
+
+    @GET
+    @RolesAllowed({"USER", "ADMIN"})
+    @Path("/course/{courseID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PaymentOfCourse> paymentsOfCourse(@PathParam("courseID") int courseId) {
+        return paymentService.paymentsOfCourse(courseId);
+    }
+
+    @GET
+    @RolesAllowed({"USER", "ADMIN"})
+    @Path("/user/{userID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String,List<PaymentOfCourse>> paymentsOfUser(@PathParam("userID") int userId) {
+        return paymentService.paymentsOfUser(userId);
     }
 
     @GET

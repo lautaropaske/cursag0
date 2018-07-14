@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
@@ -9,6 +9,8 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {PaymentService} from "../../services/payment.service";
+import {PaymentOfCourse} from "../../models/PaymentOfCourse";
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'course-detail',
@@ -57,16 +59,22 @@ export class CourseDetailComponent implements OnInit{
   course: Course;
   status: number;
   sessionId: number;
-  isPublisher: boolean;
   isLocal: boolean;
   isEnrolled: boolean;
   loadedStatus: boolean;
   loadedCourse: boolean;
   startsPayment: boolean;
 
+  isPublisher: boolean;
+  payments: PaymentOfCourse[];
+
+  showPayments: boolean;
+  totalRevenue: number = 0;
+  dataSource: MatTableDataSource<PaymentOfCourse>;
+  displayedColumns = ['user', 'date', 'price'];
+
   isAdmin: boolean;
   programs: Program[];
-
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
 
@@ -130,27 +138,40 @@ export class CourseDetailComponent implements OnInit{
       }
     );
 
-    this.course = this.courseService.getLoadedCourseById(idOfCourse);
-    if(this.course == null){
-      this.courseService.getCourse(idOfCourse).subscribe(
-        course => {
-          console.log("Course was found successfully.");
-          console.log(course);
-          this.courseService.addLoadedCourses([course]);
-          this.course = course;
-          this.isPublisher = course.publisher.id == this.sessionId;
-          this.isLocal = course.link == null;
-          this.loadedCourse = true;
-        },
-        err => {
-          console.log("Unable to get courses from database.");
-          this.course = null;
+    this.courseService.getCourse(idOfCourse).subscribe(
+      course => {
+        console.log("Course was found successfully.");
+        console.log(course);
+        this.courseService.addLoadedCourses([course]);
+        this.course = course;
+        this.isPublisher = course.publisher.id == this.sessionId;
+        this.isLocal = course.link == null;
+        this.loadedCourse = true;
+
+        if(this.isPublisher && this.isLocal && this.course.price > 0){
+          this.paymentService.getPaymentsOfCourse(this.course.id).subscribe(
+            payments => {
+              this.payments = payments;
+              this.payments.forEach(payment => this.totalRevenue += payment.amount);
+              console.log("Found payments");
+              console.log(this.payments);
+              this.dataSource = new MatTableDataSource<PaymentOfCourse>(payments);
+            },
+            err => {
+              console.log("Unable to get payments.");
+              this.course = null;
+            }
+          )
         }
-      );
-    }
+      },
+      err => {
+        console.log("Unable to get courses from database.");
+        this.course = null;
+      }
+    );
+    this.loadedCourse = true;
     this.isPublisher = this.course.publisher.id == this.sessionId;
     this.isLocal = this.course.link == null;
-    this.loadedCourse = true;
   }
 
   deleteCourse(): void{

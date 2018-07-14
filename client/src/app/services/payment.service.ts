@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {InitiateResp} from "../models/todoPago/InitiateResp";
 import {VerifyResp} from "../models/todoPago/VerifyResp";
+import {PaymentOfCourse} from "../models/PaymentOfCourse";
 
 const URL ="http://localhost:8080/payment";
 
@@ -20,4 +21,9 @@ export class PaymentService {
     return this.http.get<VerifyResp>(URL + '/verify?userId=' +
       userId +'&courseId='+courseId+'&answerKey=' + answerKey);
   }
+
+  getPaymentsOfCourse(courseId:number): Observable<PaymentOfCourse[]>{
+    return this.http.get<PaymentOfCourse[]>(URL + '/course/' + courseId);
+  }
+
 }

@@ -48,6 +48,7 @@ export class LocalCourseComponent implements OnInit{
                 this.router.navigate(['/course', this.course.id]);
               }
 
+              this.unit = this.course.units[this.progress];
             },
             err => {
               console.log("error when verifing enrollment");

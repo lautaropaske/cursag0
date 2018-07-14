@@ -175,11 +175,30 @@
       <!-- if CURSO LOCAL-->
       <ng-template #localCourse>
         <h3 class="display-5">List of Units:</h3>
-        <ul>
+        <ul *ngIf="!isPublisher">
           <li *ngFor="let unit of course.units">
-            <p>Unit {{unit.number}}: {{unit.name}}</p>
+            <p>{{unit.name}}</p>
           </li>
         </ul>
+
+        <div *ngIf="isPublisher" class="card">
+          <ul [dndList]
+              [dndModel]="course.units" class="list-group list-group-flush">
+            <li *ngFor="let unit of course.units;let i = index"
+                [dndDraggable]="{draggable:true, effectAllowed:'move'}"
+                [dndObject]="unit"
+                (dndMoved)="removeItem(unit, course.units)"
+                class="list-group-item d-flex justify-content-between" style="cursor: pointer">
+              <div >
+                {{unit.name}}
+              </div>
+              <i (click)="removeUnit(unit)" class="far fa-trash-alt"></i>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="alteredOrder">
+          <button type="button" (click)="persistOrder();" class="btn mt-3 btn-outline-warning">Save order</button>
+        </div>
       </ng-template>
 
       <!-- if CURSO EXTERNO-->

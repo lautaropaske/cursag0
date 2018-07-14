@@ -12,6 +12,9 @@ import {PaymentService} from "../../services/payment.service";
 import {PaymentOfCourse} from "../../models/PaymentOfCourse";
 import {ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
+import {UnitService} from "../../services/unit.service";
+import {Unit} from "../../models/Unit";
 
 @Component({
   selector: 'course-detail',
@@ -75,6 +78,8 @@ export class CourseDetailComponent implements OnInit{
   displayedColumns = ['user', 'date', 'price'];
   @ViewChild('Paginator') paginator: MatPaginator;
 
+  alteredOrder: boolean;
+
   isAdmin: boolean;
   programs: Program[];
   myControl: FormControl = new FormControl();
@@ -85,7 +90,7 @@ export class CourseDetailComponent implements OnInit{
       program.name.toLowerCase().indexOf(val.toLowerCase()) === 0).map(program => program.name);
   }
 
-  constructor(private courseService: CourseService, private programService: ProgramService,
+  constructor(private courseService: CourseService, private programService: ProgramService, private unitService: UnitService,
               private paymentService: PaymentService, private router: Router, private route: ActivatedRoute) {}
 
 
@@ -175,6 +180,43 @@ export class CourseDetailComponent implements OnInit{
     this.loadedCourse = true;
     this.isPublisher = this.course.publisher.id == this.sessionId;
     this.isLocal = this.course.link == null;
+  }
+
+  public removeUnit(unit: Unit): void {
+    this.unitService.deleteUnit(unit.id).subscribe(
+      resp => {
+        console.log("Unit was deleted");
+        const index = this.course.units.indexOf(unit, 0);
+        if (index > -1) {
+          this.course.units.splice(index, 1);
+        }
+      }
+    )
+  }
+
+  public removeItem(item: any, list: any[]): void {
+    list.splice(list.indexOf(item), 1);
+    this.alteredOrder = true;
+  }
+
+  public persistOrder(): void {
+    let units: Unit[] = this.course.units.map<Unit>(unit => {
+      unit.parent = new Course(this.course.id);
+      return unit;
+    });
+    console.log("Modified units");
+    console.log(units);
+    this.unitService.updateOrderOfUnits(units).subscribe(
+      resp => {
+        console.log(resp);
+        console.log("updated order was successful");
+        this.alteredOrder = false;
+      },
+      err => {
+        console.log("error when updating order");
+        console.log(err)
+      }
+    );
   }
 
   deleteCourse(): void{

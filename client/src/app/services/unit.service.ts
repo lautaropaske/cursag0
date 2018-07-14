@@ -16,4 +16,12 @@ export class UnitService {
     return this.http.post<Unit>(URL,unit);
   }
 
+  updateOrderOfUnits(units: Unit[]): Observable<Unit[]>{
+    return this.http.put<Unit[]>(URL + '/updateorder',units);
+  }
+
+  deleteUnit(id: number) : Observable<Object>{
+    return this.http.delete(URL + '/'+id);
+  }
+
 }

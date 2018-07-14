@@ -38,7 +38,6 @@ public class FillDatabase {
 
         courseService.enrollInCourse(paske.getId(), jUnit.getId());
         courseService.enrollInCourse(gonza.getId(), jUnit.getId());
-        courseService.enrollInCourse(pablo.getId(), jUnit.getId());
         courseService.enrollInCourse(juan.getId(), jUnit.getId());
 
         paymentService.savePayment(paske.getId(), jUnit.getId(), 11);
@@ -55,7 +54,8 @@ public class FillDatabase {
         programService.addCourseToProgram(testingProgram.getId(), jUnit.getId());
 
 
-        Course html = courseService.registerCourse(new LocalCourse("30 Days to Learn HTML and CSS","Even if your goal is not to become a web designer, learning HTML and CSS can be an amazing tool to have in your skill-set -- both in the workplace, and at home. If this has been on your to-do list for some time, why don't you take thirty days and join me? Give me around ten minutes every day, and I'll teach you the essentials of HTML and CSS.", 9.99, gonza));
+        Course html = courseService.registerCourse(new LocalCourse("30 Days to Learn HTML and CSS","Even if your goal is not to become a web designer, learning HTML and CSS can be an amazing tool to have in your skill-set -- both in the workplace, and at home. If this has been on your to-do list for some time, why don't you take thirty days and join me? Give me around ten minutes every day, and I'll teach you the essentials of HTML and CSS.",
+                0, gonza));
         Unit html1 = unitService.createUnit(new Unit(html,"Your First Webpage", "https://www.youtube.com/watch?v=bfqBUDk99Tc&list=PLgGbWId6zgaWZkPFI4Sc9QXDmmOWa1v5F&index=2",1,"In this lesson, you'll learn how to make a working web page that displays the words, Hello world."));
         Unit html2 = unitService.createUnit(new Unit(html,"Finding a Proper Code Editor", "https://www.youtube.com/watch?v=-8IoQTg5Ybs&list=PLgGbWId6zgaWZkPFI4Sc9QXDmmOWa1v5F&index=3",2,"Before we continue on with formatting our text, I don't want you to be using NotePad or Text Edit. Instead, we should be using a code editor that was specifically created for the purposes of writing code."));
         Unit html3 = unitService.createUnit(new Unit(html,"Lists", "https://www.youtube.com/watch?v=KHT6scxGm38&index=4&list=PLgGbWId6zgaWZkPFI4Sc9QXDmmOWa1v5F",3,"Welcome to Day 3. Today we're going to cover how to create a list of items using HTML."));
@@ -66,6 +66,8 @@ public class FillDatabase {
         reviewService.registerReview(new Review("Good content, but voice is pretty dull",3,paske,html));
         reviewService.registerReview(new Review("Found the course very useful",5,apu,html));
         reviewService.registerReview(new Review("Quality of videos is not up to standard",2,juan,html));
+
+        courseService.enrollInCourse(pablo.getId(), html.getId());
 
 
         Course javascript = courseService.registerCourse(new ExtCourse("JavaScript, jQuery, and JSON", "In this course, we'll look at the JavaScript language, and how it supports the Object-Oriented pattern, with a focus on the unique aspect of how JavaScript approaches OO. We'll explore a brief introduction to the jQuery library, which is widely used to do in-browser manipulation of the Document Object Model (DOM) and event handling. ", 0, gonza, "https://www.coursera.org/learn/javascript-jquery-json", "Coursera"));
@@ -88,6 +90,8 @@ public class FillDatabase {
         // hago enroll a user en programs y courses
         programService.enrollInProgram(apu.getId(), fullstackProgram.getId());
         programService.enrollInProgram(apu.getId(), testingProgram.getId());
+        programService.enrollInProgram(pablo.getId(), fullstackProgram.getId());
+        programService.enrollInProgram(pablo.getId(), testingProgram.getId());
 
         programService.enrollInProgram(gonza.getId(), fullstackProgram.getId());
 

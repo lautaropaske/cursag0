@@ -6,6 +6,7 @@ import services.UnitService;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/unit")
 
@@ -21,6 +22,22 @@ public class UnitResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Unit createUnit(Unit unit){
         return unitService.createUnit(unit);
+    }
+
+
+    @PUT
+    @RolesAllowed({"USER"})
+    @Path("/updateorder")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Unit> updateOrderOfUnits(List<Unit> units){
+        return unitService.updateOrder(units);
+    }
+
+    @DELETE
+    @RolesAllowed("USER")
+    @Path("/{unitId}")
+    public void deleteUnit(@PathParam("unitId") int id) {
+        unitService.deleteUnit(id);
     }
 
 //    http://localhost:8080/unit?courseId=14&index=0

@@ -34,8 +34,21 @@ public class CourseService {
         Course course = session.get(Course.class,id);
         transaction.commit();
         session.close();
+
+
         if(!course.isDeleted()) {
-            return course;
+            if(course instanceof LocalCourse){
+                LocalCourse local = (LocalCourse) course;
+                Set<Unit> filteredUnits = new HashSet<Unit>(local.getUnits());
+                List<Unit> result = new ArrayList<Unit>();
+                result.addAll(filteredUnits);
+                result.sort(Comparator.comparingInt(Unit::getNumber));
+                local.setUnits(result);
+                return local;
+            }
+            else{
+                return course;
+            }
         }
         else {
             return null;

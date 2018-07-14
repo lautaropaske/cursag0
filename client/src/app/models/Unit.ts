@@ -16,6 +16,7 @@ export class Unit{
   textContent: string;
 
 
+
   constructor(id: number, parent: Course, name: string, videoLink: string, number: number, textContent: string) {
     this.id = id;
     this.parent = parent;

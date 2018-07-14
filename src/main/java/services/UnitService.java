@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class UnitService {
 
     private SessionFactory sf;
@@ -25,6 +27,33 @@ public class UnitService {
         session.close();
         return unit;
     }
+
+    public List<Unit> updateOrder(List<Unit> units) {
+
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        for (int i = 0; i < units.size(); i++) {
+            Unit unit = units.get(i);
+            unit.setNumber(i + 1);
+            session.update(unit);
+        }
+
+        transaction.commit();
+        session.close();
+        return units;
+    }
+
+    public void deleteUnit(int id) {
+        Session session  = sf.openSession();
+        Transaction transaction = session.beginTransaction();
+        final Unit unit = session.get(Unit.class, id);
+        session.delete(unit);
+        transaction.commit();
+        session.close();
+    }
+
+
 
 //    public Unit getUnit(int courseId, int index) {
 //        Session session  = sf.openSession();

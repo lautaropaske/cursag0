@@ -22,13 +22,13 @@ import {PaymentComponent} from "./payment/payment.component";
 
 const routes: Routes = [
   { path: 'home',  component:HomeComponent },
+  { path: "course/:id", component: CourseDetailComponent },
   { path: 'access',  component:AccessComponent, canActivate: [ReverseAuthGuard]},
 
   { path: 'adminpanel',  component:AdminPanelComponent, canActivate: [AdminAuthGuard] },
   { path: 'create_program',  component:ProgramFormComponent, canActivate: [AdminAuthGuard] },
   { path: "program_update/:id", component: ProgramUpdateComponent, canActivate: [AdminAuthGuard] },
 
-  { path: "course/:id", component: CourseDetailComponent,canActivate: [UserAdminAuthGuard] },
 
   { path: "program_detail/:id", component: ProgramDetailComponent, canActivate: [UserAuthGuard] },
   { path: 'create_course',  component:CourseFormComponent, canActivate: [UserAuthGuard] },

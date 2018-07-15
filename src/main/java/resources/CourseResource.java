@@ -30,7 +30,7 @@ public class CourseResource {
     }
 
     @GET
-    @RolesAllowed({"USER", "ADMIN"})
+    @PermitAll
     @Path("/{courseID}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Course getCourse(@PathParam("courseID") int id) {

@@ -2,7 +2,7 @@
 
 <section class="container">
 
-  <h1 class="display-5 text-center mt-4 mb-4">Create a course</h1>
+  <h1 class="display-5 text-center mt-4 mb-4">Registering a Course</h1>
 
   <div *ngIf='displayError'>
     <div class="alert alert-danger alert-dismissible">
@@ -14,10 +14,10 @@
   <div class="row justify-content-center">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary" [class.active]="postLocal">
-            <input type="radio" name="options" id="option1" autocomplete="off" (change)="changePost()" [checked]="postLocal"> Local
+            <input type="radio" name="options" id="option1" autocomplete="off" (change)="changePost()" [checked]="postLocal"> New course
         </label>
         <label class="btn btn-secondary" [class.active]="!postLocal">
-          <input type="radio" name="options" id="option2" autocomplete="off" (change)="changePost()" [checked]="!postLocal"> External
+          <input type="radio" name="options" id="option2" autocomplete="off" (change)="changePost()" [checked]="!postLocal"> Redirect to external platform
         </label>
       </div>
   </div>

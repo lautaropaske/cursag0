@@ -61,7 +61,7 @@
         </div>
 
         <div *ngIf="!isEnrolled">
-          <div *ngIf="course.price > 0 && !isPublisher">
+          <div *ngIf=" isRegistered && course.price > 0 && !isPublisher">
             <button type="button" title="Start Payment" style="font-size: 1.5em" (click)="buyCourse();" class="btn mt-2 btn-success">
               <div class="d-flex align-items-center">
                 Purchase
@@ -73,7 +73,7 @@
 
 
           </div>
-          <div *ngIf="course.price == 0">
+          <div *ngIf=" isRegistered && course.price == 0">
             <button type="button" (click)="enroll();" class="btn mt-2 btn-success">Enroll</button>
           </div>
         </div>
@@ -123,7 +123,7 @@
       </div>
 
       <!-- HACER FAVORITE UN CURSO EXTERNO-->
-      <div *ngIf="!isLocal">
+      <div *ngIf=" isRegistered && !isLocal">
         <div *ngIf="isEnrolled">
           <div style="font-size:3em; color:gold">
             <i style="cursor:pointer;" title="Unfavorite Course" (click)="unenroll()" class="fas fa-star"></i>

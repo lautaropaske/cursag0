@@ -72,6 +72,8 @@ export class CourseDetailComponent implements OnInit{
   isPublisher: boolean;
   payments: PaymentOfCourse[];
 
+  isRegistered: boolean;
+
   showPayments: boolean;
   totalRevenue: number = 0;
   dataSource: MatTableDataSource<PaymentOfCourse>;
@@ -99,6 +101,10 @@ export class CourseDetailComponent implements OnInit{
     const idOfCourse = +this.route.snapshot.params["id"];
     this.sessionId = +localStorage.getItem("id");
 
+    if(this.sessionId != 0){
+      this.isRegistered = true;
+    }
+
     if(localStorage.getItem("type") == "admin"){
       this.isAdmin = true;
       this.programService.getProgramsWhereCourseIsNotPresent(idOfCourse).subscribe(
@@ -122,28 +128,36 @@ export class CourseDetailComponent implements OnInit{
       this.isAdmin = false;
       this.programs = null;
     }
-    this.courseService.enrollmentStatus(this.sessionId, idOfCourse).subscribe(
-      status=> {
-        if(status == -1){
-          this.isEnrolled = false;
-        }
-        else if(status == -2){
-          console.log('course has been completed');
-          this.isEnrolled = true;
-        }
-        else{
-          this.isEnrolled = true;
-        }
-        this.status = status;
-        this.loadedStatus= true;
+    if(this.isRegistered) {
+      this.courseService.enrollmentStatus(this.sessionId, idOfCourse).subscribe(
+        status => {
+          if (status == -1) {
+            this.isEnrolled = false;
+          }
+          else if (status == -2) {
+            console.log('course has been completed');
+            this.isEnrolled = true;
+          }
+          else {
+            this.isEnrolled = true;
+          }
+          this.status = status;
+          this.loadedStatus = true;
 
-        console.log('status code: ' +status);
-      },
-      err => {
-        console.log("error when verifing enrollment");
-        this.course = null;
-      }
-    );
+          console.log('status code: ' + status);
+        },
+        err => {
+          console.log("error when verifing enrollment");
+          this.course = null;
+        }
+      );
+    }
+    else{
+      this.isPublisher = false;
+      this.isEnrolled = false;
+      this.isAdmin = false;
+      this.loadedStatus = true;
+    }
 
     this.courseService.getCourse(idOfCourse).subscribe(
       course => {
@@ -177,9 +191,6 @@ export class CourseDetailComponent implements OnInit{
         this.course = null;
       }
     );
-    this.loadedCourse = true;
-    this.isPublisher = this.course.publisher.id == this.sessionId;
-    this.isLocal = this.course.link == null;
   }
 
   public removeUnit(unit: Unit): void {

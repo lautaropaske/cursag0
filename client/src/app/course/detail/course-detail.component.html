@@ -2,16 +2,21 @@
 <admin-navbar *ngIf="isAdmin"></admin-navbar>
 <div *ngIf="loadedStatus && loadedCourse">
 
+  <!--[ngStyle]="{ 'background-image': 'url(' + image + ')'}"-->
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-3">{{course.name}}</h1>
-    <p class="lead">{{course.description}}</p>
-    <div class="d-flex justify-content-end">
-    <share-button button="facebook" text="Share" [showText]="true" [size]="-1"></share-button>
-    <share-button button="twitter" text="Tweet" [showText]="true" [size]="-1"></share-button>
-    <share-button button="whatsapp" text="Message" [showText]="true" [size]="-1"></share-button>
-    <share-button button="reddit" text="Post" [showText]="true" [size]="-1"></share-button>
+    <div class="mt-3" style="height:auto; overflow:auto;">
+      <img [src]="image" alt="" style="width: 270px; float: left" class="mr-4">
+      <p class="lead">{{course.description}}</p>
     </div>
+    <div class="d-flex justify-content-end">
+        <share-button button="facebook" text="Share" [showText]="true" [size]="-1"></share-button>
+        <share-button button="twitter" text="Tweet" [showText]="true" [size]="-1"></share-button>
+        <share-button button="whatsapp" text="Message" [showText]="true" [size]="-1"></share-button>
+        <share-button button="reddit" text="Post" [showText]="true" [size]="-1"></share-button>
+    </div>
+
     <hr class="my-4">
 
     <div style="display: flex; justify-content: space-between">
@@ -218,12 +223,17 @@
 
 
   <!--ES EL PUBLISHER-->
-  <div *ngIf="isPublisher">
-    <div *ngIf="isLocal">
-      <button [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
+  <div class="mt-5" *ngIf="isPublisher">
+    <button *ngIf="isLocal" [routerLink]="['/create_unit', course.id]"type="button" class="btn btn-outline-primary">Add unit</button>
+    <button type="button" (click)="editCourse();" class="btn btn-outline-warning">Edit course</button>
+    <button type="button" (click)="deleteCourse();" class="btn btn-outline-danger">Delete course</button>
+
+    <br>
+    <div class="mt-3 custom-file" style="width: 400px;">
+      <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFile">
+      <label class="custom-file-label" for="customFile">Select image for the course</label>
+      <button *ngIf="selectedFile != null" class="btn mt-2 btn-secondary" (click)="onUpload()">Upload!</button>
     </div>
-    <button type="button" (click)="editCourse();" class="btn mt-2 btn-outline-warning">Edit course</button>
-    <button type="button" (click)="deleteCourse();" class="btn mt-2 btn-outline-danger">Delete course</button>
   </div>
 
 </div>

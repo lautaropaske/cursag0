@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
@@ -15,6 +15,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
 import {UnitService} from "../../services/unit.service";
 import {Unit} from "../../models/Unit";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'course-detail',
@@ -82,6 +83,10 @@ export class CourseDetailComponent implements OnInit{
 
   alteredOrder: boolean;
 
+  image: string;
+  selectedFile: File;
+
+
   isAdmin: boolean;
   programs: Program[];
   myControl: FormControl = new FormControl();
@@ -93,13 +98,16 @@ export class CourseDetailComponent implements OnInit{
   }
 
   constructor(private courseService: CourseService, private programService: ProgramService, private unitService: UnitService,
-              private paymentService: PaymentService, private router: Router, private route: ActivatedRoute) {}
+              private paymentService: PaymentService, private router: Router, private route: ActivatedRoute,
+              private http: HttpClient, private cdRef: ChangeDetectorRef) {}
 
 
   ngOnInit(): void {
 
     const idOfCourse = +this.route.snapshot.params["id"];
     this.sessionId = +localStorage.getItem("id");
+
+    this.image = 'http://localhost:8080/image/' + idOfCourse;
 
     if(this.sessionId != 0){
       this.isRegistered = true;
@@ -168,6 +176,8 @@ export class CourseDetailComponent implements OnInit{
         this.isPublisher = course.publisher.id == this.sessionId;
         this.isLocal = course.link == null;
         this.loadedCourse = true;
+
+        // this.image  = 'http://localhost:8080/image/' + course.id;
 
         if(this.isPublisher && this.isLocal && this.course.price > 0){
           this.paymentService.getPaymentsOfCourse(this.course.id).subscribe(
@@ -245,6 +255,25 @@ export class CourseDetailComponent implements OnInit{
 
   editCourse(): void{
     this.router.navigate(['/edit_course', this.course.id]);
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0]
+  }
+
+  onUpload() {
+    const uploadData = new FormData();
+    uploadData.append('image', this.selectedFile, this.selectedFile.name);
+    this.http.post('http://localhost:8080/image/upload/' + this.course.id, uploadData)
+      .subscribe(
+        resp => {
+          console.log("upload successful");
+        }
+
+      );
+    this.selectedFile = null;
+    this.cdRef.detectChanges();
+
   }
 
   doCourse(): void{

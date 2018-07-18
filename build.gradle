@@ -19,6 +19,9 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.15.Final'
     // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
+    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.5'
+
 
     //Dependencia de un filtro para que la api responda bien con angular
     // https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter

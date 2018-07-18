@@ -3,7 +3,7 @@
   <h3 class="display-5 text-center mb-4">Edit your existing course</h3>
 
   <div *ngIf="isLocal">
-    <div class="offset-4 col-md-4">
+    <div class="offset-2 col-md-8">
       <div [formGroup]="locCourseForm">
         <div class="form-group">
           <label class="center-block">Course name:</label>
@@ -27,7 +27,7 @@
   </div>
 
   <div *ngIf="!isLocal">
-    <div class="offset-4 col-md-4">
+    <div class="offset-2 col-md-8">
       <div [formGroup]="extCourseForm">
         <div class="form-group">
           <label class="center-block">Course name:</label>

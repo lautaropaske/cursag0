@@ -12,7 +12,6 @@ import {PaymentService} from "../../services/payment.service";
 import {PaymentOfCourse} from "../../models/PaymentOfCourse";
 import {ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {CoursesOfProgramUpdate} from "../../models/CoursesOfProgramUpdate";
 import {UnitService} from "../../services/unit.service";
 import {Unit} from "../../models/Unit";
 import {HttpClient} from "@angular/common/http";

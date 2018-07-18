@@ -2,9 +2,12 @@ package resources;
 
 import model.Course;
 import model.Payment;
+import model.User;
 import pojos.PaymentOfCourse;
 import services.CourseService;
+import services.MailService;
 import services.PaymentService;
+import services.UserService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -23,10 +26,14 @@ public class PaymentResource {
 
     private PaymentService paymentService;
     private CourseService courseService;
+    private MailService mailService;
+    private UserService userService;
 
     public PaymentResource() throws MalformedURLException {
        paymentService = new PaymentService();
        courseService = new CourseService();
+       mailService = new MailService();
+       userService = new UserService();
     }
 
     @GET
@@ -70,6 +77,9 @@ public class PaymentResource {
             double amount = Double.parseDouble(resultMap.get("AMOUNT"));
             this.paymentService.savePayment(userId, courseId,amount);
             this.courseService.enrollInCourse(userId, courseId);
+
+            final User user = this.userService.getUser(userId);
+            this.mailService.sendMailConfirmedPayment(user.getName(),user.getMail(),amount,courseId);
         }
         return resultMap;
     }

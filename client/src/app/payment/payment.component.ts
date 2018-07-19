@@ -16,15 +16,15 @@ import {PaymentService} from "../services/payment.service";
         <i *ngIf="!loading && result" style="margin-top: 50px; color:green; font-size: 4em" class="far fa-check-circle"></i>
         <i *ngIf="!loading && !result" style="margin-top: 50px; color:red; font-size: 4em" class="far fa-times-circle"></i>
 
-        <h1 *ngIf="loading" class="mt-5 ml-5">Your payment is currently being verified</h1>
+        <h1 *ngIf="loading" class="mt-5 ml-5">Your payment is currently being verified, please be patient.</h1>
         <h1 *ngIf="!loading && result" class="mt-5 ml-5">Your payment was successfull!</h1>
         <h1 *ngIf="!loading && !result" class="mt-5 ml-5">An error has ocurred when making the payment</h1>
       </div>
       <div class="row">
         <button type="button" class="btn mt-2 btn-success mt-4" [routerLink]="['/course', courseId]" *ngIf="!loading && result">Go to course!</button>
   
-        <h4 class="mt-4" *ngIf="!loading && !result">We recieved the following response:</h4>
-        <p *ngIf="!loading && !result">"{{errorMessage}}"</p>
+        <h4 class="mt-4" *ngIf="!loading && !result">We recieved the following response:  <i>{{errorMessage}}</i> </h4>
+        
       </div>
     </div>
     <endbar></endbar>

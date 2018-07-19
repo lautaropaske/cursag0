@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
@@ -58,7 +58,7 @@ import {HttpClient} from "@angular/common/http";
     }
   `]
 })
-export class CourseDetailComponent implements OnInit{
+export class CourseDetailComponent implements OnInit, AfterViewInit{
 
   course: Course;
   status: number;
@@ -78,7 +78,7 @@ export class CourseDetailComponent implements OnInit{
   totalRevenue: number = 0;
   dataSource: MatTableDataSource<PaymentOfCourse>;
   displayedColumns = ['user', 'date', 'price'];
-  @ViewChild('Paginator') paginator: MatPaginator;
+  @ViewChild('MatPaginator') paginator: MatPaginator;
 
   alteredOrder: boolean;
 
@@ -186,7 +186,6 @@ export class CourseDetailComponent implements OnInit{
               console.log("Found payments");
               console.log(this.payments);
               this.dataSource = new MatTableDataSource<PaymentOfCourse>(payments);
-              this.dataSource.paginator = this.paginator;
             },
             err => {
               console.log("Unable to get payments.");
@@ -200,6 +199,10 @@ export class CourseDetailComponent implements OnInit{
         this.course = null;
       }
     );
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   public removeUnit(unit: Unit): void {

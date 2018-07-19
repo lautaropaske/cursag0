@@ -47,7 +47,7 @@ public class FillDatabase {
 
 
         Course introUnitTesting = courseService.registerCourse(new ExtCourse("Foundations of Unit Testing", "Testing and debugging are places where developers spend a lot of their time. Code doesn’t always perform as expected and, with complex applications, it’s very easy to break code with minor changes. Unit tests and test-driven-development exist to help us manage expectations of our functionality and to ensure that other developers working on our code are aware when a change they made affects already existing functionality.",
-                11.99, gonza, "https://www.udemy.com/refactoru-intro-unit-test/", "Udemy"));
+                9.99, gonza, "https://www.udemy.com/refactoru-intro-unit-test/", "Udemy"));
 
         Program testingProgram = programService.registerProgram(new Program("Unit testing course oriented to java", "Building unit tests from the start, and running them often during development whenever changes to the component, dependent code, or toolchain changes occur can go a long way to helping ensure the quality of the software that uses them, and help to identify problems before they reach QA or end users.", admin));
         programService.addCourseToProgram(testingProgram.getId(), introUnitTesting.getId());

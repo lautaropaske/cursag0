@@ -267,15 +267,15 @@ public class CourseService {
 
         Root<Course> c = q.from(Course.class);
         Predicate orClause =
-                cb.or(cb.like(c.get("name"), cb.parameter(String.class, "t")),
-                        cb.like(c.get("description"), cb.parameter(String.class, "t")));
+                cb.or(cb.like(cb.lower(c.get("name")), cb.parameter(String.class, "t")),
+                        cb.like(cb.lower(c.get("description")), cb.parameter(String.class, "t")));
         q = q.select(c).where(orClause);
 
         Set<Course> result = new HashSet<>();
 
         for(String key : keyWords) {
             Query finalQuery = session.createQuery(q);
-            finalQuery.setParameter("t", "%"+key+"%");
+            finalQuery.setParameter("t", "%"+key.toLowerCase()+"%");
             List<Course> queried = finalQuery.getResultList();
             result.addAll(queried.stream().filter(course -> !course.isDeleted()).collect(Collectors.toList()));
         }

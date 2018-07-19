@@ -52,6 +52,7 @@ public class PaymentService {
         Transaction transaction = session.beginTransaction();
         List<Payment> payments = session.createQuery("FROM Payment WHERE course_id = " + courseId).list();
         final List<PaymentOfCourse> result = payments.stream().map(payment -> new PaymentOfCourse(payment)).collect(Collectors.toList());
+        result.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
         transaction.commit();
         session.close();
         return result;
